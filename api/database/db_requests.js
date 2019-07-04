@@ -1,38 +1,23 @@
-module.exports = function(app, pool) {
+const TokenObject = require('../admin/config.json');
 
-    //    ----------    CORS    ----------
-    app.use((req, res, next) => {
-        res.header({
-            "Accept": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "X-Requested-With": "XMLHttpRequest",
-            "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-    })
-    next()
-    });
+module.exports = function(app, pool, cors) {
 
-    // //    ----------    Cannot GET /    ----------
-    app.post('/', (req, res) => {
-        res.send('Say hi to GetWorkersDev! =3');        
-    });
-
-    //    ----------    all order    ----------
-    app.post('/all', (req, res) => {
-        pool.query('SELECT * FROM orders', (err, data) => {
-            (err)?res.send(err):res.json({orders: data});
-        });
-    });
+    //  ----------    Cannot GET /    ----------
+    // app.post('/', (req, res, cors) => {
+    //     res.send('Say hi to GetWorkersDev! =3');    
+    // });
 
     //    ----------    Create order    ----------
-    app.post('/add', (req, res) => {
+    app.post('/add', (req, res, cors) => {
         const id = req.body.id;
         const phone = req.body.phone;
         const name = req.body.name;
         const address = req.body.address;
         const description = req.body.description;
+        const price = req.body.price;
         const meeting_date = req.body.meeting_date;
         const meeting_time = req.body.meeting_time;
+        const executors_count = req.body.executors_count;
         const status = req.body.status;
         const create_time = req.body.create_time;
         const update_time = req.body.update_time;
@@ -40,13 +25,13 @@ module.exports = function(app, pool) {
         console.log(req.body);
 
         const query = 
-        `INSERT INTO orders (id, phone, name, address, description, meeting_date, meeting_time, status, create_time, update_time)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+        `INSERT INTO orders (id, phone, name, address, description, price, meeting_date, meeting_time, executors_count, status, create_time, update_time)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
         
-        pool.query(query, 
-            [id, phone, name, address, description, meeting_date, 
-            meeting_time, status, create_time, update_time],
-            function(err, result, fields){
+        pool.query(
+            query, [id, phone, name, address, description, price, meeting_date, 
+            meeting_time, executors_count, status, create_time, update_time], 
+            (err, result, fields) => {
                 if (err) {
                     console.log(err)
                     res.status(500).send(err)
@@ -57,39 +42,54 @@ module.exports = function(app, pool) {
         );
     });
 
+    //    ----------    All order    ----------
+    app.post('/all', (req, res, cors) => {
+        console.log(req.body);
+
+        pool.query('SELECT * FROM orders', (err, data) => {
+            (err)?res.send(err):res.json({orders: data});
+        });
+    });
+
     //    ----------    Update order status    ----------
-    app.post('/update_status', (req, res) => {
+    app.post('/update_status', (req, res, cors) => {
         const id = req.body.id;
         const status = req.body.status;
-        const update_time = req.body.update_time;        
+        const update_time = req.body.update_time;
+
+        console.log(req.body);
 
         const query = 'UPDATE orders SET status = ?, update_time = ? WHERE id = ?;';
 
-        pool.query(query, [status, update_time, id],
-            function(err, result, fields) {
+        pool.query(query, [status, update_time, id], 
+            (err, result, fields) => {
                 if(err) {
                     console.log(err)
                     res.status(500).send(err)
                 } else {
                     res.status(200).send('Order status was successfully updated')
                 }
-            });
+            }
+        );
     });
 
     //    ----------    Delete completed order    ----------
-    app.post('/delete_completed', (req, res) => {
+    app.post('/delete_completed', (req, res, cors) => {
         const id = req.body.id;
+
+        console.log(req.body);
 
         const query = `DELETE FROM orders WHERE status = 'Выполнено' AND id = ?`;
 
-        pool.query(query, [id],
-            function(err, result, fields) {
+        pool.query(query, [id], 
+            (err, result, fields) => {
                 if(err) {
                     console.log(err)
                     res.status(500).send(err)
                 } else {
                     res.status(200).send('Completed order was successfully deleted')
                 }
-            });
+            }
+        );
     });
 }

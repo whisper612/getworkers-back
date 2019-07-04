@@ -2,9 +2,6 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
-// Serve the static files from the React app
-// app.use(express.static(path.join(__dirname, 'client/build')));
-
 const app = express();
 const PORT = (process.env.PORT || 5000);
 
@@ -25,5 +22,7 @@ pool.on('acquire', function(connection) {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-require('./api/database/routes')(app, pool)
+const cors = require('./api/cors/cors_route')(app)
+require('./api/admin/admin_authentication')(app, cors)
+require('./api/database/db_requests')(app, pool, cors)
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
