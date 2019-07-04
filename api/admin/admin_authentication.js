@@ -9,7 +9,7 @@ module.exports = function(app, cors) {
 
             res.status(200).send('true')
         } else {
-            console.log('Пошёл нахуй');
+            console.log('Admin try to access has been denied');
             res.status(500).send('false')
         }
     });
