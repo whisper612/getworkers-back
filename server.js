@@ -12,9 +12,8 @@ var pool = mysql.createPool({
     user: 'root',
     password: 'GetWorkers_Development!612',
     database: 'getworkers'
-  })
-
-// connection logs
+})
+// DB connection logs
 pool.on('acquire', function(connection) {
     console.log('Connection %d acquired', connection.threadId)
 });
@@ -25,4 +24,5 @@ app.use(bodyParser.json())
 const cors = require('./api/cors/cors_route')(app)
 require('./api/admin/admin_authentication')(app, cors)
 require('./api/database/db_requests')(app, pool, cors)
+
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
