@@ -1,13 +1,13 @@
 module.exports = function(app, pool, cors) {
 
     //  ----------    / handler    ----------
-    app.get('/*/', (req, res, cors) => {
-        res.redirect('http://localhost:3000/')
-    });
+    // app.get('/*/', (req, res, cors) => {
+    //     res.redirect('http://localhost:3000/')
+    // });
 
     //    ----------    Create order    ----------
     app.post('/add', (req, res, cors) => {
-        const idOr = req.body.id_or;
+        const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
         const address = req.body.address;
@@ -23,11 +23,11 @@ module.exports = function(app, pool, cors) {
         console.log(req.body);
 
         const query = 
-        `INSERT INTO orders (id_or, phone, name, address, description, photo, price, meeting_date_time, executors_count, create_time, status, update_time)
+        `INSERT INTO orders (order_id, phone, name, address, description, photo, price, meeting_date_time, executors_count, create_time, status, update_time)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
         
         pool.query(
-            query, [idOr, phone, name, address, description, photo, price, meeting_date_time, 
+            query, [orderId, phone, name, address, description, photo, price, meeting_date_time, 
             executors_count, create_time, status, update_time], 
             (err, result, fields) => {
                 if (err) {
@@ -49,21 +49,21 @@ module.exports = function(app, pool, cors) {
         });
     });
 
-    //    ----------    Update order status    ----------
-    app.post('/update_status', (req, res, cors) => {
-        const idOr = req.body.id_or;
+    //    ----------    Edit order    ----------
+    app.post('/edit_order', (req, res, cors) => {
+        const orderId = req.body.order_id;
         const status = req.body.status;
         const update_time = req.body.update_time;
         
         console.log(req.body);
 
-        if (idOr === undefined || status === undefined || update_time === undefined) {
+        if (orderId === undefined || status === undefined || update_time === undefined) {
             console.log("Error: /update_status");
             res.status(500).send('Error /update_status')
         } else {
-            const query = 'UPDATE orders SET status = ?, update_time = ? WHERE id_or = ?;';
+            const query = 'UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;';
 
-            pool.query(query, [status, update_time, idOr], 
+            pool.query(query, [status, update_time, orderId], 
                 (err, result, fields) => {
                     if (err) {
                         console.log(err)
@@ -78,14 +78,14 @@ module.exports = function(app, pool, cors) {
 
     //    ----------    Delete completed order    ----------
     app.post('/delete_completed_order', (req, res, cors) => {
-        const idOr = req.body.id_or;
+        const orderId = req.body.order_id;
 
         // STATUS CHECKING NEEDED!!!!!!!!!!!!!!!
         console.log(req.body);
 
-        const query = `DELETE FROM orders WHERE status = ? AND id_or = ?`;
+        const query = `DELETE FROM orders WHERE status = ? AND order_id = ?`;
 
-        pool.query(query, [idOr], 
+        pool.query(query, [orderId], 
             (err, result, fields) => {
                 if(err) {
                     console.log(err)
