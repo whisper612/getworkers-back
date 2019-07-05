@@ -76,7 +76,7 @@ module.exports = function(app, pool) {
         // STATUS CHECKING NEEDED!!!!!!!!!!!!!!!
         console.log(req.body);
 
-        const query = `DELETE FROM orders WHERE status = ? AND order_id = ?`;
+        const query = `DELETE FROM orders WHERE status = 'Выполнено' AND order_id = ?`;
 
         pool.query(query, [orderId], 
             (err, result, fields) => {
