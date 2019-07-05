@@ -1,11 +1,16 @@
 const TokenObject = require('../admin/config.json');
 
 module.exports = function(app, cors) {
-    
-    app.post(`/admin_${TokenObject.TOKEN}`, function(req, res, cors) {
+    app.post('/admin', function(req, res, cors) {
+        const token_client = req.body.token_client;    
+
+        if (token_client === TokenObject.TOKEN){
             console.log('Admin authentication acquired');
 
-            res.status(200).send('Admin was successfully authenticated')
+            res.status(200).send('true')
+        } else {
+            console.log('Admin try to access has been denied');
+            res.status(500).send('false')
+        }
     });
-
 }

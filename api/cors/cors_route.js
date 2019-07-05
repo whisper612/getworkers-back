@@ -1,5 +1,4 @@
 module.exports = function(app) {
-
     //    ----------    CORS    ----------
     app.use((req, res, next) => {
         res.header({
@@ -11,5 +10,4 @@ module.exports = function(app) {
         })
         next();
     });
-    
 }
