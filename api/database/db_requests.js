@@ -1,12 +1,12 @@
-module.exports = function(app, pool, cors) {
+module.exports = function(app, pool, admin, cors) {
 
     //  ----------    / handler    ----------
-    app.get('/*/', (req, res, cors) => {
+    app.get('/*/', (req, res, admin, cors) => {
         res.redirect('/')
     });
 
     //    ----------    Create order    ----------
-    app.post('/add', (req, res, cors) => {
+    app.post('/add', (req, res, admin, cors) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -41,16 +41,16 @@ module.exports = function(app, pool, cors) {
     });
 
     //    ----------    All orders    ----------
-    app.post('/all', (req, res, cors) => {
-        console.log(req.body);
+    // app.post('/all', (req, res, cors) => {
+    //     console.log(req.body);
 
-        pool.query('SELECT * FROM orders', (err, data) => {
-            (err)?res.send(err):res.json({orders: data});
-        });
-    });
+    //     pool.query('SELECT * FROM orders', (err, data) => {
+    //         (err)?res.send(err):res.json({orders: data});
+    //     });
+    // });
 
     //    ----------    Edit order    ----------
-    app.post('/edit_order', (req, res, cors) => {
+    app.post('/edit_order', (req, res, admin, cors) => {
         const orderId = req.body.order_id;
         const status = req.body.status;
         const update_time = req.body.update_time;
@@ -77,7 +77,7 @@ module.exports = function(app, pool, cors) {
     });
 
     //    ----------    Delete completed order    ----------
-    app.post('/delete_completed_order', (req, res, cors) => {
+    app.post('/delete_completed_order', (req, res, admin, cors) => {
         const orderId = req.body.order_id;
 
         // STATUS CHECKING NEEDED!!!!!!!!!!!!!!!
@@ -98,7 +98,7 @@ module.exports = function(app, pool, cors) {
     });
 
     //    ----------    Delete completed orderS    ----------
-    app.post('/delete_completed_orders', (req, res, cors) => {
+    app.post('/delete_completed_orders', (req, res, admin, cors) => {
 
         console.log(req.body);
 
