@@ -1,12 +1,11 @@
-const fs = require('fs'); 
-const TokenObject = require('../admin/config.json');
+const tokenObject = require('../admin/config.json');
 
 
 module.exports = function(app, pool, cors) {
     app.post('/admin', function(req, res, cors) {
         const token_client = req.body.token_client;   
 
-        if (token_client === TokenObject.TOKEN){
+        if (token_client === tokenObject.TOKEN){
             console.log('Admin authentication acquired');
 
             pool.query('SELECT * FROM orders', (err, data) => {

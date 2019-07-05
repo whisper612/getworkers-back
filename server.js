@@ -1,3 +1,4 @@
+const tokenObject = require('./api/admin/config.json');
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -7,11 +8,11 @@ const PORT = (process.env.PORT || 5000);
 
 // Database connect
 var pool = mysql.createPool({
-    connectionLimit: 10,
-    host: 'lt80glfe2gj8p5n2.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
-    user: 'aa4xx3xp3td9bdcb',
-    password: 'fw8fcu12m8iqla3i',
-    database: 'jg5x8ocd2kelv8a0'
+    connectionLimit: tokenObject.connectionLimit,
+    host: tokenObject.host,
+    user: tokenObject.user,
+    password: tokenObject.password,
+    database: tokenObject.database
 })
 
 // DB connection logs
