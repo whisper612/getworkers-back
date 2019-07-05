@@ -1,7 +1,8 @@
 module.exports = function(app, pool) {  
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
-        res.redirect('/homepage')
+        // res.redirect('/homepage')
+        res.send('/');
     });
 
     //    ----------    Create order    ----------
