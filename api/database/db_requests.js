@@ -2,7 +2,7 @@ module.exports = function(app, pool, cors) {
 
     //  ----------    / handler    ----------
     app.get('/*/', (req, res, cors) => {
-        res.redirect('https://google.com')
+        res.redirect('/')
     });
 
     //    ----------    Create order    ----------
