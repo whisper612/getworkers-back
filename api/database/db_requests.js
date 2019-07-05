@@ -1,9 +1,9 @@
 module.exports = function(app, pool, cors) {
 
     //  ----------    / handler    ----------
-    // app.get('/*/', (req, res, cors) => {
-    //     res.redirect('http://localhost:3000/')
-    // });
+    app.get('/*/', (req, res, cors) => {
+        res.redirect('https://google.com')
+    });
 
     //    ----------    Create order    ----------
     app.post('/add', (req, res, cors) => {
