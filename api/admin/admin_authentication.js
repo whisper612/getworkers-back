@@ -10,7 +10,7 @@ module.exports = function(app, pool, cors) {
             console.log(req.body);
 
             pool.query('SELECT * FROM orders', (err, data) => {
-                res.status(200).json({orders: [{order_id: data}]});
+                res.status(200).json({orders: data});
             });
 
         } else {
