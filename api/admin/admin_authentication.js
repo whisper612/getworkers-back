@@ -16,7 +16,6 @@ module.exports = function(app, pool, cors) {
         } else {
             console.log('Admin try to access has been denied');
             res.status(405).json({orders: [{order_id: ''}]});
-            
         }
     });
 }

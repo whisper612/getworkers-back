@@ -5,7 +5,7 @@ module.exports = function(app, pool, admin, cors) {
         res.redirect('/')
     });
 
-    //    ----------    Create order    ----------
+    //    ----------    Create order    ---------_
     app.post('/add', (req, res, admin, cors) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
@@ -43,7 +43,6 @@ module.exports = function(app, pool, admin, cors) {
     //    ----------    All orders    ----------
     // app.post('/all', (req, res, cors) => {
     //     console.log(req.body);
-
     //     pool.query('SELECT * FROM orders', (err, data) => {
     //         (err)?res.send(err):res.json({orders: data});
     //     });
@@ -80,7 +79,7 @@ module.exports = function(app, pool, admin, cors) {
     app.post('/delete_completed_order', (req, res, admin, cors) => {
         const orderId = req.body.order_id;
 
-        // STATUS CHECKING NEEDED!!!!!!!!!!!!!!!
+      // STATUS CHECKING NEEDED!!!!!!!!!!!!!!!
         console.log(req.body);
 
         const query = `DELETE FROM orders WHERE status = ? AND order_id = ?`;
