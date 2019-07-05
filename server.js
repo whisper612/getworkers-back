@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 const cors = require('./api/cors/cors_route')(app)
-require('./api/admin/admin_authentication')(app, cors)
-require('./api/database/db_requests')(app, pool, cors)
+const admin = require('./api/admin/admin_authentication')(app, pool, cors)
+require('./api/database/db_requests')(app, pool, admin, cors)
 
 let counter = 0;
 const server_logs = setTimeout (function server_logs() {
