@@ -1,12 +1,14 @@
-module.exports = function(app, pool, admin, cors) {
+const TokenObject = require('../admin/config.json');
+const tmpObject = ('../tmp.json');
 
+module.exports = function(app, pool) {  
     //  ----------    / handler    ----------
-    app.get('/*/', (req, res, admin, cors) => {
-        res.redirect('/')
+    app.get('/*/', (req, res) => {
+        res.redirect('/homepage')
     });
 
     //    ----------    Create order    ----------
-    app.post('/add', (req, res, admin, cors) => {
+    app.post('/add', (req, res) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -24,7 +26,7 @@ module.exports = function(app, pool, admin, cors) {
 
         const query = 
         `INSERT INTO orders (order_id, phone, name, address, description, photo, price, meeting_date_time, executors_count, create_time, status, update_time)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
         
         pool.query(
             query, [orderId, phone, name, address, description, photo, price, meeting_date_time, 
@@ -40,17 +42,8 @@ module.exports = function(app, pool, admin, cors) {
         );
     });
 
-    //    ----------    All orders    ----------
-    // app.post('/all', (req, res, cors) => {
-    //     console.log(req.body);
-
-    //     pool.query('SELECT * FROM orders', (err, data) => {
-    //         (err)?res.send(err):res.json({orders: data});
-    //     });
-    // });
-
     //    ----------    Edit order    ----------
-    app.post('/edit_order', (req, res, admin, cors) => {
+    app.post('/edit_order', (req, res) => {
         const orderId = req.body.order_id;
         const status = req.body.status;
         const update_time = req.body.update_time;
@@ -77,7 +70,7 @@ module.exports = function(app, pool, admin, cors) {
     });
 
     //    ----------    Delete completed order    ----------
-    app.post('/delete_completed_order', (req, res, admin, cors) => {
+    app.post('/delete_completed_order', (req, res) => {
         const orderId = req.body.order_id;
 
         // STATUS CHECKING NEEDED!!!!!!!!!!!!!!!
@@ -98,7 +91,7 @@ module.exports = function(app, pool, admin, cors) {
     });
 
     //    ----------    Delete completed orderS    ----------
-    app.post('/delete_completed_orders', (req, res, admin, cors) => {
+    app.post('/delete_completed_orders', (req, res) => {
 
         console.log(req.body);
 
