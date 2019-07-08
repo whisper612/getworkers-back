@@ -1,5 +1,3 @@
-//const tokenObject = require('.../server');
-
 module.exports = function(app, pool, tokenObject) {  
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {

@@ -1,5 +1,5 @@
-module.exports = function(app, pool, cors, tokenObject) {
-    app.post('/admin', function(req, res, cors) {
+module.exports = function(app, pool, tokenObject) {
+    app.post('/admin', function(req, res) {
         const token_client = req.body.TOKEN;   
 
         if (token_client === tokenObject.TOKEN){
