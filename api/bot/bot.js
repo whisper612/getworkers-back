@@ -5,7 +5,6 @@ module.exports = function(app, bot, pool) {
     const userId = null;
     bot.command('register', (ctx) => 
         userId.telegram.getChatMember(ctx, ctx),
-        ctx.reply(userId)
     );
     
     console.log(userId);
