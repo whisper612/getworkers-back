@@ -16,4 +16,6 @@ module.exports = function(app, pool, cors) {
             res.redirect('/admin');
         }
     });
+
+    module.exports = tokenObject;
 }

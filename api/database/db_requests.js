@@ -1,3 +1,5 @@
+const tokenObject = require('../admin/admin_authentication');
+
 module.exports = function(app, pool) {  
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
@@ -6,7 +8,7 @@ module.exports = function(app, pool) {
     });
 
     //    ----------    Create order    ----------
-    app.post('/add', (req, res) => {
+    app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -50,7 +52,7 @@ module.exports = function(app, pool) {
     });     
 
     //    ----------    Edit order    ----------
-    app.post('/edit_order', (req, res) => {
+    app.post(`/edit_order${tokenObject.editOrderReq}`, (req, res) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -88,7 +90,7 @@ module.exports = function(app, pool) {
     });
 
     //    ----------    Delete completed order by id   ----------
-    app.post('/delete_completed_order', (req, res) => {
+    app.post(`/delete_completed_order${tokenObject.delComOrder}`, (req, res) => {
         const orderId = req.body.order_id;
 
         console.log(req.body);
@@ -113,7 +115,7 @@ module.exports = function(app, pool) {
     });
 
     //    ----------    Drop completed orders by status   ----------
-    app.post('/delete_completed_orders', (req, res) => {
+    app.post(`/delete_completed_orders${tokenObject.delComOrders}`, (req, res) => {
 
         console.log(req.body);
 
