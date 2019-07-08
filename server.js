@@ -1,8 +1,14 @@
-const tokenObject = require('./api/admin/config.json');
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
+// bot init
+const tokenObject = require('./api/admin/config.json');
+const telegramBot = require('telegraf');
+const config = require('./api/admin/config.json');
+const bot = new telegramBot(config.botTOKEN);
+
+// server init
 const app = express();
 const PORT = (process.env.PORT || 5000);
 
@@ -23,10 +29,12 @@ pool.on('acquire', function(connection) {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+require('./api/bot/bot')(app, bot, pool)
 require('./api/cors/cors_route')(app)
 require('./api/admin/admin_authentication')(app, pool)
 require('./api/database/db_requests')(app, pool)
 
+// server logs
 let counter = 0;
 const server_logs = setTimeout (function server_logs() {
     
