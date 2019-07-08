@@ -40,7 +40,7 @@ module.exports = function(app, pool, tokenObject) {
                         console.log(err)
                         res.status(500).send(err)
                     } else {
-                        res.status(200).send('New order was successfully added')
+                        res.status(200).send(orderId)
                     }
                 }
             );
