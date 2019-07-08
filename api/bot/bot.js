@@ -8,7 +8,7 @@ module.exports = function(app, bot, pool) {
         ctx.reply(userId)
     );
     
-    
+    console.log(userId);
 
 
     // bot.hears('hi', (ctx) => ctx.reply('Hello, stranger!'));
