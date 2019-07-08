@@ -1,6 +1,6 @@
 module.exports = function(app, pool, cors, tokenObject) {
     app.post('/admin', function(req, res, cors) {
-        const token_client = req.body.token_client;   
+        const token_client = req.body.TOKEN;   
 
         if (token_client === tokenObject.TOKEN){
             console.log('Admin authentication acquired');
