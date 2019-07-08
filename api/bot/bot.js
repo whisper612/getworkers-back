@@ -1,13 +1,15 @@
 module.exports = function(app, bot, pool) {
+
     bot.start((ctx) => {
         console.log('Bot has been deployed together with a server')
     });
-    const userId = null;
+
+    /*const userId = null;
     bot.command('register', (ctx) => 
         userId.telegram.getChatMember(ctx, ctx),
     );
     
-    console.log(userId);
+    console.log(userId);*/
 
 
     // bot.hears('hi', (ctx) => ctx.reply('Hello, stranger!'));
