@@ -1,6 +1,5 @@
 const tokenObject = require('../admin/config.json');
 
-
 module.exports = function(app, pool, cors) {
     app.post('/admin', function(req, res, cors) {
         const token_client = req.body.token_client;   

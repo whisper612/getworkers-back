@@ -3,12 +3,12 @@ const tokenObject = require('../admin/admin_authentication');
 module.exports = function(app, pool) {  
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
-        // res.redirect('/homepage')
         res.send('/');
     });
 
     //    ----------    Create order    ----------
     app.post(`/add${tokenObject.addReq}`, (req, res) => {
+
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -22,7 +22,6 @@ module.exports = function(app, pool) {
         const status = req.body.status;
         const update_time = req.body.update_time;
     
-        // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
         console.log(req.body);
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
