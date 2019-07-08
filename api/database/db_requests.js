@@ -1,9 +1,8 @@
-const tokenObject = require('../admin/admin_authentication');
+//const tokenObject = require('.../server');
 
-module.exports = function(app, pool) {  
+module.exports = function(app, pool, tokenObject) {  
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
-        // res.redirect('/homepage')
         res.send('/');
     });
 

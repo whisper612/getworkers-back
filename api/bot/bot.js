@@ -1,6 +1,6 @@
 module.exports = function(app, bot, pool) {
     bot.start((ctx) => {
-        Telegraf.log()
+        console.log('Bot has been deployed together with a server')
     });
     bot.command('register', (ctx) => ctx.reply('Try send a sticker'));
     
