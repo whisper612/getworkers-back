@@ -9,7 +9,7 @@
     "editExecReq": "eNvFYsDhyDKaV8633Tn1",
     "kickExecReq": "toUOz6ATVOO0LAMSMVoV",
     "multipleStatements": "true",
-    "connectionLimit": 9,
+    "connectionLimit": 5,
     "host": "lt80glfe2gj8p5n2.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
     "user": "aa4xx3xp3td9bdcb",
     "password": "fw8fcu12m8iqla3i",
