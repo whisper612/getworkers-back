@@ -10,7 +10,6 @@ module.exports = function(app, pool, tokenObject) {
             pool.query(query, (err, data) => {
                     (err)?res.send(err):res.json({orders: data[0], executors_list: data[1]});
             });
-            
         } else {
             console.log('Admin try to access has been denied');
             res.redirect('/admin');

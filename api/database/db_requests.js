@@ -94,15 +94,14 @@ module.exports = function(app, pool, tokenObject) {
 
         if (orderId === undefined) {
             console.log("Error: /delete_completed_order");
-            res.status(500).send('Error when deleting completed order by id...')
+            res.status(500).send('Error when deleting completed order: by id...')
         } else {
             const query = `DELETE FROM orders WHERE status = 'Выполнено' AND order_id = ?`;
 
             pool.query(query, [orderId], 
                 (err, result, fields) => {
-                    if(err) {
-                        console.log(err)
-                        res.status(500).send(err)
+                    if(err || result.affectedRows !== 1) {
+                        res.status(500).send('Error when deleting completed order: id not found')
                     } else {
                         res.status(200).send('Completed selected order was successfully deleted')
                     }
@@ -120,11 +119,10 @@ module.exports = function(app, pool, tokenObject) {
 
         pool.query(query, 
             (err, result, fields) => {
-                if(err) {
-                    console.log(err)
-                    res.status(500).send(err)
+                if(err || result.affectedRows < 2) {
+                    res.status(500).send('Error when deleting completed orders: completed orders not found')
                 } else {
-                    res.status(200).send('Completed orders was successfully deleted')
+                    res.status(200).send(`Completed orders was successfully deleted. Count of deleted rows = ${result.affectedRows}`)
                 }
             }
         );
