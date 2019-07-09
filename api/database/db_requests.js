@@ -1,4 +1,11 @@
-module.exports = function(app, pool, tokenObject) {  
+module.exports = function(app, pool, tokenObject) {
+
+    app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
+        const token = req.params;
+        console.log(token);
+        res.send('loaderio-00337c1174533e077aa1e2658689d79e')
+    });
+    
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
         console.log('Johnny, the hackers in the trees!')
@@ -205,11 +212,5 @@ module.exports = function(app, pool, tokenObject) {
             /* in developing */
             res.status(200).send('/* in developing, братан */')
         }
-    });
-
-    app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
-        const token = req.params;
-        console.log(token);
-        res.send('loaderio-00337c1174533e077aa1e2658689d79e')
-    });
+    });   
 }
