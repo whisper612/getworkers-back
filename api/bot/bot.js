@@ -1,4 +1,4 @@
-module.exports = function(app, bot, pool) {
+module.exports = function(app, bot, Telegraf, pool) {
 
     bot.start((ctx) => {
         console.log('Bot has been deployed together with a server')
