@@ -206,4 +206,8 @@ module.exports = function(app, pool, tokenObject) {
             res.status(200).send('/* in developing, братан */')
         }
     });
+
+    app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
+        res.send('loaderio-00337c1174533e077aa1e2658689d79e')
+    }
 }
