@@ -14,6 +14,7 @@ const PORT = (process.env.PORT || 5000);
 
 // Database connect
 var pool = mysql.createPool({
+    multipleStatements: true,
     connectionLimit: tokenObject.connectionLimit,
     host: tokenObject.host,
     user: tokenObject.user,
