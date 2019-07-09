@@ -7,8 +7,7 @@ module.exports = function(app, pool, tokenObject) {
 
             pool.query('SELECT * FROM orders ORDER BY `create_time` DESC LIMIT 1000; SELECT * FROM executors_list ORDER BY `create_time` DESC LIMIT 1000;', 
                 (err, data, executors) => {
-                    (err)?res.send(err):res.json({orders: ordersData, executors_list: executorsData });
-                    console.log(json({orders: ordersData, executors_list: executorsData }));
+                    (err)?res.send(err):console.log( res.json({orders: ordersData, executors_list: executorsData }) );
             });
             
         } else {
