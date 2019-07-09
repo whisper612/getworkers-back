@@ -1,6 +1,7 @@
 module.exports = function(app, pool, tokenObject) {  
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
+        console.log('Johnny, the hackers in the trees!')
         res.send('/');
     });
 
@@ -24,8 +25,8 @@ module.exports = function(app, pool, tokenObject) {
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
-            console.log("Error: /add");
-            res.status(500).send('Error when adding order...')
+            console.log('Error /add: recieved wrong data');
+            res.status(500).send('Error when adding order: recieved wrong data')
         } else {
             const query = 
             `INSERT INTO orders (order_id, phone, name, address, description, photo, 
@@ -38,7 +39,7 @@ module.exports = function(app, pool, tokenObject) {
                 (err, result, fields) => {
                     if (err) {
                         console.log(err)
-                        res.status(500).send(err)
+                        res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
                     }
@@ -64,8 +65,8 @@ module.exports = function(app, pool, tokenObject) {
         console.log(req.body);
 
         if (orderId === undefined || status === undefined || update_time === undefined) {
-            console.log("Error: /edit_order");
-            res.status(500).send('Error when order editing...')
+            console.log('Error /edit_order: recieved wrong data');
+            res.status(500).send('Error when order editing: recieved wrong data')
         } else {
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
@@ -75,9 +76,9 @@ module.exports = function(app, pool, tokenObject) {
                 query, [phone, name, address, description, price, meeting_date_time, 
                 executors_count, status, update_time, orderId], 
                 (err, result, fields) => {
-                    if (err) {
-                        console.log(err)
-                        res.status(500).send(err)
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error /edit_order: affected rows ${result.affectedRows} < 1`)
+                        res.status(500).send('Error when order editing: fatal error')
                     } else {
                         res.status(200).send('Order was successfully editted')
                     }
@@ -93,14 +94,15 @@ module.exports = function(app, pool, tokenObject) {
         console.log(req.body);
 
         if (orderId === undefined) {
-            console.log("Error: /delete_completed_order");
-            res.status(500).send('Error when deleting completed order: by id...')
+            console.log('Error /delete_completed_order: recieved wrong data');
+            res.status(500).send('Error when deleting completed order by id: recieved wrong data')
         } else {
             const query = `DELETE FROM orders WHERE status = 'Выполнено' AND order_id = ?`;
 
             pool.query(query, [orderId], 
                 (err, result, fields) => {
-                    if(err || result.affectedRows !== 1) {
+                    if(err || result.affectedRows < 1) {
+                        console.log(err, `Error /delete_completed_order: affected rows ${result.affectedRows} < 1`)
                         res.status(500).send('Error when deleting completed order: id not found')
                     } else {
                         res.status(200).send('Completed selected order was successfully deleted')
@@ -120,7 +122,8 @@ module.exports = function(app, pool, tokenObject) {
         pool.query(query, 
             (err, result, fields) => {
                 if(err || result.affectedRows < 2) {
-                    res.status(500).send('Error when deleting completed orders: completed orders not found')
+                    console.log(err, `Error /delete_completed_orders: affected rows ${result.affectedRows} < 2.`)
+                    res.status(500).send('Error when deleting completed orders: completed orders not found or < 2')
                 } else {
                     res.status(200).send(`Completed orders was successfully deleted. Count of deleted rows = ${result.affectedRows}`)
                 }
@@ -137,8 +140,8 @@ module.exports = function(app, pool, tokenObject) {
         console.log(req.body);
 
         if (executorId === undefined || name === undefined || phone === undefined) {
-            console.log("Error: /add");
-            res.status(500).send('Error when adding executor...')
+            console.log('Error: /add_executor: recieved wrong data');
+            res.status(500).send('Error when adding executor')
         } else {
             const query = 
             `INSERT INTO executors_list (executor_id, name, phone)
@@ -149,7 +152,7 @@ module.exports = function(app, pool, tokenObject) {
                 (err, result, fields) => {
                     if (err) {
                         console.log(err)
-                        res.status(500).send(err)
+                        res.status(500).send('Error when adding executor: fatal error')
                     } else {
                         res.status(200).send(executorId)
                     }
@@ -169,8 +172,8 @@ module.exports = function(app, pool, tokenObject) {
         console.log(req.body);
 
         if (executorId === undefined) {
-            console.log("Error: /edit_executor");
-            res.status(500).send('Error when executor info editing...')
+            console.log('Error: /edit_executor: recieved wrong data');
+            res.status(500).send('Error when executor info editing: recieved wrong data')
         } else {
             const query = 
             `UPDATE executors_list SET order_id = ?, name = ?, phone = ? WHERE executor_id = ?;`;
@@ -178,9 +181,9 @@ module.exports = function(app, pool, tokenObject) {
             pool.query(
                 query, [orderId, name, phone, executorId], 
                 (err, result, fields) => {
-                    if (err) {
-                        console.log(err)
-                        res.status(500).send(err)
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error: /edit_executor: affected rows ${result.affectedRows} < 1`)
+                        res.status(500).send(`Error when executor info editing: fatal error`)
                     } else {
                         res.status(200).send('Executor info was successfully editted')
                     }
@@ -196,23 +199,10 @@ module.exports = function(app, pool, tokenObject) {
         console.log(req.body);
 
         if (executorId === undefined) {
-            console.log("Error: /kick_executor");
-            res.status(500).send('Error when executor kick...')
+            console.log('Error: /kick_executor: recieved wrong data');
+            res.status(500).send('Error when kick executor: recieved wrong data')
         } else {
-            /*const query = 
-            `UPDATE executors_list SET order_id = ?, name = ?, phone = ? WHERE executor_id = ?;`;
-
-            pool.query(
-                query, [orderId, name, phone, executorId], 
-                (err, result, fields) => {
-                    if (err) {
-                        console.log(err)
-                        res.status(500).send(err)
-                    } else {
-                        res.status(200).send('Executor info was successfully editted')
-                    }
-                }
-            );*/
+            /* in developing */
         }
     });
 }

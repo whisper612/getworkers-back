@@ -12,7 +12,7 @@ module.exports = function(app, pool, tokenObject) {
             });
         } else {
             console.log('Admin try to access has been denied');
-            res.redirect('/admin');
+            res.status(500).send('Access denied');
         }
     });
 }

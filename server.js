@@ -14,7 +14,7 @@ const PORT = (process.env.PORT || 5000);
 
 // Database connect
 var pool = mysql.createPool({
-    multipleStatements: true,
+    multipleStatements: tokenObject.multipleStatements,
     connectionLimit: tokenObject.connectionLimit,
     host: tokenObject.host,
     user: tokenObject.user,
@@ -45,7 +45,7 @@ const server_logs = setTimeout (function server_logs() {
     console.log(logs + `.`.repeat(counter++));
     counter %= 6;
 
-    setTimeout(server_logs, 3000); 
+    setTimeout(server_logs, 3000);
 }, 100);
 
 // port listen
