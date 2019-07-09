@@ -203,6 +203,7 @@ module.exports = function(app, pool, tokenObject) {
             res.status(500).send('Error when kick executor: recieved wrong data')
         } else {
             /* in developing */
+            res.status(200).send('/* in developing, братан */')
         }
     });
 }
