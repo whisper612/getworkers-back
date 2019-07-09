@@ -86,7 +86,7 @@ module.exports = function(app, pool, tokenObject) {
         }
     });
 
-    //    ----------    Delete completed order by id   ----------
+    //    ----------    Delete completed order by ID    ----------
     app.post(`/delete_completed_order${tokenObject.delComOrder}`, (req, res) => {
         const orderId = req.body.order_id;
 
@@ -111,7 +111,7 @@ module.exports = function(app, pool, tokenObject) {
         }      
     });
 
-    //    ----------    Drop completed orders by status   ----------
+    //    ----------    Drop completed orders by status    ----------
     app.post(`/delete_completed_orders${tokenObject.delComOrders}`, (req, res) => {
 
         console.log(req.body);
@@ -128,5 +128,93 @@ module.exports = function(app, pool, tokenObject) {
                 }
             }
         );
+    });
+
+    //    ----------    Add executor    ----------
+    app.post(`/add_executor${tokenObject.addExecReq}`, (req, res) => {
+        const executorId = req.body.executor_id;
+        const name = req.body.name;
+        const phone = req.body.phone;
+            
+        console.log(req.body);
+
+        if (executorId === undefined || name === undefined || phone === undefined) {
+            console.log("Error: /add");
+            res.status(500).send('Error when adding executor...')
+        } else {
+            const query = 
+            `INSERT INTO executors_list (executor_id, name, phone)
+            VALUES (?, ?, ?);`;
+            
+            pool.query(
+                query, [executorId, name, phone], 
+                (err, result, fields) => {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).send(err)
+                    } else {
+                        res.status(200).send(executorId)
+                    }
+                }
+            );
+    
+        }
+    });
+
+    //    ----------    Edit executor    ----------
+    app.post(`/edit_executor${tokenObject.editExecReq}`, (req, res) => {
+        const executorId = req.body.executor_id;
+        const name = req.body.name;
+        const phone = req.body.phone;
+        const orderId = req.body.order_id;
+               
+        console.log(req.body);
+
+        if (executorId === undefined) {
+            console.log("Error: /edit_executor");
+            res.status(500).send('Error when executor info editing...')
+        } else {
+            const query = 
+            `UPDATE executors_list SET order_id = ?, name = ?, phone = ? WHERE executor_id = ?;`;
+
+            pool.query(
+                query, [orderId, name, phone, executorId], 
+                (err, result, fields) => {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).send(err)
+                    } else {
+                        res.status(200).send('Executor info was successfully editted')
+                    }
+                }
+            );
+        }
+    });
+
+    //    ----------    Kick executor by ID   ----------
+    app.post(`/kick_executor${tokenObject.kickExecReq}`, (req, res) => {
+        const executorId = req.body.executor_id;
+                       
+        console.log(req.body);
+
+        if (executorId === undefined) {
+            console.log("Error: /kick_executor");
+            res.status(500).send('Error when executor kick...')
+        } else {
+            /*const query = 
+            `UPDATE executors_list SET order_id = ?, name = ?, phone = ? WHERE executor_id = ?;`;
+
+            pool.query(
+                query, [orderId, name, phone, executorId], 
+                (err, result, fields) => {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).send(err)
+                    } else {
+                        res.status(200).send('Executor info was successfully editted')
+                    }
+                }
+            );*/
+        }
     });
 }
