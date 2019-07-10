@@ -4,10 +4,13 @@ module.exports = function(app, bot, pool) {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
-                        ID нашкй лички:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
+            ID нашкй лички:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.command('/register', (ctx) => 
                 ctx.reply(`Твой ID, братан${ctx.user.id}`)
             );
+        } else if (ctx.chat.type === 'group') {
+            ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
+            ID нашкй лички:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
         }
     });
 
