@@ -7,27 +7,16 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
    
     bot.start((ctx) => {
         console.log('New user has been spotted!')
-        if (ctx.chat.type === 'private') {
-
-			bot.hears('/start', (ctx) => {
-			return ctx.reply('Привет, для регистрации нажми на кнопку!', Markup
-				.keyboard([
-				['🗄️ Регистрация']
-				])
-				.oneTime()
-				.resize()
-				.extra()
-			)
-			})
-
-        } else if (ctx.chat.type === 'group') {
-            ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
-            bot.command('/register', (ctx) => 
-                console.log(`Твой ID, братан: ${ctx.user}`)
-            );
-        }
+		return ctx.reply('Привет, для регистрации нажми на кнопку!', Markup
+			.keyboard([
+			['🗄️ Регистрация']
+			])
+			.oneTime()
+			.resize()
+			.extra()
+		)
     });
-
+	
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для отправки номер телефона, нажми на кнопку!', Extra.markup((markup) => {
 		  return markup.resize()
@@ -47,7 +36,12 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
 
 
-
+	// } else if (ctx.chat.type === 'group') {
+	// 	ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
+	// 	bot.command('/register', (ctx) => 
+	// 		console.log(`Твой ID, братан: ${ctx.user}`)
+	// 	);
+	// }
 
 
 
