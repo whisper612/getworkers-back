@@ -1,4 +1,5 @@
-module.exports = function(app, bot, pool) {
+
+module.exports = function(app, bot, telegramObject, pool) {
 
     bot.start((ctx) => {
         console.log('New user has been spotted!')
@@ -6,14 +7,15 @@ module.exports = function(app, bot, pool) {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
             ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.hears('/register', (ctx) => 
-                //userId.telegram.getChatMember(ctx, ctx),
-                ctx.reply(`Твой ID, братан${ctx.user}`)
+                telegramObject.getChatMember(ctx.chat.id, ctx),
+                ctx.reply(`Твой ID, братан: ${ctx.user}
+                Твой контекст, братан: ${ctx}`)
             );
         } else if (ctx.chat.type === 'group') {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
             ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.command('/register', (ctx) => 
-                ctx.reply(`Твой ID, братан${ctx.user}`)
+                ctx.reply(`Твой ID, братан: ${ctx.user}`)
             );
         }
     });
