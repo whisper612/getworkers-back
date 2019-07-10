@@ -13,7 +13,7 @@ const bot = new Telegraf(tokenObject.botTOKEN);
 const app = express();
 const PORT = (process.env.PORT || 5000);
 // set server requests queue
-app.use(expressQueue({ activeLimit: 5, queuedLimit: 100000 }));
+app.use(expressQueue({ activeLimit: 9, queuedLimit: 15000 }));
 
 // Database connect
 var pool = mysql.createPool({
