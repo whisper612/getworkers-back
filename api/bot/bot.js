@@ -8,8 +8,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
     bot.start((ctx) => {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {
-			ctx.reply(`Привет, для регистрации нажми на кнопку!`)
-			return reply('', Markup
+
+			bot.command('start', ({ reply }) => {
+			return reply('Привет, для регистрации нажми на кнопку!', Markup
 				.keyboard([
 				['🗄️ Регистрация']
 				])
@@ -17,6 +18,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				.resize()
 				.extra()
 			)
+			})
 
         } else if (ctx.chat.type === 'group') {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
