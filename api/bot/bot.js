@@ -6,7 +6,7 @@ module.exports = function(app, bot, pool) {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
             ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.hears('/register', (ctx) => 
-                userId.telegram.getChatMember(ctx, ctx),
+                //userId.telegram.getChatMember(ctx, ctx),
                 ctx.reply(`Твой ID, братан${ctx.user}`)
             );
         } else if (ctx.chat.type === 'group') {
