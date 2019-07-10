@@ -1,6 +1,8 @@
 
 module.exports = function(app, bot, telegramObject, pool) {
 
+    bot.use(Telegraf.log())
+
     bot.start((ctx) => {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {

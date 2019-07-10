@@ -6,10 +6,9 @@ const bodyParser = require('body-parser');
 const tokenObject = require('./api/admin/config.json');
 
 // bot init
-const Telegraf = require('telegraf');
-const bot = new Telegraf(tokenObject.botTOKEN);
-const Telegram = require('telegraf/telegram')
-const telegramObject = new Telegram(tokenObject.botTOKEN);
+export const telegrafObject = require('telegraf');
+export const bot = new telegrafObject(tokenObject.botTOKEN);
+export const telegramObject = require('telegraf/telegram');
 
 // server init
 const app = express();
@@ -39,7 +38,7 @@ app.use(bodyParser.json());
 // server modules routes
 require('./api/cors/cors_route')(app)
 require('./api/admin/admin_authentication')(app, pool, tokenObject)
-require('./api/bot/bot')(app, bot, telegramObject, pool)
+require('./api/bot/bot')(app, bot, pool)
 require('./api/database/db_requests')(app, pool, tokenObject)
 
 // server logs
