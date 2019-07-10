@@ -9,17 +9,14 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {
 			ctx.reply(`Привет, для регистрации нажми на кнопку!`)
-			
-            bot.command('start', ({ reply }) => {
-              	return reply('', Markup
-                	.keyboard([
-                  	['🗄️ Регистрация']
-                	])
-                	.oneTime()
-                	.resize()
-                	.extra()
-              )
-            })
+			return reply('', Markup
+				.keyboard([
+				['🗄️ Регистрация']
+				])
+				.oneTime()
+				.resize()
+				.extra()
+			)
 
         } else if (ctx.chat.type === 'group') {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
