@@ -6,13 +6,14 @@ module.exports = function(app, bot, pool) {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
             ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.hears('/register', (ctx) => 
-                ctx.reply(`Твой ID, братан${ctx.user.id}`)
+                userId.telegram.getChatMember(ctx, ctx),
+                ctx.reply(`Твой ID, братан${ctx.user}`)
             );
         } else if (ctx.chat.type === 'group') {
             ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
             ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
-            bot.hears('/register', (ctx) => 
-                ctx.reply(`Твой ID, братан${ctx.user.id}`)
+            bot.command('/register', (ctx) => 
+                ctx.reply(`Твой ID, братан${ctx.user}`)
             );
         }
     });
