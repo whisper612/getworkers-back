@@ -130,9 +130,9 @@ module.exports = function(app, pool, tokenObject) {
             (err, result, fields) => {
                 if(err || result.affectedRows < 2) {
                     console.log(err, `Error /delete_completed_orders: affected rows ${result.affectedRows} < 2.`)
-                    res.status(500).send('Error when deleting completed orders: completed orders not found or < 2')
+                    res.status(500).send({result: 0})
                 } else {
-                    res.status(200).send(`Completed orders was successfully deleted. Count of deleted rows = ${result.affectedRows}`)
+                    res.status(200).json({result: result.affectedRows})
                 }
             }
         );

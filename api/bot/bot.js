@@ -1,7 +1,7 @@
-module.exports = function(app, bot, Telegraf, pool) {
+module.exports = function(app, bot, pool) {
 
     bot.start((ctx) => {
-        console.log('Bot has been deployed together with a server')
+        console.log('New user has been spotted!')
     });
 
     /*const userId = null;
