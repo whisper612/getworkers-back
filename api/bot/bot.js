@@ -4,7 +4,9 @@ module.exports = function(app, bot, pool) {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {
             ctx.reply('Привет, для регистрации нажми на кнопку "Зарегестрироваться"!')
-            ctx.reply(`Твой ID, братан${ctx.user.id}`)
+            bot.command('/register', (ctx) => 
+                ctx.reply(`Твой ID, братан${ctx.user.id}`)
+            );
         }
     });
 
