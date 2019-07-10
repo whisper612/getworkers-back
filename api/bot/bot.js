@@ -4,18 +4,17 @@ module.exports = function(app, bot, telegramObject, pool) {
     bot.start((ctx) => {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {
-            ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
-            ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
+            ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.hears('/register', (ctx) => 
                 telegramObject.getChatMember(ctx.chat.id, ctx),
-                ctx.reply(`Твой ID, братан: ${ctx.user}
-                Твой контекст, братан: ${ctx}`)
+                console.log(`Твой ID, братан: ${ctx.user}
+                Твой контекст, братан: ${ctx}`),
+                ctx.reply(`Чекай логи сервера`)
             );
         } else if (ctx.chat.type === 'group') {
-            ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! 
-            ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
+            ctx.reply(`Привет, для регистрации нажми на кнопку "Зарегестрироваться"! ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.command('/register', (ctx) => 
-                ctx.reply(`Твой ID, братан: ${ctx.user}`)
+                console.log(`Твой ID, братан: ${ctx.user}`)
             );
         }
     });
