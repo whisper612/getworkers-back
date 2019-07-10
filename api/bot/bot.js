@@ -13,6 +13,7 @@ module.exports = function(app, bot, pool) {
             ID нашего чата:${ctx.chat.id} Тип нашего чата:${ctx.chat.type}`)
             bot.hears('/register', (ctx) => 
                 ctx.reply(`Твой ID, братан${ctx.user.id}`)
+            );
         }
     });
 
