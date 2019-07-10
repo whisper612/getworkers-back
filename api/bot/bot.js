@@ -1,9 +1,9 @@
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
-module.exports = function(app, bot, telegramObject, pool) {
+module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
-    bot.use(Telegraf.log())
+    bot.use(telegrafObject.log())
 
     bot.start((ctx) => {
         console.log('New user has been spotted!')
