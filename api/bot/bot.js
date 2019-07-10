@@ -9,7 +9,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private') {
 
-			bot.hears('start', (ctx) => {
+			bot.hears('/start', (ctx) => {
 			return ctx.reply('Привет, для регистрации нажми на кнопку!', Markup
 				.keyboard([
 				['🗄️ Регистрация']
