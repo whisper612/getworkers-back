@@ -3,7 +3,7 @@ module.exports = function(app, bot, pool) {
     bot.start((ctx) => {
         console.log('New user has been spotted!')
         if (ctx.chat.type === 'private'){
-            bot.reply('Hello, stranger!')
+            ctx.reply('Hello, stranger!')
         }
     });
 
