@@ -31,8 +31,8 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		}))
 	})
 
-	const logs = '';
-	bot.use( logs = telegrafObject.log(), (ctx) => {
+	let logs = '';
+	bot.use(logs = telegrafObject.log(), (ctx) => {
 		console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA${logs}`)
 	})
 
