@@ -29,6 +29,7 @@ module.exports = function(bot, telegrafObject) {
 			phone: ctx.update.message.contact.phone_number
 		  })
 		  .then(res => {
+			  console.log(ctx.update.message.contact.user_id)
 			  if(res.data === ctx.update.message.contact.user_id) {
 				console.log(res.data);
 				return ctx.reply("Вы успешно зарегестрированы!")
