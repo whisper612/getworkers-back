@@ -33,12 +33,6 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		['📋 Указать имя']
 		]).oneTime().resize().extra()
 		)
-		// ctx.reply('Успешно! Для завершения регистрации, пожалуйста, нажмите на кнопку добавления имени 📋',
-		// 	console.log(ctx.update.message),
-		// 	bot.hears('local', (ctx) => {
-		// 		ctx.reply('Регистрация успешно завершена, если вы ошибилсь при написании имени, то сообщите об этом администратору.')
-		// 	})
-		// )
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
@@ -53,7 +47,8 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	
 	bot.hears('📋 Указать имя', (ctx) => {
 		ctx.reply("Ну, пиши имя братан", (ctx) => {
-			let tmp = ctx.update.message;
+			let tmp = ctx.update.message.text;
+			console.log(tmp)
 			bot.on(tmp, (ctx) => {
 				ctx.reply("Ты пидор 0)000))0)))0")
 			})
