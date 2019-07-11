@@ -27,9 +27,29 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	})
 
 	bot.on('contact', (ctx, pool) => {
-	if (ctx.update.message.contact !== undefined) {
+		if (ctx.update.message.contact !== undefined) {
 
-		//отправка номера телефона и id в DB
+			const executorId = ctx.update.message.contact.user_id;
+			const name = ctx.update.message.contact.first_name;
+			const phone = ctx.update.message.contact.phone_number;
+		
+			const query = 
+			`INSERT INTO executors_list (executor_id, name, phone)
+			VALUES (?, ?, ?);`;
+			
+			pool.query(
+				query, [executorId, name, phone], 
+				(err, result, fields) => {
+					if (err) {
+						console.log(err)
+						res.status(500).send('Error when adding executor: fatal error')
+					} else {
+						res.status(200).send(executorId)
+					}
+				}
+			);
+		}
+    });
 
 		return ctx.reply('Успешно! Для завершения регистрации, пожалуйста, нажмите на кнопку добавления имени 📋', Markup
 		.keyboard([
