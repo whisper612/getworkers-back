@@ -160,7 +160,7 @@ module.exports = function(app, pool, tokenObject) {
                 (err, result, fields) => {
                     if (err) {
                         console.log(err)
-                        res.send('Error when adding executor: fatal error')
+                        res.send(err)
                     } else {
                         res.send('ЫЫЫЫЫЫЫ')
                     }
