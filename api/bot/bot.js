@@ -4,31 +4,6 @@ const axios = require('axios')
 
 module.exports = function(app, pool, bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
-   
-	app.get('/*/', (req, res) => {
-		var query = 
-		`INSERT INTO executors_list (executor_id, name, phone)
-		VALUES (?, ?, ?);`;
-		
-		pool.query(
-			query, [executorId, name, phone], 
-			(err, result, fields) => {
-				if (err) {
-					return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
-					.keyboard([
-					['🗄️ Регистрация']
-					])
-					.oneTime()
-					.resize()
-					.extra()
-				)
-				} else {
-					return ctx.reply('Вы были успешно зарегестрированы. Добро пожаловать!')
-				}
-			}
-		);
-        res.send('/');
-    });
 
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
@@ -59,7 +34,7 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		const phone = ctx.update.message.contact.phone_number;
 
 		axios.post('https://getworkers-back.herokuapp.com/add_executorj0NZhNh4D4GWbhXzBp40', {
-			executorId: ctx.update.message.contact.user_id,
+			executor_id: ctx.update.message.contact.user_id,
 			name: ctx.update.message.contact.first_name,
 			phone: ctx.update.message.contact.phone_number
 		  })
