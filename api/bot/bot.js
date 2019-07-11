@@ -22,7 +22,6 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		
     });
 	
-	var contact = ''
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️',
 			Extra.markup((markup) => {
@@ -50,7 +49,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	bot.on('contact', (ctx, pool) => {
 	if (ctx.update.message.contact !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
-			bot.hears(ctx.text, (ctx) => {
+			bot.on(ctx.update.message, (ctx) => {
 				console.log(ctx.update.message.contact)
 				ctx.reply('Регистрация успешно завершена, если вы ошибилсь при написании имени, то сообщите об этом администратору.')
 			})
