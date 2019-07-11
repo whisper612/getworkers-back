@@ -3,7 +3,9 @@ const Markup = require('telegraf/markup')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
-    bot.use(telegrafObject.log())
+	//bot.use(telegrafObject.log())
+	const log = telegrafObject.log().contact.phone_number;
+	console.log(111, log)
    
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
@@ -33,10 +35,10 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		ctx.reply('Send me your number please', { reply_markup: { keyboard: [[{text: '📲 Send phone number', request_contact: true}]] } })
 	})
 
-	let logs = '';
-	bot.use(telegrafObject.log(), (ctx) => {
-		console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA${logs}`)
-	})
+	// let logs = '';
+	// bot.use(telegrafObject.log(), (ctx) => {
+	// 	console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA${logs}`)
+	// })
 
 	bot.hears('aaa', (ctx) => {
 	if (telegrafObject.log(ctx.contact) !== undefined) {
