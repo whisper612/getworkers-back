@@ -3,7 +3,7 @@ const Markup = require('telegraf/markup')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
-    bot.use(telegrafObject.log())
+    bot.use(telegrafObject.log(), console.log(telegrafObject.log.contact))
    
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
@@ -27,13 +27,8 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
 				])
 				.oneTime()
-				.keyboard([
-					['📋 Ввести имя']
-				])
 		}))
 	})
-
-
 
 	bot.hears('aaa', (ctx) => {
 	if (telegrafObject.log(ctx.contact) !== undefined) {
