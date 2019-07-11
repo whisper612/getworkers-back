@@ -5,7 +5,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	const log = telegrafObject.log()
 	bot.use(log)
 	// const log = telegrafObject.log().contact.phone_number;
-	console.log(111, log)
+	console.log(111111, log.contact.phone_number)
    
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
@@ -24,15 +24,13 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	
 	var contact = ''
 	bot.hears('🗄️ Регистрация', (ctx) => {
-		// return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
-		// 	return markup.resize()
-		// 		.keyboard([
-		// 			contact = markup.contactRequestButton('☎️ Отправить номер телефона'),
-		// 		])
-		// 		.oneTime()
-		// }))
-
-		ctx.reply('Send me your number please', { reply_markup: { keyboard: [[{text: '📲 Send phone number', request_contact: true}]] } })
+		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
+			return contact = markup.resize()
+				.keyboard([
+					markup.contactRequestButton('☎️ Отправить номер телефона'),
+				])
+				.oneTime()
+		}))
 	})
 
 	// let logs = '';
