@@ -27,6 +27,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
 				])
 				.oneTime()
+				.keyboard([
+					['📋 Ввести имя']
+				])
 		}))
 	})
 
