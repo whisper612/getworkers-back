@@ -6,15 +6,18 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
     bot.use(telegrafObject.log())
    
     bot.start((ctx) => {
-        console.log('New user has been spotted!')
-		return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
+		console.log('New user has been spotted!')
+		if(ctx.chat === private) {
+			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([
 			['🗄️ Регистрация']
 			])
 			.oneTime()
 			.resize()
 			.extra()
-		)
+			)
+		}
+		
     });
 	
 	bot.hears('🗄️ Регистрация', (ctx) => {
