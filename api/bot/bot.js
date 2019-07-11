@@ -1,9 +1,34 @@
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
+const mysql = require('mysql');
 
 module.exports = function(app, pool, bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
    
+	function addExecutor(pool, executorId, name, phone){
+		const query = 
+		`INSERT INTO executors_list (executor_id, name, phone)
+		VALUES (?, ?, ?);`;
+		
+		pool.query(
+			query, [executorId, name, phone], 
+			(err, result, fields) => {
+				if (err) {
+					return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
+					.keyboard([
+					['🗄️ Регистрация']
+					])
+					.oneTime()
+					.resize()
+					.extra()
+				)
+				} else {
+					return ctx.reply('Вы были успешно зарегестрированы. Добро пожаловать!')
+				}
+			}
+		);
+	};
+
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
 		if(ctx.chat.type === 'private') {
@@ -32,27 +57,8 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		const name = ctx.update.message.contact.first_name;
 		const phone = ctx.update.message.contact.phone_number;
 	
-		const query = 
-		`INSERT INTO executors_list (executor_id, name, phone)
-		VALUES (?, ?, ?);`;
-		
-		pool.query(
-			query, [executorId, name, phone], 
-			(err, result, fields) => {
-				if (err) {
-					return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
-					.keyboard([
-					['🗄️ Регистрация']
-					])
-					.oneTime()
-					.resize()
-					.extra()
-				)
-				} else {
-					return ctx.reply('Вы были успешно зарегестрированы. Добро пожаловать!')
-				}
-			}
-		);
+		addExecutor(pool, executorId, name, phone)
+
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
@@ -74,5 +80,5 @@ module.exports = function(app, pool, bot, telegrafObject) {
 	// 	)
 	// })
 
-    bot.launch()
+	bot.launch()
 }
