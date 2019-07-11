@@ -23,17 +23,15 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
     });
 	
 	var contact = ''
-	bot.hears('🗄️ Регистрация', (ctx) => {
+	contact = bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
 			return contact = markup.resize()
 				.keyboard([
 					markup.contactRequestButton('☎️ Отправить номер телефона'),
-				])
-				.oneTime()
-		}))
+				]).oneTime()
+			}))
 	})
-
-	console.log(`8=================D ${contact}`)
+	console.log(`8=================D ${contact}`)	
    
 
 	// let logs = '';
