@@ -19,17 +19,19 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
+			const phone = ''
 			return markup.resize()
 				.keyboard([
-				markup.contactRequestButton('☎️ Отправить номер телефона')
+				markup.contactRequestButton('☎️ Отправить номер телефона'),
+				phone = ctx.contact.phone_number
 				])
 				.oneTime()
 		}))
 	})
 
-	bot.phone('', (ctx) => {
-		console.log(ctx.contact.phone_number)
-	if (ctx.contact.phone_number !== undefined) {
+	bot.phone(phone, (ctx) => {
+		console.log(phone)
+	if (phone !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
 			bot.hears(ctx.text, (ctx) => {
 				console.log(ctx.text)
