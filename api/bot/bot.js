@@ -27,35 +27,31 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	})
 
 	bot.on('contact', (ctx, pool) => {
-		if (ctx.update.message.contact !== undefined) {
-
-			const executorId = ctx.update.message.contact.user_id;
-			const name = ctx.update.message.contact.first_name;
-			const phone = ctx.update.message.contact.phone_number;
+	if (ctx.update.message.contact !== undefined) {
+		const executorId = ctx.update.message.contact.user_id;
+		const name = ctx.update.message.contact.first_name;
+		const phone = ctx.update.message.contact.phone_number;
+	
+		const query = 
+		`INSERT INTO executors_list (executor_id, name, phone)
+		VALUES (?, ?, ?);`;
 		
-			const query = 
-			`INSERT INTO executors_list (executor_id, name, phone)
-			VALUES (?, ?, ?);`;
-			
-			pool.query(
-				query, [executorId, name, phone], 
-				(err, result, fields) => {
-					if (err) {
-						console.log(err)
-						res.status(500).send('Error when adding executor: fatal error')
-					} else {
-						res.status(200).send(executorId)
-					}
+		pool.query(
+			query, [executorId, name, phone], 
+			(err, result, fields) => {
+				if (err) {
+					console.log(err)
+					res.status(500).send('Error when adding executor: fatal error')
+				} else {
+					res.status(200).send(executorId)
 				}
-			);
-		}
-    });
-
-		return ctx.reply('Успешно! Для завершения регистрации, пожалуйста, нажмите на кнопку добавления имени 📋', Markup
-		.keyboard([
-		['📋 Указать имя']
-		]).oneTime().resize().extra()
-		)
+			}
+		);
+		// return ctx.reply('Успешно! Для завершения регистрации, пожалуйста, нажмите на кнопку добавления имени 📋', Markup
+		// .keyboard([
+		// ['📋 Указать имя']
+		// ]).oneTime().resize().extra()
+		// )
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
@@ -68,14 +64,14 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		}
 	})
 	
-	bot.hears('📋 Указать имя', (ctx) => {
-		ctx.reply("Ну, пиши имя братан",
-			console.log(ctx.update.message.text),
-			bot.on('name',
-				ctx.reply("Ты пидор 0)000))0)))0")
-			)
-		)
-	})
+	// bot.hears('📋 Указать имя', (ctx) => {
+	// 	ctx.reply("Ну, пиши имя братан",
+	// 		console.log(ctx.update.message.text),
+	// 		bot.on('tmp',
+	// 			ctx.reply("Ты пидор 0)000))0)))0")
+	// 		)
+	// 	)
+	// })
 
     bot.launch()
 }
