@@ -147,6 +147,7 @@ module.exports = function(app, pool, tokenObject) {
         console.log(req.body);
 
         if (executorId === undefined || name === undefined || phone === undefined) {
+            console.log(executorId, name, phone);
             console.log('Error: /add_executor: recieved wrong data');
             res.status(500).send('Error when adding executor')
         } else {
