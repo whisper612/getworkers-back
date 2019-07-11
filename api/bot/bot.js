@@ -22,15 +22,13 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 			return markup.resize()
 				.keyboard([
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
-				contact = ctx.contact.phone_number
 				])
 				.oneTime()
 		}))
 	})
 
 	bot.action('☎️ Отправить номер телефона', (ctx) => {
-		console.log(contact)
-	if (contact !== undefined) {
+	if (telegrafObject.log(ctx.contact) !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
 			bot.hears(ctx.text, (ctx) => {
 				console.log(ctx.text)
