@@ -5,7 +5,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	const log = telegrafObject.log()
 	bot.use(log)
 	// const log = telegrafObject.log().contact.phone_number;
-	console.log(111111, log.contact.phone_number)
+	// console.log(111111, log.contact.phone_number)
    
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
