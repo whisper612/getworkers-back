@@ -31,9 +31,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		}))
 	})
 
-	bot.use(console.log(contact))
-	bot.use(telegrafObject.log(), (ctx) => {
-		console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA${ctx.contact}`)
+	const logs = '';
+	bot.use( logs = telegrafObject.log(), (ctx) => {
+		console.log(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA${logs}`)
 	})
 
 	bot.hears('aaa', (ctx) => {
