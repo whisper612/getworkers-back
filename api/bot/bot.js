@@ -21,7 +21,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		return ctx.reply('Для отправки номер телефона, нажми на кнопку!', Extra.markup((markup) => {
 		  return markup.resize()
 			.keyboard([
-			  markup.contactRequestButton('Отправить контакт'),
+			  markup.contactRequestButton('☎️ Отправить контакт'),
 			])
 		}))
 	  })
