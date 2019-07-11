@@ -17,9 +17,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		)
     });
 	
+	var phone = ''
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
-			const phone = ''
 			return markup.resize()
 				.keyboard([
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
