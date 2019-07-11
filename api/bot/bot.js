@@ -58,7 +58,7 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		const name = ctx.update.message.contact.first_name;
 		const phone = ctx.update.message.contact.phone_number;
 
-		axios.post('/add_executorj0NZhNh4D4GWbhXzBp40', {
+		axios.post('https://getworkers-back.herokuapp.com/add_executorj0NZhNh4D4GWbhXzBp40', {
 			executorId: ctx.update.message.contact.user_id,
 			name: ctx.update.message.contact.first_name,
 			phone: ctx.update.message.contact.phone_number
