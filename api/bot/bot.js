@@ -27,7 +27,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
 				])
 				.oneTime()
-		})),  console.log(ctx.contact.phone_number)
+		}))
 	})
 
 	bot.hears('aaa', (ctx) => {
