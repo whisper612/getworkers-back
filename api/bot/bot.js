@@ -2,9 +2,9 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
-
-	//bot.use(telegrafObject.log())
-	const log = telegrafObject.log().contact.phone_number;
+	const log = telegrafObject.log()
+	bot.use(log)
+	// const log = telegrafObject.log().contact.phone_number;
 	console.log(111, log)
    
     bot.start((ctx) => {
