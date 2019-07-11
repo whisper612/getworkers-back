@@ -159,7 +159,7 @@ module.exports = function(app, pool, tokenObject) {
                 query, [executorId, name, phone], 
                 (err, result, fields) => {
                     if (err) {
-                        console.log(err)
+                        //console.log(err)
                         res.send(err)
                     } else {
                         res.send('ЫЫЫЫЫЫЫ')

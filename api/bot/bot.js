@@ -30,10 +30,10 @@ module.exports = function(bot, telegrafObject) {
 		  })
 		  .then(res => {
 			console.log(res.data);
-			ctx.reply("Вы успешно зарегестрированы!")
+			return ctx.reply("Вы успешно зарегестрированы!")
 		  })
 		  .catch(err => {
-			console.log(error);
+			console.log(err);
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		  })
