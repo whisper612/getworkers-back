@@ -28,10 +28,11 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	})
 
 	bot.hears('☎️ Отправить контакт', (ctx) => {
+		console.log(ctx.contact.phone_number)
 	if (ctx.contact.phone_number !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
 			bot.hears(ctx.text, (ctx) => {
-				console.log(ctx.t)
+				console.log(ctx.text)
 				ctx.reply('Регистрация успешно завершена, если вы ошибилсь при написании имени, то сообщите об этом администратору.')
 			})
 		})
