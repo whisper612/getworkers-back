@@ -38,8 +38,8 @@ module.exports = function(app, pool, bot, telegrafObject) {
 			name: ctx.update.message.contact.first_name,
 			phone: ctx.update.message.contact.phone_number
 		  })
-		  .then(function (res) {
-			console.log(RES);
+		  .then(res => {
+			console.log(res);
 		  })
 
 	}  else {
