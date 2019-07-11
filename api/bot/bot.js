@@ -1,12 +1,11 @@
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
-const mysql = require('mysql');
 
 module.exports = function(app, pool, bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
    
 	function addExecutor(pool, executorId, name, phone){
-		const query = 
+		var query = 
 		`INSERT INTO executors_list (executor_id, name, phone)
 		VALUES (?, ?, ?);`;
 		
