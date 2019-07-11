@@ -28,6 +28,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
 	bot.on('contact', (ctx, pool) => {
 	if (ctx.update.message.contact !== undefined) {
+
+		//отправка номера телефона и id в DB
+
 		return ctx.reply('Успешно! Для завершения регистрации, пожалуйста, нажмите на кнопку добавления имени 📋', Markup
 		.keyboard([
 		['📋 Указать имя']
@@ -48,7 +51,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	bot.hears('📋 Указать имя', (ctx) => {
 		ctx.reply("Ну, пиши имя братан",
 			console.log(ctx.update.message.text),
-			bot.on('tmp',
+			bot.on('123',
 				ctx.reply("Ты пидор 0)000))0)))0")
 			)
 		)
