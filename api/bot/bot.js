@@ -34,13 +34,13 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		)
 	})
 		//listens for the click on contact button
-		bot.on('contact', (ctx) => {
-		console.log(ctx.update.message.contact);
+		// bot.on('contact', (ctx) => {
+		// console.log(ctx.update.message.contact);
 		//logs { phone_number: '254*******',
 		//first_name: 'nelsonBlack',
 		//user_id: 73***** }
 		
-		})
+		// })
 
 	// let logs = '';
 	// bot.use(telegrafObject.log(), (ctx) => {
