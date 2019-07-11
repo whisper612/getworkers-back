@@ -32,7 +32,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	})
 
 	bot.use(console.log(contact))
-	bot.use(telegrafObject.log.contact())
+	bot.use(telegrafObject.log(), (ctx) => {
+		console.log(ctx.contact)
+	})
 
 	bot.hears('aaa', (ctx) => {
 	if (telegrafObject.log(ctx.contact) !== undefined) {
