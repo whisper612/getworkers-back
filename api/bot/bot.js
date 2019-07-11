@@ -33,7 +33,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		}))
 	})
 
-	console.log(222222222222222222222222222, contact)
+	console.log(`8=================D ${contact}`)
    
 
 	// let logs = '';
