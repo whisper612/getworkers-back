@@ -40,14 +40,19 @@ module.exports = function(app, pool, bot, telegrafObject) {
 			query, [executorId, name, phone], 
 			(err, result, fields) => {
 				if (err) {
-					console.log(err)
-					res.status(500).send('Error when adding executor: fatal error')
+					return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
+					.keyboard([
+					['🗄️ Регистрация']
+					])
+					.oneTime()
+					.resize()
+					.extra()
+				)
 				} else {
-					res.status(200).send(executorId)
+					return ctx.reply('Вы были успешно зарегестрированы. Добро пожаловать!')
 				}
 			}
 		);
-		return ctx.reply('Вы были успешно зарегестрированы. Добро пожаловать!')
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
