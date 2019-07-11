@@ -57,6 +57,12 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		const name = ctx.update.message.contact.first_name;
 		const phone = ctx.update.message.contact.phone_number;
 
+		axios.post('/add_executorj0NZhNh4D4GWbhXzBp40', {
+			executorId: ctx.update.message.contact.user_id,
+			name: ctx.update.message.contact.first_name,
+			phone: ctx.update.message.contact.phone_number
+		  })
+
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
