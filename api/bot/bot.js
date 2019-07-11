@@ -2,8 +2,8 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
-	const log = telegrafObject.log()
-	bot.use(log)
+	// const log = telegrafObject.log()
+	// bot.use(log)
 	// const log = telegrafObject.log().contact.phone_number;
 	// console.log(111111, log.contact.phone_number)
    
@@ -30,7 +30,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				.keyboard([
 					markup.contactRequestButton('☎️ Отправить номер телефона'),
 				]).oneTime()
-				console.log(`8=================D ${contact}`)			
+				console.log(`8=================D ${ JSON.parse(contact)}`)			
 				return contact;
 			})
 		)
