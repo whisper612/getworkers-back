@@ -161,7 +161,7 @@ module.exports = function(app, pool, tokenObject) {
                     if (err) {
                         res.send(err)
                     } else {
-                        res.send({executor: executorId})
+                        res.send({data: executorId})
                     }
                 }
             );
