@@ -38,6 +38,9 @@ module.exports = function(app, pool, bot, telegrafObject) {
 			name: ctx.update.message.contact.first_name,
 			phone: ctx.update.message.contact.phone_number
 		  })
+		  .then(function (res) {
+			console.log(RES);
+		  })
 
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
