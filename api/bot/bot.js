@@ -3,7 +3,6 @@ const Markup = require('telegraf/markup')
 const Composer = require('telegraf/composer')
 const session = require('telegraf/session')
 const Stage = require('telegraf/stage')
-const Markup = require('telegraf/markup')
 const WizardScene = require('telegraf/scenes/wizard')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
