@@ -4,7 +4,7 @@ const Markup = require('telegraf/markup')
 module.exports = function(app, pool, bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
    
-	function addExecutor(pool, executorId, name, phone){
+	app.get('/*/', (req, res) => {
 		var query = 
 		`INSERT INTO executors_list (executor_id, name, phone)
 		VALUES (?, ?, ?);`;
@@ -26,7 +26,8 @@ module.exports = function(app, pool, bot, telegrafObject) {
 				}
 			}
 		);
-	};
+        res.send('/');
+    });
 
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
@@ -55,8 +56,6 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		const executorId = ctx.update.message.contact.user_id;
 		const name = ctx.update.message.contact.first_name;
 		const phone = ctx.update.message.contact.phone_number;
-	
-		addExecutor(pool, executorId, name, phone)
 
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
