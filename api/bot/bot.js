@@ -29,7 +29,7 @@ module.exports = function(bot, telegrafObject) {
 			phone: ctx.update.message.contact.phone_number
 		  })
 		  .then(res => {
-			console.log(res.data);
+			//console.log(res.data);
 			return ctx.reply("Вы успешно зарегестрированы!")
 		  })
 		  .catch(err => {
