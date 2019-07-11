@@ -29,7 +29,6 @@ module.exports = function(app, pool, bot, telegrafObject) {
 
 	bot.on('contact', (ctx, app, pool) => {
 	if (ctx.update.message.contact !== undefined) {
-
 		axios.post('https://getworkers-back.herokuapp.com/add_executorj0NZhNh4D4GWbhXzBp40', {
 			executor_id: ctx.update.message.contact.user_id,
 			name: ctx.update.message.contact.first_name,
@@ -38,7 +37,7 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		  .then(res => {
 			console.log(res.data);
 		  })
-
+		  ctx.reply("Вы успешно зарегестрированы!")
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
