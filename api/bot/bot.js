@@ -46,13 +46,12 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	})
 	
 	bot.hears('📋 Указать имя', (ctx) => {
-		ctx.reply("Ну, пиши имя братан", (ctx) => {
-			let tmp = ctx.update.message.text;
-			console.log(tmp)
-			bot.on(tmp, (ctx) => {
+		ctx.reply("Ну, пиши имя братан",
+			console.log(ctx.update.message.text),
+			bot.on('tmp', (ctx) => {
 				ctx.reply("Ты пидор 0)000))0)))0")
 			})
-		})
+		)
 	})
 
     bot.launch()
