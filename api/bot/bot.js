@@ -17,21 +17,20 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		)
     });
 	
-	var phone = ''
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
 			return markup.resize()
 				.keyboard([
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
-				phone = ctx.contact.phone_number
+				contact = ctx.contact.phone_number
 				])
 				.oneTime()
 		}))
 	})
 
-	bot.hear(phone, (ctx) => {
-		console.log(phone)
-	if (phone !== undefined) {
+	bot.action('☎️ Отправить номер телефона', (ctx) => {
+		console.log(contact)
+	if (contact !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
 			bot.hears(ctx.text, (ctx) => {
 				console.log(ctx.text)
