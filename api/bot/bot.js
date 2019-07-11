@@ -1,98 +1,59 @@
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
-const Composer = require('telegraf/composer')
-const session = require('telegraf/session')
-const Stage = require('telegraf/stage')
-const WizardScene = require('telegraf/scenes/wizard')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
-    bot.use(telegrafObject.log(), console.log(`АААААААААААААААААААААААААААА БЛЯДЬЬЬЬЬЬЬЬЬЬ!!!!!!!!!!!!!!!${telegrafObject.ctx}АААААААААААААААААААААААААААА БЛЯДЬЬЬЬЬЬЬЬЬЬ!!!!!!!!!!!!!!!`))
+    bot.use(telegrafObject.log())
    
-	const stepHandler = new Composer()
-	stepHandler.action('next', (ctx) => {
-	  ctx.reply('Step 2. Via inline button')
-	  return ctx.wizard.next()
-	})
-
-	const superWizard = new WizardScene('start',
-	(ctx) => {
-		return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️',  Markup
+    bot.start((ctx) => {
+		console.log('New user has been spotted!')
+		if(ctx.chat.type === 'private') {
+			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([
 			['🗄️ Регистрация']
 			])
 			.oneTime()
 			.resize()
-			.extra(),
-			), ctx.wizard.next()
-	},
-	stepHandler,
-	(ctx) => {
-	    return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
+			.extra()
+			)
+		}
+		
+    });
+	
+	bot.hears('🗄️ Регистрация', (ctx) => {
+		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
 			return markup.resize()
 				.keyboard([
 				markup.contactRequestButton('☎️ Отправить номер телефона'),
 				])
 				.oneTime()
-		})), ctx.wizard.next()
-	},
-	(ctx) => {
-	  ctx.reply('Done')
-	  return ctx.scene.leave()
-	}
-  )
+		}))
+	})
 
-    // bot.start((ctx) => {
-	// 	console.log('New user has been spotted!')
-	// 	if(ctx.chat.type === 'private') {
-	// 		return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
-	// 		.keyboard([
-	// 		['🗄️ Регистрация']
-	// 		])
-	// 		.oneTime()
-	// 		.resize()
-	// 		.extra()
-	// 		)
-	// 	}
-		
-    // });
-	
-	// bot.hears('🗄️ Регистрация', (ctx) => {
-	// 	return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', Extra.markup((markup) => {
-	// 		return markup.resize()
-	// 			.keyboard([
-	// 			markup.contactRequestButton('☎️ Отправить номер телефона'),
-	// 			])
-	// 			.oneTime()
-	// 	}))
-	// })
-
-	// bot.hears('aaa', (ctx) => {
-	// if (telegrafObject.log(ctx.contact) !== undefined) {
-	// 	ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
-	// 		bot.hears(ctx.text, (ctx) => {
-	// 			console.log(ctx.text)
-	// 			ctx.reply('Регистрация успешно завершена, если вы ошибилсь при написании имени, то сообщите об этом администратору.')
-	// 		})
-	// 	})
-	// }  else {
-	// 		return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
-	// 			.keyboard([
-	// 			['🗄️ Регистрация']
-	// 			])
-	// 			.oneTime()
-	// 			.resize()
-	// 			.extra()
-	// 		)
-	// 	}
-	// })
+	bot.hears('aaa', (ctx) => {
+	if (telegrafObject.log(ctx.contact) !== undefined) {
+		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
+			bot.hears(ctx.text, (ctx) => {
+				console.log(ctx.text)
+				ctx.reply('Регистрация успешно завершена, если вы ошибилсь при написании имени, то сообщите об этом администратору.')
+			})
+		})
+	}  else {
+			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
+				.keyboard([
+				['🗄️ Регистрация']
+				])
+				.oneTime()
+				.resize()
+				.extra()
+			)
+		}
+	})
 
 
-	const stage = new Stage([superWizard], { default: 'super-wizard' })
-	bot.use(session())
-	bot.use(stage.middleware())
 
-	bot.launch()
+
+
 
 
 
@@ -236,5 +197,5 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 //     // bot.hears(/bye/i, (ctx) => ctx.reply('Bye-bye, stranger!'));
 //     // bot.on('sticker', (ctx) => ctx.reply('👍'))
     
-    
+    bot.launch()
 }
