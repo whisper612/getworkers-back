@@ -1,7 +1,7 @@
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
-module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
+module.exports = function(app, pool, bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
    
     bot.start((ctx) => {
@@ -47,11 +47,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				}
 			}
 		);
-		// return ctx.reply('Успешно! Для завершения регистрации, пожалуйста, нажмите на кнопку добавления имени 📋', Markup
-		// .keyboard([
-		// ['📋 Указать имя']
-		// ]).oneTime().resize().extra()
-		// )
+		return ctx.reply('Вы были успешно зарегестрированы. Добро пожаловать!')
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([
