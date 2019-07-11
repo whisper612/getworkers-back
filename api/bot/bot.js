@@ -29,7 +29,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		}))
 	})
 
-	bot.phone(phone, (ctx) => {
+	bot.hear(phone, (ctx) => {
 		console.log(phone)
 	if (phone !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
