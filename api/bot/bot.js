@@ -34,8 +34,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	if (ctx.update.message.contact !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.',
 			console.log(ctx.update.message.text),
-			bot.hears(local, (ctx) => {
-				console.log(ctx.update.message.contact)
+			bot.hears('local', (ctx) => {
 				ctx.reply('Регистрация успешно завершена, если вы ошибилсь при написании имени, то сообщите об этом администратору.')
 			})
 		)
