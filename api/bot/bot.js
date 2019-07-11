@@ -2,32 +2,26 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const axios = require('axios')
 
-module.exports = function(app, pool, bot, telegrafObject) {
+module.exports = function(bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
 
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
 		if(ctx.chat.type === 'private') {
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
-			.keyboard([
-			['🗄️ Регистрация']
-			]).oneTime().resize().extra()
-			)
+			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
     });
 	
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️',
 			Extra.markup((markup) => {
-				return markup.resize()
-				.keyboard([
-					markup.contactRequestButton('☎️ Отправить номер телефона'),
-				]).oneTime()
+				return markup.resize().keyboard([ markup.contactRequestButton('☎️ Отправить номер телефона'), ]).oneTime()
 			})
 		)
 	})
 
-	bot.on('contact', (ctx, app, pool) => {
+	bot.on('contact', (ctx) => {
 	if (ctx.update.message.contact !== undefined) {
 		axios.post('https://getworkers-back.herokuapp.com/add_executorj0NZhNh4D4GWbhXzBp40', {
 			executor_id: ctx.update.message.contact.user_id,
@@ -36,17 +30,17 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		  })
 		  .then(res => {
 			console.log(res.data);
+			ctx.reply("Вы успешно зарегестрированы!")
 		  })
-		  ctx.reply("Вы успешно зарегестрированы!")
+		  .catch(err => {
+			console.log(error);
+			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
+			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
+		  })
+		  
 	}  else {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
-				.keyboard([
-				['🗄️ Регистрация']
-				])
-				.oneTime()
-				.resize()
-				.extra()
-			)
+			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
 	})
 	

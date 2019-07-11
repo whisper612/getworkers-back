@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 // server modules routes
 require('./api/cors/cors_route')(app)
 require('./api/admin/admin_authentication')(app, pool, tokenObject)
-require('./api/bot/bot')(app, pool, bot, telegrafObject)
+require('./api/bot/bot')(bot, telegrafObject)
 require('./api/database/db_requests')(app, pool, tokenObject)
 
 // server logs
