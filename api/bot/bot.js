@@ -36,7 +36,7 @@ module.exports = function(app, pool, bot, telegrafObject) {
 			phone: ctx.update.message.contact.phone_number
 		  })
 		  .then(res => {
-			console.log(res);
+			console.log(res.data);
 		  })
 
 	}  else {
