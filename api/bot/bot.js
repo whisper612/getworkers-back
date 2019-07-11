@@ -3,7 +3,7 @@ const Markup = require('telegraf/markup')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 
-    bot.use(telegrafObject.log(), console.log(`АААААААААААААААААААААААААААА БЛЯДЬЬЬЬЬЬЬЬЬЬ!!!!!!!!!!!!!!!${telegrafObject.log.contact}АААААААААААААААААААААААААААА БЛЯДЬЬЬЬЬЬЬЬЬЬ!!!!!!!!!!!!!!!`))
+    bot.use(telegrafObject.log(), console.log(`АААААААААААААААААААААААААААА БЛЯДЬЬЬЬЬЬЬЬЬЬ!!!!!!!!!!!!!!!${telegrafObject.ctx}АААААААААААААААААААААААААААА БЛЯДЬЬЬЬЬЬЬЬЬЬ!!!!!!!!!!!!!!!`))
    
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
