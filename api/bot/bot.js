@@ -51,7 +51,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	bot.hears('📋 Указать имя', (ctx) => {
 		ctx.reply("Ну, пиши имя братан",
 			console.log(ctx.update.message.text),
-			bot.on('123',
+			bot.wait('',
 				ctx.reply("Ты пидор 0)000))0)))0")
 			)
 		)
