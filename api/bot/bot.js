@@ -27,7 +27,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		}))
 	})
 
-	bot.hears('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️', (ctx) => {
+	bot.hears(ctx.contact, (ctx) => {
 		console.log(ctx.contact.phone_number)
 	if (ctx.contact.phone_number !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
