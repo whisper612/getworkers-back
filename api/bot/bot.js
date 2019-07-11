@@ -1,5 +1,6 @@
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
+const axios = require('axios')
 
 module.exports = function(app, pool, bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
