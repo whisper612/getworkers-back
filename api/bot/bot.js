@@ -30,7 +30,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 				.keyboard([
 					markup.contactRequestButton('☎️ Отправить номер телефона'),
 				]).oneTime()
-				console.log(`8=================D ${ JSON.parse(contact)}`)			
+				console.log(`8=================D ${ JSON.stringify(contact)}`)			
 				return contact;
 			})
 		)
