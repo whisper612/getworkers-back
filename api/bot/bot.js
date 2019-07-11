@@ -26,7 +26,7 @@ module.exports = function(app, pool, bot, telegrafObject) {
 		)
 	})
 
-	bot.on('contact', (ctx, pool) => {
+	bot.on('contact', (ctx, app, pool) => {
 	if (ctx.update.message.contact !== undefined) {
 		const executorId = ctx.update.message.contact.user_id;
 		const name = ctx.update.message.contact.first_name;
