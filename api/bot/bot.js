@@ -7,7 +7,7 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
    
     bot.start((ctx) => {
         console.log('New user has been spotted!')
-		return ctx.reply('Привет, для регистрации нажми на кнопку!', Markup
+		return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️.', Markup
 			.keyboard([
 			['🗄️ Регистрация']
 			])
@@ -21,13 +21,13 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона.', Extra.markup((markup) => {
 		  return markup.resize()
 			.keyboard([
-			  markup.contactRequestButton('☎️ Отправить контакт'),
+			  markup.contactRequestButton('☎️ Отправить номер телефона')
 			])
 			.oneTime()
 		}))
 	})
 
-	bot.hears('☎️ Отправить контакт', (ctx) => {
+	bot.hears(ctx.contact.phone_number, (ctx) => {
 		console.log(ctx.contact.phone_number)
 	if (ctx.contact.phone_number !== undefined) {
 		ctx.reply('Успешно! Для завершения регистрации, пожалуйста, укажите своё имя.', (ctx) => {
