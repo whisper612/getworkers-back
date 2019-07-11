@@ -162,7 +162,7 @@ module.exports = function(app, pool, tokenObject) {
                         console.log(err)
                         res.send('Error when adding executor: fatal error')
                     } else {
-                        res.json(1)
+                        res.json({executor: executorId})
                     }
                 }
             );
