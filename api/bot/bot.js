@@ -26,16 +26,21 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	bot.hears('🗄️ Регистрация', (ctx) => {
 		return ctx.reply('Для  продолжения регистрации, пожалуйста, нажмите кнопку отправки номера телефона ☎️',
 			Extra.markup((markup) => {
-				contact = markup.resize()
+				return markup.resize()
 				.keyboard([
 					markup.contactRequestButton('☎️ Отправить номер телефона'),
 				]).oneTime()
-				console.log(`8=================D ${ JSON.stringify(contact)}`)			
-				return contact;
 			})
 		)
 	})
-	
+		//listens for the click on contact button
+		bot.on('contact', (ctx) => {
+		console.log(ctx.update.message.contact);
+		//logs { phone_number: '254*******',
+		//first_name: 'nelsonBlack',
+		//user_id: 73***** }
+		
+		})
 
 	// let logs = '';
 	// bot.use(telegrafObject.log(), (ctx) => {
