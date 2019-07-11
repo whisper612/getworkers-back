@@ -2,7 +2,7 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
 module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
-	bot.use(telegrafObject.log())
+	// bot.use(telegrafObject.log())
    
     bot.start((ctx) => {
 		console.log('New user has been spotted!')
@@ -48,9 +48,9 @@ module.exports = function(app, bot, telegramObject, telegrafObject, pool) {
 	bot.hears('📋 Указать имя', (ctx) => {
 		ctx.reply("Ну, пиши имя братан",
 			console.log(ctx.update.message.text),
-			bot.on('tmp', (ctx) => {
+			bot.on('tmp',
 				ctx.reply("Ты пидор 0)000))0)))0")
-			})
+			)
 		)
 	})
 
