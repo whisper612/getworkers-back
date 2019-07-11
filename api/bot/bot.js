@@ -33,8 +33,10 @@ module.exports = function(bot, telegrafObject) {
 				console.log(res.data);
 				return ctx.reply("Вы успешно зарегестрированы!")
 			  } else if (res.data.code === 'ER_DUP_ENTRY') {
+				console.log(res.data.code);
 				return ctx.reply('Вы уже зарегестрированны. Если вы хотите удалить свой профиль, то свяжитесь с администратором.')
 			  } else {
+				console.log(res.data);
 				return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 				.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 			  }
