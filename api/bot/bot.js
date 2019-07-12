@@ -11,6 +11,11 @@ module.exports = function(bot, telegrafObject) {
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
+		if(ctx.chat.type === 'group') {
+			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
+			console.log(ctx.update)
+			)	
+		}
     });
 	
 	bot.hears('🗄️ Регистрация', (ctx) => {
@@ -46,15 +51,6 @@ module.exports = function(bot, telegrafObject) {
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
 	})
-	
-	// bot.hears('📋 Указать имя', (ctx) => {
-	// 	ctx.reply("Ну, пиши имя братан",
-	// 		console.log(ctx.update.message.text),
-	// 		bot.on('tmp',
-	// 			ctx.reply("Ты пидор 0)000))0)))0")
-	// 		)
-	// 	)
-	// })
 
 	bot.launch()
 }
