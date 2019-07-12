@@ -4,6 +4,7 @@ const axios = require('axios')
 
 module.exports = function(bot, telegramApi) {
 	// bot.use(telegrafObject.log())
+	console.log(telegramApi)
 
     bot.start((ctx) => {
 		if(ctx.chat.type === 'private') {
@@ -14,7 +15,10 @@ module.exports = function(bot, telegramApi) {
 		if(ctx.chat.type === 'group' /*&& ctx.*/) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
-			console.log(ctx.update)
+			console.log(ctx.update),
+			telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
+				console.log(ctx.update)
+			})
 			)	
 		}
     });
