@@ -1,8 +1,5 @@
 module.exports = function(app, pool, tokenObject, telegramApi) {
 
-    console.log(`API FROM DB OUTSIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
-    console.log(telegramApi);
-
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
         console.log(token);
@@ -38,6 +35,8 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             console.log('Error /add: recieved wrong data');
             res.status(500).send('Error when adding order: recieved wrong data')
         } else {
+            const telegramMsg = `Куда: ${req.body.address}\nКогда: ${req.body.meeting_date_time}\nРаботников нужно: ${req.body.executors_count} чел.\nЗадание: ${req.body.description}\nСтоимость заказа: ${req.body.price}`
+
             const query = 
             `INSERT INTO orders (order_id, phone, name, address, description, photo, 
             price, meeting_date_time, executors_count, create_time, status, update_time)
@@ -52,7 +51,8 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
-                        telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
+
+                        telegramApi.sendMessage('-374124420', telegramMsg, (ctx) => {
                             console.log(ctx.update)
                         })
                     }
