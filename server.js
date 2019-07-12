@@ -7,8 +7,8 @@ const tokenObject = require('./api/admin/config.json');
 
 // bot init
 const telegrafObject = require('telegraf');
-const bot = new telegrafObject(tokenObject.botTOKEN);
-// const telegramObject = require('telegraf/telegram');
+export const bot = new telegrafObject(tokenObject.botTOKEN);
+const telegramObject = require('telegraf/telegram');
 
 // server init
 const app = express();
