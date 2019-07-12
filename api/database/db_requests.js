@@ -1,4 +1,6 @@
-module.exports = function(app, pool, tokenObject, telegramApi) {
+module.exports = function(app, pool, telegramApi, tokenObject) {
+
+    console.log(tokenObject)
 
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
