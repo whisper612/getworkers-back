@@ -12,7 +12,7 @@ module.exports = function(app, pool, tokenObject, bot) {
         res.send('/');
     });
 
-    var boolFlag = false
+    var boolFlag = true
     //    ----------    Create order    ----------
     app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
