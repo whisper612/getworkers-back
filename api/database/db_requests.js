@@ -35,9 +35,6 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             console.log('Error /add: recieved wrong data');
             res.status(500).send('Error when adding order: recieved wrong data')
         } else {
-            const telegramMsg = `🗺️ **Куда:** ${req.body.address}\n\n⏰ _Когда:_ ${req.body.meeting_date_time}\n\n👷 _Работников нужно:_ ${req.body.executors_count}
-            \n🗒️ _Задание:_ ${req.body.description}\n\n💵 _Стоимость заказа:_ ${req.body.price}₽`
-
             const query = 
             `INSERT INTO orders (order_id, phone, name, address, description, photo, 
             price, meeting_date_time, executors_count, create_time, status, update_time)
@@ -52,10 +49,6 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
-
-                        telegramApi.sendMessage('-374124420', telegramMsg, (ctx) => {
-                            console.log(ctx.update)
-                        })
                     }
                 }
             );
@@ -82,6 +75,9 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             console.log('Error /edit_order: recieved wrong data');
             res.status(500).send('Error when order editing: recieved wrong data')
         } else {
+            const telegramMsg = `🗺️ Куда: ${address}\n\n⏰ Когда ${meeting_date_time}\n\n👷 Работников нужно: ${executors_count}
+            \n🗒️ Задание: ${description}\n\n💵 Стоимость заказа: ${price}₽`
+
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
             meeting_date_time = ?, executors_count = ?, status = ?, update_time = ? WHERE order_id = ?;`;
@@ -95,6 +91,11 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                         res.status(500).send('Error when order editing: fatal error')
                     } else {
                         res.status(200).send('Order was successfully editted')
+                        if (status === 'Отправлено рабочим') {
+                            telegramApi.sendMessage('-374124420', telegramMsg, (ctx) => {
+                                console.log(ctx.update)
+                            })
+                        }
                     }
                 }
             );
