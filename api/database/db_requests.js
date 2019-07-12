@@ -1,4 +1,4 @@
-module.exports = function(app, pool, tokenObject, telegramApi) {
+module.exports = function(app, pool, tokenObject) {
 
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
@@ -13,7 +13,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
     });
 
     //    ----------    Create order    ----------
-    app.post(`/add${tokenObject.addReq}`, (req, res, telegramApi, bot) => {
+    app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -28,14 +28,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
         const update_time = req.body.update_time;
     
         // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
-        //console.log(req.body);
-
-        telegramApi = require('../../server')
-        console.log(telegramApi)
-
-        bot.telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
-            console.log(ctx.update)
-        })
+        console.log(req.body);
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
@@ -50,7 +43,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             pool.query(
                 query, [orderId, phone, name, address, description, photo, price, meeting_date_time, 
                 executors_count, create_time, status, update_time], 
-                (err, result, fields, telegramApi) => {
+                (err, result, fields) => {
                     if (err) {
                         console.log(err)
                         res.status(500).send('Error when adding order: fatal error')
@@ -59,7 +52,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                     }
                 }
             );
-            
+    
         }
     });     
 
