@@ -48,10 +48,10 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                         console.log(err)
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
-                        res.status(200).send(orderId)
                         telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
                             console.log(ctx.update)
                         })
+                        res.status(200).send(orderId)
                     }
                 }
             );
