@@ -12,6 +12,7 @@ module.exports = function(app, pool, tokenObject, bot) {
         res.send('/');
     });
 
+    var boolFlag = false
     //    ----------    Create order    ----------
     app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
@@ -49,7 +50,7 @@ module.exports = function(app, pool, tokenObject, bot) {
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
-                        var boolFlag = true
+                        boolFlag = true
                     }
                 }
             );
