@@ -1,6 +1,6 @@
 module.exports = function(app, pool, tokenObject, telegramApi) {
 
-    telegramApi = telegramApi;
+     import telegramApi from {telegramApi};
 
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
