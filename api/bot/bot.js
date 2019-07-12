@@ -15,7 +15,7 @@ module.exports = function(bot, telegramApi) {
 		if(ctx.chat.type === 'group' /*&& ctx.update.*/) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
-			console.log(ctx)
+			console.log(ctx.update.chat)
 			)	
 		}
     });
