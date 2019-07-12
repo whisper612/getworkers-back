@@ -32,7 +32,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 
 	bot.on('contact', (ctx) => {
 	if (ctx.update.message.contact !== undefined) {
-		axios.post('', {
+		axios.post('https://getworkers-back.herokuapp.com/add_executorj0NZhNh4D4GWbhXzBp40', {
 			executor_id: ctx.update.message.contact.user_id,
 			name: ctx.update.message.contact.first_name,
 			phone: ctx.update.message.contact.phone_number
