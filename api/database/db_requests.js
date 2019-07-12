@@ -75,8 +75,8 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             console.log('Error /edit_order: recieved wrong data');
             res.status(500).send('Error when order editing: recieved wrong data')
         } else {
-            const telegramMsg = `🗺️ <b>Куда:</b> ${address}\n\n⏰ <b>Когда:</b> ${meeting_date_time}\n\n👷 <b>Работников нужно:</b> ${executors_count}
-            \n🗒️ <b>Задание:</b> ${description}\n\n💵 <b>Стоимость заказа:</b> ${price}<b>₽</b>`
+            const telegramMsg = `🗺️ <b>Куда:</b> <i>${address}</i>\n\n⏰ <b>Когда:</b> <i>${meeting_date_time}</i>\n\n👷 <b>Работников нужно:</b> <i>${executors_count}</i>
+            \n🗒️ <b>Задание:</b> <i>${description}</i>\n\n💵 <b>Стоимость заказа:</b> ${price}<b>₽</b>`
 
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
