@@ -1,4 +1,4 @@
-module.exports = function(app, pool, tokenObject, bot) {
+module.exports = function(app, pool, tokenObject, bot, telegramObject) {
 
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
@@ -58,12 +58,12 @@ module.exports = function(app, pool, tokenObject, bot) {
         }
     });     
 
-    if (boolFlag === true) {
-        bot.sendMessage('-374124420', 'Test request', (ctx) => {
-            console.log(ctx.update)
-            boolFlag = false
-        }) 
-    }
+    // if (boolFlag === true) {
+    //     this.bot.sendMessage('-374124420', 'Test request', (ctx) => {
+    //         console.log(ctx.update)
+    //         boolFlag = false
+    //     }) 
+    // }
 
     //    ----------    Edit order    ----------
     app.post(`/edit_order${tokenObject.editOrderReq}`, (req, res) => {

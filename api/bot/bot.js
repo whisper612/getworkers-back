@@ -14,7 +14,11 @@ module.exports = function(bot, telegrafObject) {
 		if(ctx.chat.type === 'group' /*&& ctx.*/) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
-			console.log(ctx.update)
+			console.log(ctx.update),
+			bot.sendMessage('-374124420', 'Test request', (ctx) => {
+				console.log(ctx.update)
+				boolFlag = false
+			})
 			)	
 		}
     });
