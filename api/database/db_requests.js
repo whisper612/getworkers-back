@@ -30,10 +30,12 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
         // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
         // console.log(req.body);
 
+        console.log(`API FROM DB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
+        console.log(telegramApi);
+        
         telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
             console.log(ctx.update)
         })
-        console.log(`API FROM DB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ${telegramApi}`)
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
