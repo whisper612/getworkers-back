@@ -6,12 +6,13 @@ module.exports = function(bot, telegrafObject) {
 	// bot.use(telegrafObject.log())
 
     bot.start((ctx) => {
-		console.log('New user has been spotted!')
 		if(ctx.chat.type === 'private') {
+			console.log('New worker has been spotted!')
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
-		if(ctx.chat.type === 'group') {
+		if(ctx.chat.type === 'group' /*&& ctx.*/) {
+			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
 			console.log(ctx.update)
 			)	

@@ -13,7 +13,7 @@ module.exports = function(app, pool, tokenObject, bot) {
     });
 
     //    ----------    Create order    ----------
-    app.post(`/add${tokenObject.addReq}`, (req, res) => {
+    app.post(`/add${tokenObject.addReq}`, (req, res, bot) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -49,12 +49,12 @@ module.exports = function(app, pool, tokenObject, bot) {
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
+                        bot.sendMessage('-374124420', 'Test request', (ctx) => {
+                            console.log(ctx.update)
+                        })
                     }
                 }
-            );
-    
-            
-
+            );  
         }
     });     
 
