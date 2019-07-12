@@ -49,7 +49,7 @@ module.exports = function(app, pool, tokenObject, bot) {
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
-                        let boolFlag = true
+                        var boolFlag = true
                     }
                 }
             );
