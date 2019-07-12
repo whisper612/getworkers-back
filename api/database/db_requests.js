@@ -35,7 +35,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             console.log('Error /add: recieved wrong data');
             res.status(500).send('Error when adding order: recieved wrong data')
         } else {
-            const telegramMsg = `🗺️ _Куда:_ ${req.body.address}\n\n⏰ _Когда:_ ${req.body.meeting_date_time}\n\n👷 _Работников нужно:_ ${req.body.executors_count}
+            const telegramMsg = `🗺️ **Куда:** ${req.body.address}\n\n⏰ _Когда:_ ${req.body.meeting_date_time}\n\n👷 _Работников нужно:_ ${req.body.executors_count}
             \n🗒️ _Задание:_ ${req.body.description}\n\n💵 _Стоимость заказа:_ ${req.body.price}₽`
 
             const query = 
