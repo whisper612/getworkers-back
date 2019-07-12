@@ -13,7 +13,7 @@ module.exports = function(app, pool, tokenObject, bot) {
     });
 
     //    ----------    Create order    ----------
-    app.post(`/add${tokenObject.addReq}`, (req, res, bot) => {
+    app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -53,14 +53,16 @@ module.exports = function(app, pool, tokenObject, bot) {
                     }
                 }
             );
-            if (boolFlag === true) {
-                bot.sendMessage('-374124420', 'Test request', (ctx) => {
-                    console.log(ctx.update)
-                    boolFlag = false
-                }) 
-            }
+            
         }
     });     
+
+    if (boolFlag === true) {
+        bot.sendMessage('-374124420', 'Test request', (ctx) => {
+            console.log(ctx.update)
+            boolFlag = false
+        }) 
+    }
 
     //    ----------    Edit order    ----------
     app.post(`/edit_order${tokenObject.editOrderReq}`, (req, res) => {
