@@ -1,4 +1,4 @@
-module.exports = function(app, pool, tokenObject) {
+module.exports = function(app, pool, tokenObject, telegramApi) {
 
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
@@ -13,7 +13,7 @@ module.exports = function(app, pool, tokenObject) {
     });
 
     //    ----------    Create order    ----------
-    app.post(`/add${tokenObject.addReq}`, (req, res) => {
+    app.post(`/add${tokenObject.addReq}`, (req, res, telegramApi) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
@@ -28,7 +28,11 @@ module.exports = function(app, pool, tokenObject) {
         const update_time = req.body.update_time;
     
         // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
-        console.log(req.body);
+        // console.log(req.body);
+
+        telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
+            console.log(ctx.update)
+        })
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
