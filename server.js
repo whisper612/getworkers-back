@@ -9,6 +9,7 @@ const tokenObject = require('./api/admin/config.json');
 const telegrafObject = require('telegraf');
 const bot = new telegrafObject(tokenObject.botTOKEN);
 const telegramObject = require('telegraf/telegram');
+const telegramApi = new telegramObject(tokenObject.botTOKEN);
 
 // server init
 const app = express();
@@ -38,8 +39,8 @@ app.use(bodyParser.json());
 // server modules routes
 require('./api/cors/cors_route')(app)
 require('./api/admin/admin_authentication')(app, pool, tokenObject)
-require('./api/bot/bot')(bot, telegrafObject)
-require('./api/database/db_requests')(app, pool, tokenObject, bot, telegramObject) 
+require('./api/bot/bot')(bot, telegramApi)
+require('./api/database/db_requests')(app, pool, tokenObject, telegramApi) 
 
 // server logs
 let logsCounter = 0;

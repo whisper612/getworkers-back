@@ -2,7 +2,7 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const axios = require('axios')
 
-module.exports = function(bot, telegrafObject) {
+module.exports = function(bot, telegramApi) {
 	// bot.use(telegrafObject.log())
 
     bot.start((ctx) => {
