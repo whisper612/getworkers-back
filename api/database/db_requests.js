@@ -1,6 +1,6 @@
-module.exports = function(app, pool, tokenObject, telegramApi) {
+module.exports = function(app, pool, tokenObject) {
 
-     import telegramApi from {telegramApi};
+
 
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
@@ -32,9 +32,9 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
         // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
         console.log(req.body);
 
-        telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
-            console.log(ctx.update)
-        })
+        // telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
+        //     console.log(ctx.update)
+        // })
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
