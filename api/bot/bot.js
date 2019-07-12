@@ -5,6 +5,7 @@ const axios = require('axios')
 module.exports = function(bot, telegramApi, tokenObject) {
 	// bot.use(telegrafObject.log())
 	// console.log(telegramApi)
+	// спасити(
 
     bot.start((ctx) => {
 		if(ctx.update.message.chat.type === 'private') {
