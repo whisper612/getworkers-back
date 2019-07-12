@@ -31,14 +31,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
         const update_time = req.body.update_time;
     
         // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
-        // console.log(req.body);
-
-        console.log(`API FROM DB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
-        console.log(telegramApi);
-
-        telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
-            console.log(ctx.update)
-        })
+        console.log(req.body);
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
@@ -59,6 +52,9 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
+                        telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
+                            console.log(ctx.update)
+                        })
                     }
                 }
             );
