@@ -33,6 +33,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
         telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
             console.log(ctx.update)
         })
+        console.log(`API FROM DB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ${telegramApi}`)
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
