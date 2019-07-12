@@ -43,7 +43,7 @@ module.exports = function(app, pool, tokenObject, bot) {
             pool.query(
                 query, [orderId, phone, name, address, description, photo, price, meeting_date_time, 
                 executors_count, create_time, status, update_time], 
-                (err, result, fields) => {
+                (err, result, fields, bot) => {
                     if (err) {
                         console.log(err)
                         res.status(500).send('Error when adding order: fatal error')
