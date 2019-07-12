@@ -43,18 +43,22 @@ module.exports = function(app, pool, tokenObject, bot) {
             pool.query(
                 query, [orderId, phone, name, address, description, photo, price, meeting_date_time, 
                 executors_count, create_time, status, update_time], 
-                (err, result, fields, bot) => {
+                (err, result, fields) => {
                     if (err) {
                         console.log(err)
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
-                        bot.sendMessage('-374124420', 'Test request', (ctx) => {
-                            console.log(ctx.update)
-                        })
+                        let boolFlag = true
                     }
                 }
-            );  
+            );
+            if (boolFlag === true) {
+                bot.sendMessage('-374124420', 'Test request', (ctx) => {
+                    console.log(ctx.update)
+                    boolFlag = false
+                }) 
+            }
         }
     });     
 
