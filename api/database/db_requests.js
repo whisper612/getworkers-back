@@ -1,5 +1,8 @@
 module.exports = function(app, pool, tokenObject, telegramApi) {
 
+    console.log(`API FROM DB OUTSIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
+    console.log(telegramApi);
+
     app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
         const token = req.params;
         console.log(token);
@@ -32,7 +35,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
 
         console.log(`API FROM DB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
         console.log(telegramApi);
-        
+
         telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
             console.log(ctx.update)
         })
