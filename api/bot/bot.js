@@ -40,8 +40,8 @@ module.exports = function(bot, telegramApi) {
 		  .then(res => {
 			  if(res.data.check === ctx.update.message.contact.user_id) {
 				console.log(res.data);
-				/* АВТОМАТИЧЕСКИЙ ПЕРЕБРОС В КОНФУ in developing */
-				return ctx.reply("Вы успешно зарегестрированы!")
+				return ctx.reply("Вы успешно зарегестрированы! Нажмите на кнопку чтобы продолжить.", Markup
+				.keyboard([ ['🚚 Приступить к работе'] ]).oneTime().resize().extra())
 			  } else if (res.data.code === 'ER_DUP_ENTRY') {
 				console.log(res.data.code);
 				return ctx.reply('Вы уже зарегестрированны. Если вы хотите удалить свой профиль, то свяжитесь с администратором.')
@@ -57,8 +57,13 @@ module.exports = function(bot, telegramApi) {
 		}
 	})
 
-	bot.hears('🛠️ Взяться за работу', (ctx) => {
+	bot.hears('🛠️ Взяться за заказ', (ctx) => {
 
+	})
+
+	bot.hears('🚚 Приступить к работе', (ctx) => {
+		inviteLink = telegramApi.exportChatInviteLink(-374124420),
+		ctx.reply(`Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.\n${inviteLink}`)
 	})
 
 	bot.launch()
