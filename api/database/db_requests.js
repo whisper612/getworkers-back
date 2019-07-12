@@ -75,8 +75,9 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             console.log('Error /edit_order: recieved wrong data');
             res.status(500).send('Error when order editing: recieved wrong data')
         } else {
-            const telegramMsg = `🗺️ <b>Куда:</b> ${address}\n\n⏰ <b>Когда:</b> ${meeting_date_time}\n\n👷 <b>Работников нужно:</b> ${executors_count}
-            \n🗒️ <b>Задание:</b> ${description}\n\n💵 <b>Стоимость заказа:</b> ${price}<b>₽</b>`
+            // const telegramMsg = `🗺️ <b>Куда:</b> ${address}\n\n⏰ <b>Когда:</b> ${meeting_date_time}\n\n👷 <b>Работников нужно:</b> ${executors_count}
+            // \n🗒️ <b>Задание:</b> ${description}\n\n💵 <b>Стоимость заказа:</b> ${price}<b>₽</b>`
+            const telegramMsg = '<b>Шох жирный</b>, а я нет'
 
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
@@ -93,7 +94,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                         res.status(200).send('Order was successfully editted')
                         if (status === 'Отправлено рабочим') {
                             let parse_mode = 'HTML'
-                            telegramApi.sendMessage(-374124420, telegramMsg, [parse_mode], (ctx) => {
+                            telegramApi.sendMessage(-374124420, telegramMsg, parse_mode, (ctx) => {
                                 return Markup.keyboard([ ['🛠️ Взяться за работу'] ]).resize().extra(),
                                 console.log(ctx.update)
                             })
