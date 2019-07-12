@@ -12,7 +12,6 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
         res.send('/');
     });
 
-    var boolFlag = true
     //    ----------    Create order    ----------
     app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
@@ -44,26 +43,21 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
             pool.query(
                 query, [orderId, phone, name, address, description, photo, price, meeting_date_time, 
                 executors_count, create_time, status, update_time], 
-                (err, result, fields) => {
+                (err, result, fields, telegramApi) => {
                     if (err) {
                         console.log(err)
                         res.status(500).send('Error when adding order: fatal error')
                     } else {
                         res.status(200).send(orderId)
-                        boolFlag = true
+                        telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
+                            console.log(ctx.update)
+                        })
                     }
                 }
             );
             
         }
     });     
-
-    // if (boolFlag === true) {
-    //     this.bot.sendMessage('-374124420', 'Test request', (ctx) => {
-    //         console.log(ctx.update)
-    //         boolFlag = false
-    //     }) 
-    // }
 
     //    ----------    Edit order    ----------
     app.post(`/edit_order${tokenObject.editOrderReq}`, (req, res) => {
