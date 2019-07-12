@@ -12,7 +12,7 @@ module.exports = function(bot, telegramApi) {
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
-		if(ctx.update.message.chat.type === 'group') {
+		if(ctx.update.message.chat.type === 'group' && ctx.update.message.from.id === 294217967) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]

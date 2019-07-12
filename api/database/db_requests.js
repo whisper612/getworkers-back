@@ -92,7 +92,8 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
                     } else {
                         res.status(200).send('Order was successfully editted')
                         if (status === 'Отправлено рабочим') {
-                            telegramApi.sendMessage(-374124420, telegramMsg, [parse_mode], (ctx) => {
+                            let parse_mode = 'markup'
+                            telegramApi.sendMessage(-374124420, telegramMsg, parse_mode, (ctx) => {
                                 return Markup.keyboard([ ['🛠️ Взяться за работу'] ]).resize().extra(),
                                 console.log(ctx.update)
                             })
