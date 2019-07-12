@@ -12,7 +12,7 @@ module.exports = function(bot, telegramApi) {
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
-		if(ctx.update.message.chat.type === 'group' /*&& ctx.update.*/) {
+		if(ctx.update.message.chat.type === 'group' && ctx.update.message.from.id === 294217967) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]
@@ -40,6 +40,7 @@ module.exports = function(bot, telegramApi) {
 		  .then(res => {
 			  if(res.data.check === ctx.update.message.contact.user_id) {
 				console.log(res.data);
+				/* АВТОМАТИЧЕСКИЙ ПЕРЕБРОС В КОНФУ in developing */
 				return ctx.reply("Вы успешно зарегестрированы!")
 			  } else if (res.data.code === 'ER_DUP_ENTRY') {
 				console.log(res.data.code);
@@ -54,6 +55,10 @@ module.exports = function(bot, telegramApi) {
 			return ctx.reply('Что-то пошло не так и я не получил ваш номер телефона. Попробуйте ещё раз.', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
+	})
+
+	bot.hears('🛠️ Взяться за работу', (ctx) => {
+
 	})
 
 	bot.launch()
