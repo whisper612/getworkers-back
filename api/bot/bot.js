@@ -12,10 +12,10 @@ module.exports = function(bot, telegramApi) {
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
-		if(ctx.chat.type === 'group' /*&& ctx.*/) {
+		if(ctx.update.chat.type === 'group' /*&& ctx.update.*/) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
-			console.log(ctx.update)
+			console.log(ctx)
 			)	
 		}
     });
