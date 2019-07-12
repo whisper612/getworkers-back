@@ -63,6 +63,7 @@ module.exports = function(bot, telegramApi) {
 
 	bot.hears('🚚 Приступить к работе', (ctx) => {
 		inviteLink = telegramApi.exportChatInviteLink(-374124420),
+		console.log(inviteLink);
 		ctx.reply(`Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.\n${inviteLink}`)
 	})
 
