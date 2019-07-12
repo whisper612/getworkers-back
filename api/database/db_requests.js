@@ -16,7 +16,7 @@ module.exports = function(app, pool, tokenObject, telegramApi) {
     });
 
     //    ----------    Create order    ----------
-    app.post(`/add${tokenObject.addReq}`, (req, res, telegramApi) => {
+    app.post(`/add${tokenObject.addReq}`, (req, res) => {
         const orderId = req.body.order_id;
         const phone = req.body.phone;
         const name = req.body.name;
