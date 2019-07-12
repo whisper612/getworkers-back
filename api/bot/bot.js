@@ -15,7 +15,7 @@ module.exports = function(bot, telegramApi) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
 			console.log(ctx.update),
-			telegrafObject.sendMessage('-374124420', 'Test request', (ctx) => {
+			telegramApi.sendMessage('-374124420', 'Test request', (ctx) => {
 				console.log(ctx.update)
 			})
 			)	
