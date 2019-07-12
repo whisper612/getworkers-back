@@ -4,7 +4,7 @@ const axios = require('axios')
 
 module.exports = function(bot, telegramApi) {
 	// bot.use(telegrafObject.log())
-	console.log(telegramApi)
+	// console.log(telegramApi)
 
     bot.start((ctx) => {
 		if(ctx.chat.type === 'private') {
