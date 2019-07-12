@@ -2,7 +2,7 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const axios = require('axios')
 
-module.exports = function(bot, telegramApi) {
+module.exports = function(bot, telegramApi, tokenObject) {
 	// bot.use(telegrafObject.log())
 	// console.log(telegramApi)
 
@@ -12,7 +12,7 @@ module.exports = function(bot, telegramApi) {
 			return ctx.reply('Здравствуйте! Для регистрации нажмите на кнопку 🗄️', Markup
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
-		if(ctx.update.message.chat.type === 'group' && ctx.update.message.from.id === 294217967) {
+		if(ctx.update.message.chat.type === 'group' && ctx.update.message.from.id === tokenObject.devId) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]
@@ -32,7 +32,7 @@ module.exports = function(bot, telegramApi) {
 
 	bot.on('contact', (ctx) => {
 	if (ctx.update.message.contact !== undefined) {
-		axios.post('https://getworkers-back.herokuapp.com/add_executorj0NZhNh4D4GWbhXzBp40', {
+		axios.post('', {
 			executor_id: ctx.update.message.contact.user_id,
 			name: ctx.update.message.contact.first_name,
 			phone: ctx.update.message.contact.phone_number
@@ -40,8 +40,7 @@ module.exports = function(bot, telegramApi) {
 		  .then(res => {
 			  if(res.data.check === ctx.update.message.contact.user_id) {
 				console.log(res.data);
-				return ctx.reply("Вы успешно зарегестрированы! Нажмите на кнопку чтобы продолжить.", Markup
-				.keyboard([ ['🚚 Приступить к работе'] ]).oneTime().resize().extra())
+				return ctx.reply(`<b>Вы успешно зарегестрированы!</b> \nНажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.\n\n${tokenObject.chatLink}`)
 			  } else if (res.data.code === 'ER_DUP_ENTRY') {
 				console.log(res.data.code);
 				return ctx.reply('Вы уже зарегестрированны. Если вы хотите удалить свой профиль, то свяжитесь с администратором.')
@@ -62,8 +61,7 @@ module.exports = function(bot, telegramApi) {
 	})
 
 	bot.hears('🚚 Приступить к работе', (ctx) => {
-		inviteLink = 'https://t.me/joinchat/EYlo7xZMr4RHN6c7ZPQ4Ug',
-		ctx.reply(`Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.\n${inviteLink}`)
+		ctx.reply(`Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.\n${tokenObject.chatLink}`)
 	})
 
 	bot.launch()
