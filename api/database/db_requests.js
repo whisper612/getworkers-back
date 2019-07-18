@@ -216,7 +216,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
     });
 
     //    ----------    OrderID from executor   ----------
-    app.post(`/select_executor${selectExecReq}`, (req, res) => {
+    app.post(`/select_executor${tokenObject.selectExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
 
         if (executorId === undefined) {
