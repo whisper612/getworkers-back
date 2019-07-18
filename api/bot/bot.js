@@ -59,10 +59,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
-
-		const msg = ctx.update.callback_query.message.text
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const executorId = ctx.update.callback_query.from.id;
+		const msg = `Номер заказа: ${orderId}\nИмя заказчика:\nНомер заказчика:`;
 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
 			executor_id: executorId
@@ -78,7 +77,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 				.then(res => {
 					console.log(res)
-					const reply = `AAAAA` //`<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<i>Дождаться оставшихся работников\n\nCобраться вместе и отправиться к <i>заказчику</i>.\n\n${msg}`
+					const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<i>Дождаться оставшихся работников\n\nCобраться вместе и отправиться к <i>заказчику</i>.\n\n`
 					const extra = {parse_mode: `HTML`}
 					console.log(executorId)
 					return telegramApi.sendMessage(executorId, reply, extra)
