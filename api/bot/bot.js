@@ -68,7 +68,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})
 		.then(res => {
 			const name = JSON.parse(res.data.check)[0].name;
-			const phone = JSON.parse(res.data.check)[1].phone;
+			const phone = JSON.parse(res.data.check)[0].phone;
 			console.log(name)
 			const msg = `Имя заказчика: ${name}\n\nНомер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 			MSG = msg
