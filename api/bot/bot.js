@@ -68,6 +68,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})
 		.then(res => {
 			console.log(res)
+			console.log(JSON.parse(res.data.check))
 			if (res.data.check.orderId !== null) {
 				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${res.data.check.orderId}`)
 			} else {
