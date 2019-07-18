@@ -57,11 +57,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 
-	bot.hears('🛠️ Взяться за заказ', (ctx) => {
-
-	})
-
-	bot.hears('🚚 Приступить к работе', (ctx) => {
+	bot.hears('🛠️', (ctx) => {
 		ctx.reply(`Молодец, иди работай`)
 	})
 
