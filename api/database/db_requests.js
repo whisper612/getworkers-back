@@ -234,7 +234,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                         res.send(err)
                     } else {
                         console.log(result)
-                        res.send({check: orderId})
+                        res.send({check: `orderId`})
                     }
                 }
             );
