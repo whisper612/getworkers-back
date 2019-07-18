@@ -63,7 +63,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const executorId = ctx.update.callback_query.from.id;
 
-		axiois.post(`https://getworkers-back.herokuapp.com/select_executor${tokenIbject.selectExecReq}`)
+		axiois.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`)
 		.then(res => {
 			console.log(res.data)
 		})
