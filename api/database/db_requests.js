@@ -206,15 +206,42 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                 (err, result, fields) => {
                     if (err || result.affectedRows < 1) {
                         console.log(err, `Error: /edit_executor: affected rows ${result.affectedRows} < 1`)
-                        res.status(500).send(`Error when executor info editing: fatal error`)
+                        res.send(err)
                     } else {
-                        res.status(200).send('Executor info was successfully editted')
+                        res.send({check: executorId, phone, name, orderId})
                     }
                 }
             );
         }
     });
 
+    //    ----------    OrderID from executor   ----------
+    app.post(`/select_executor${selectExecReq}`, (req, res) => {
+        const executorId = req.body.executor_id;
+
+        if (executorId === undefined) {
+            console.log('Error: /select_executor: recieved wrong data');
+            res.status(500).send('Error when executor info editing: recieved wrong data')
+        } else {
+        const query = 
+            `SELECT order_id FROM executors_list WHERE executor_id = ?`;
+
+            pool.query(
+                query, [executorId], 
+                (err, result, fields) => {
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error: /select_executor: affected rows ${result.affectedRows} < 1`)
+                        res.send(err)
+                    } else {
+                        console.log(result)
+                        res.send({check: orderId})
+                    }
+                }
+            );
+        }
+    })
+
+    //    ----------    Update executor order   ----------
     app.post(`/update_executor${tokenObject.updateExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
         const orderId = req.body.order_id;
@@ -233,9 +260,9 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                 (err, result, fields) => {
                     if (err || result.affectedRows < 1) {
                         console.log(err, `Error: /edit_executor: affected rows ${result.affectedRows} < 1`)
-                        res.status(500).send(`Error when executor info editing: fatal error`)
+                        res.send(err)
                     } else {
-                        res.status(200).send('Executor info was successfully editted')
+                        res.send({check: executorId, orderId})
                     }
                 }
             );
