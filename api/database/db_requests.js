@@ -120,7 +120,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             res.status(500).send('Error when order info selecting: recieved wrong data')
         } else {
         const query = 
-            `SELECT phone, name FROM orders WHERE order_id = ?`;
+            `SELECT name, phone FROM orders WHERE order_id = ?`;
 
             pool.query(
                 query, [orderId], 
