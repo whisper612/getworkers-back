@@ -82,12 +82,14 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             const telegramMsg = `🗺️ <b>Куда:</b> <i>${address}</i>\n\n⏰ <b>Когда:</b> <i>${meeting_date_time}</i>\n\n👷 <b>Работников нужно:</b> ${executors_count}
             \n🗒️ <b>Задание:</b> <i>${description}</i>\n\n💵 <b>Стоимость заказа:</b> ${price * 0.8}<b>₽</b>`
 
-            inlineButton =  telegramApi.InlineKeyboardButton(text = `🚚 Приступить к работе`, callback_data = `🚚`)
-            
-            // Extra.HTML().markup((m) =>
-            // m.inlineKeyboard([
-            // m.callbackButton('🚚 Приступить к работе', '🚚'),
-            // ]))
+            const extra = {
+                parse_mode: `HTML`,
+                reply_markup: JSON.stringify({
+                    inline_keyboard: [
+                        [{text: `🛠️ Взяться за работу`, callback_data: `🛠️`}]
+                    ]
+                })
+            }
 
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
@@ -103,8 +105,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                     } else {
                         res.status(200).send('Order was successfully editted')
                         if (status === 'Отправлено') {
-                            telegramApi.sendMessage(tokenObject.chatId, telegramMsg, {parse_mode: `HTML`, inlineButton}, (ctx) => {
-                                return Markup.keyboard([ ['🛠️ Взяться за работу'] ]).resize().extra(),
+                            telegramApi.sendMessage(tokenObject.chatId, telegramMsg, extra, (ctx) => {
                                 console.log(ctx.update)
                             })
                         }
