@@ -111,6 +111,31 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         }
     });
 
+    //    ----------    Select order info from orders    ----------
+    app.post(`/select_order${tokenObject.selectOrderReq}`, (req, res) => {
+        const orderId = req.body.order_id;
+
+        if (orderId === undefined) {
+            console.log('Error: /select_order: recieved wrong data');
+            res.status(500).send('Error when order info selecting: recieved wrong data')
+        } else {
+        const query = 
+            `SELECT phone, name FROM orders WHERE order_id = ?`;
+
+            pool.query(
+                query, [orderId], 
+                (err, result, fields) => {
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error: /select_order: affected rows ${result.affectedRows} < 1`)
+                        res.send(err)
+                    } else {
+                        res.send({ check: JSON.stringify(result[0, 1]) })
+                    }
+                }
+            );
+        }
+    })
+
     //    ----------    Delete completed order by ID    ----------
     app.post(`/delete_completed_order${tokenObject.delComOrder}`, (req, res) => {
         const orderId = req.body.order_id;
@@ -215,13 +240,13 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         }
     });
 
-    //    ----------    OrderID from executor   ----------
+    //    ----------    Select order id from executor   ----------
     app.post(`/select_executor${tokenObject.selectExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
 
         if (executorId === undefined) {
             console.log('Error: /select_executor: recieved wrong data');
-            res.status(500).send('Error when executor info editing: recieved wrong data')
+            res.status(500).send('Error when executor info selecting: recieved wrong data')
         } else {
         const query = 
             `SELECT order_id FROM executors_list WHERE executor_id = ?`;
