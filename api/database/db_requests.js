@@ -80,7 +80,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             const telegramMsg = `🗺️ <b>Куда:</b> <i>${address}</i>\n\n⏰ <b>Когда:</b> <i>${meeting_date_time}</i>\n\n👷 <b>Работников нужно:</b> ${executors_count}
             \n🗒️ <b>Задание:</b> <i>${description}</i>\n\n💵 <b>Стоимость заказа:</b> ${price * 0.8}<b>₽</b>`
 
-            //const inlineReply = {text: `🚚 Приступить к работе`}
+            const inlineReply = reply_markup(text = `🚚 Приступить к работе`)
+            const textStyle = parse_mode(`HTML`)
 
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
@@ -96,7 +97,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                     } else {
                         res.status(200).send('Order was successfully editted')
                         if (status === 'Отправлено') {
-                            telegramApi.sendMessage(tokenObject.chatId, telegramMsg, {parse_mode: 'HTML', reply_markup: `🚚 Приступить к работе`}, (ctx) => {
+                            telegramApi.sendMessage(tokenObject.chatId, telegramMsg, {textStyle, inlineReply}, (ctx) => {
                                 return Markup.keyboard([ ['🛠️ Взяться за работу'] ]).resize().extra(),
                                 console.log(ctx.update)
                             })
