@@ -66,8 +66,11 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 			order_id: orderId,	
 			executor_id: executorId
-		  })
-		ctx.reply(`Молодец, иди работай`)
+		  }).then(res => {
+			if(true) {
+			  console.log(res.data);
+			  return ctx.reply(`Ты пидор`)
+			}
 	})
 
 	bot.launch()
