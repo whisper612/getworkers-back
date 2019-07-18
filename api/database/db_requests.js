@@ -129,8 +129,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                         console.log(err, `Error: /select_order: affected rows ${result.affectedRows} < 1`)
                         res.send(err)
                     } else {
-                        console.log(result)
-                        res.send({ check: JSON.stringify(result[0, 1]) })
+                        console.log(JSON.stringify(result))
+                        res.send({ check: JSON.stringify(result) })
                     }
                 }
             );
