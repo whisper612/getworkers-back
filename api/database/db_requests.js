@@ -233,8 +233,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                         console.log(err, `Error: /select_executor: affected rows ${result.affectedRows} < 1`)
                         res.send(err)
                     } else {
-                        console.log(result.RowDataPacket.order_id)
-                        res.send({check: result.RowDataPacket.order_id})
+                        console.log(result.RowDataPacket)
+                        res.send({check: 'result.RowDataPacket.order_id'})
                     }
                 }
             );
