@@ -66,9 +66,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			order_id: orderId
 		})
 		.then(res => {
-			const name = JSON.parse(res.data.check).name
-			const phone = JSON.parse(res.data.check).phone
-			const msg = `Имя заказчика: ${name}\n\nНомер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
+			const name = JSON.parse(res.data.check).name;
+			const phone = JSON.parse(res.data.check).phone;
+			var msg = `Имя заказчика: ${name}\n\nНомер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 		})
 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
