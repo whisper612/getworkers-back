@@ -101,7 +101,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                     } else {
                         res.status(200).send('Order was successfully editted')
                         if (status === 'Отправлено') {
-                            telegramApi.sendMessage(tokenObject.chatId, telegramMsg, {parse_mode: `HTML`, reply_markup: inlineButton}, (ctx) => {
+                            telegramApi.sendMessage(tokenObject.chatId, telegramMsg, {parse_mode: `HTML`, inlineButton}, (ctx) => {
                                 return Markup.keyboard([ ['🛠️ Взяться за работу'] ]).resize().extra(),
                                 console.log(ctx.update)
                             })
