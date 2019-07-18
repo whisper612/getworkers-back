@@ -57,8 +57,12 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 
-	bot.action('🛠️', (ctx) => {
-		
+	bot.action('', (ctx) => {
+		axios.post(`https://getworkers-back.herokuapp.com/add_executor${tokenObject.addExecReq}`, {
+			executor_id: ctx.update.message.contact.user_id,
+			name: ctx.update.message.contact.first_name,
+			phone: ctx.update.message.contact.phone_number
+		  })
 		ctx.reply(`Молодец, иди работай`)
 	})
 
