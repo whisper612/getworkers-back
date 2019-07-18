@@ -81,7 +81,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})
 		.then(res => {
 			const rcvOrderId = JSON.parse(res.data.check).order_id
-			if (rcvOrderId !== '' || rcvOrderId === null) {
+			if (rcvOrderId !== '' || rcvOrderId != null) {
 				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${rcvOrderId}`)
 			} else {
 				axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
