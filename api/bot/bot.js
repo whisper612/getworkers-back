@@ -64,10 +64,10 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		const executorId = ctx.update.callback_query.from.id;
 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
-			order_id: orderId
+			executor_id: executorId
 		})
 		.then(res => {
-			console.log(res.data)
+			console.log(`Select Executor ${res.data}`)
 		})
 
 		axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
@@ -76,7 +76,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})
 		.then(res => {
 			if(true) {
-				console.log(res.data);
+				console.log(`Update Executor ${res.data}`);
 				return telegramApi.sendMessage(executorId, `Ты пидор`)
 			}
 		})
