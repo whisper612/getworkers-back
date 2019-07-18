@@ -15,7 +15,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 		if(ctx.update.message.chat.type === 'group') {
 			console.log('New developer has been spotted!')
-			return ctx.reply('Logs has been sent to server console',
+			return ctx.reply('Logs has been sent to the server console',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]
 			console.log('!!!All context!!!', ctx),
 			console.log('!!!Update context only!!!', ctx.update)
@@ -57,12 +57,13 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 
-	bot.action('aaa', (ctx) => {
-		axios.post(`https://getworkers-back.herokuapp.com/add_executor${tokenObject.addExecReq}`, {
-			executor_id: ctx.update.message.contact.user_id,
-			name: ctx.update.message.contact.first_name,
-			phone: ctx.update.message.contact.phone_number
-		  })
+	bot.action('🛠️', (ctx) => {
+		console.log('!!!Update context only!!!', ctx.update)
+		// axios.post(`https://getworkers-back.herokuapp.com/add_executor${tokenObject.addExecReq}`, {
+		// 	executor_id: ctx.update.message.contact.user_id,
+		// 	name: ctx.update.message.contact.first_name,
+		// 	phone: ctx.update.message.contact.phone_number
+		//   })
 		ctx.reply(`Молодец, иди работай`)
 	})
 
