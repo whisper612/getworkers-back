@@ -67,19 +67,23 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			executor_id: executorId
 		})
 		.then(res => {
-			// console.log(`Select Executor ${res.data}`)
-		})
-
-		axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
-			order_id: orderId,	
-			executor_id: executorId
-		})
-		.then(res => {
-			if(true) {
-				// console.log(`Update Executor ${res.data}`);
-				return telegramApi.sendMessage(executorId, `Ты пидор`)
+			if (res.orderId !== NULL) {
+				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${res.orderId}`)
+			} else {
+				axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
+				order_id: orderId,	
+				executor_id: executorId
+				})
+				.then(res => {
+				if(true) {
+					// console.log(`Update Executor ${res.data}`);
+					return telegramApi.sendMessage(executorId, `Ты пидор`)
+				}
+				})
 			}
 		})
+
+		
 	})
 
 	bot.launch()
