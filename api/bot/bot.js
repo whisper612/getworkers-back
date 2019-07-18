@@ -77,7 +77,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 				.then(res => {
 					console.log(res)
-					const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b>Дождаться <b><i>оставшихся работников</i></b>\n\n<b>2)</b>Cобраться вместе и отправиться к <b><i>заказчику</i></b>.\n\n${msg}`
+					const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b>Дождаться <i>оставшихся работников</i>\n\n<b>2)</b>Cобраться вместе и отправиться к <i>заказчику</i>.\n\n${msg}`
 					const extra = {parse_mode: `HTML`}
 					console.log(executorId)
 					return telegramApi.sendMessage(executorId, reply, extra)
