@@ -81,6 +81,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})
 		.then(res => {
 			const rcvOrderId = JSON.parse(res.data.check).order_id
+			console.log(rcvOrderId)
 			if (rcvOrderId !== '' || rcvOrderId != null) {
 				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${rcvOrderId}`)
 			} else {
