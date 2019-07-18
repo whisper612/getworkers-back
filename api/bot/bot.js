@@ -59,6 +59,12 @@ module.exports = function(bot, telegramApi, tokenObject) {
 
 	bot.action('🛠️', (ctx) => {
 		console.log('!!!Update context only!!!', ctx.update)
+
+		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)
+		const executorId = ctx.update.callback_query.from.id
+
+		console.log(orderId, executorId)
+
 		// axios.post(`https://getworkers-back.herokuapp.com/add_executor${tokenObject.addExecReq}`, {
 		// 	executor_id: ctx.update.message.contact.user_id,
 		// 	name: ctx.update.message.contact.first_name,
