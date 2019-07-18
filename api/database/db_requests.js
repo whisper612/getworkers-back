@@ -80,7 +80,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             const telegramMsg = `🗺️ <b>Куда:</b> <i>${address}</i>\n\n⏰ <b>Когда:</b> <i>${meeting_date_time}</i>\n\n👷 <b>Работников нужно:</b> ${executors_count}
             \n🗒️ <b>Задание:</b> <i>${description}</i>\n\n💵 <b>Стоимость заказа:</b> ${price * 0.8}<b>₽</b>`
 
-            inlineButton = InlineKeyboardMarkup(text = `🚚 Приступить к работе`, callback_data = `Ашотик нажал кнопку`)
+            inlineButton = telegramApi.InlineKeyboardMarkup(text = `🚚 Приступить к работе`, callback_data = `Ашотик нажал кнопку`)
 
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
