@@ -67,7 +67,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			executor_id: executorId
 		})
 		.then(res => {
-			if (res.orderId === null) {
+			if (res.orderId !== null) {
 				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${res.orderId}`)
 			} else {
 				axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
