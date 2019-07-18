@@ -71,8 +71,11 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			const phone = JSON.parse(res.data.check).phone;
 			const msg = `Имя заказчика: ${name}\n\nНомер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 			MSG = msg
+			console.log(1, MSG)
 		})
 		
+		console.log(2, MSG)
+
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
 			executor_id: executorId
 		})
@@ -87,6 +90,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 				.then(res => {
 					if(true) {
+						console.log(3, MSG)
 						const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b>Дождаться <i>оставшихся работников</i>\n\n<b>2)</b>Cобраться вместе и отправиться к <i>заказчику</i>.\n\n${MSG}`
 						const extra = {parse_mode: `HTML`}
 						console.log(executorId)
