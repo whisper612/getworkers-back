@@ -76,8 +76,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             console.log('Error /edit_order: recieved wrong data');
             res.status(500).send('Error when order editing: recieved wrong data')
         } else {
-            const telegramMsg = `<b>🆔 Номер заказа:</b> <i>${orderId}</i>\n\n🗺️ <b>Куда:</b> <i>${address}</i>\n\n⏰ <b>Когда:</b> <i>${meeting_date_time}</i>\n
-        👷 <b>Работников нужно:</b> ${executors_count}\n\n🗒️ <b>Задание:</b> <i>${description}</i>\n\n💵 <b>Стоимость заказа:</b> ${Math.ceil(price * 0.8)}<b>₽</b>`
+            const telegramMsg = `<b>🆔 Номер заказа:</b> <i>${orderId}</i>\n\n🗺️ <b>Куда:</b> <i>${address}</i>\n\n⏰ <b>Когда:</b> <i>${meeting_date_time}</i>\n\n👷 <b>Работников нужно:</b> ${executors_count}\n\n🗒️ <b>Задание:</b> <i>${description}</i>\n\n💵 <b>Стоимость заказа:</b> ${Math.ceil(price * 0.8)}<b>₽</b>`
 
             const extra = {
                 parse_mode: `HTML`,
