@@ -70,7 +70,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		.then(res => {
 			if(true) {
 				console.log(res.data);
-				return ctx.update.callback_query.from.reply(`Ты пидор`)
+				return telegramApi.sendMessage(executorId, `Ты пидор`)
 			}
 		})
 	})
