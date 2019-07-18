@@ -17,8 +17,8 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Дорогой разраб, твои логи отправлены в серверную консоль',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]
-			console.log('!!!All context!!!', ctx),
-			console.log('!!!Update context only!!!', ctx.update)
+			// console.log('!!!All context!!!', ctx),
+			// console.log('!!!Update context only!!!', ctx.update)
 			)	
 		}
     });
@@ -62,7 +62,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 	})
 
 	bot.hears('🚚 Приступить к работе', (ctx) => {
-		ctx.reply(`Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.\n${tokenObject.chatLink}`)
+		ctx.reply(`Молодец, иди работай`)
 	})
 
 	bot.launch()
