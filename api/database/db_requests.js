@@ -234,6 +234,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                         res.send(err)
                     } else {
                         let orderId = JSON.stringify(result[0]);
+                        let OR = orderId[0]
                         console.log(orderId);
                         res.send({check: 'result.RowDataPacket.order_id'})
                     }
