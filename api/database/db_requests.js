@@ -86,7 +86,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                                 m.inlineKeyboard([
                                 m.callbackButton('🚚 Приступить к работе', '🚚'),
                                 ]))
-           
 
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
