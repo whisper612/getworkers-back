@@ -228,7 +228,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             const query = 
             `UPDATE executors_list SET order_id = ? WHERE executor_id = ?;`;
 
-            pool.update(
+            pool.query(
                 query, [orderId, executorId], 
                 (err, result, fields) => {
                     if (err || result.affectedRows < 1) {
