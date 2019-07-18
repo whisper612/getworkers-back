@@ -43,14 +43,7 @@ require('./api/bot/bot')(bot, telegramApi, tokenObject)
 require('./api/database/db_requests')(app, pool, telegramApi, tokenObject) 
 
 // server logs
-let logsCounter = 0;
-const serverLogs = setTimeout (function serverLogs() {    
-    const logs = (`Server is running on port ${PORT}`);
-    console.log(logs + `.`.repeat(logsCounter++));
-    logsCounter %= 6;
-
-    setTimeout(serverLogs, 3000);
-}, 100);
+const serverLogs = `---------------------------------------------------Server starts on port: ${PORT}-------------------------------------------------------------`
 
 // port listen
 app.listen(PORT, () => serverLogs);
