@@ -60,6 +60,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
 
+		const msg = ctx.update.callback_query.message.text
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const executorId = ctx.update.callback_query.from.id;
 
@@ -77,8 +78,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 				.then(res => {
 					if(true) {
-						// console.log(`Update Executor ${res.data}`);
-						return telegramApi.sendMessage(executorId, `Ты пидор`)
+						return telegramApi.sendMessage(executorId, 
+							`<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n\n<i>Дождаться оставшихся работников\n\nCобраться вместе и отправиться к <i>заказчику</i>.\n\n\n${msg}`, 
+							{parse_mode: 'HTML'})
 					}
 				})
 			}
