@@ -63,9 +63,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const executorId = ctx.update.callback_query.from.id;
 
-		axios.post(`https://getworkers-back.herokuapp.com/edit_executor${tokenObject.editExecReq}`, {
-			executor_id: executorId,	
-			order_id: orderId
+		axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
+			order_id: orderId,	
+			executor_id: executorId
 		  })
 		ctx.reply(`Молодец, иди работай`)
 	})

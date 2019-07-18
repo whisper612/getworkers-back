@@ -215,6 +215,33 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         }
     });
 
+    app.post(`/update_executor${tokenObject.updateExecReq}`, (req, res) => {
+        const executorId = req.body.executor_id;
+        const orderId = req.body.order_id;
+               
+        console.log(req.body);
+
+        if (executorId === undefined) {
+            console.log('Error: /update_executor: recieved wrong data');
+            res.status(500).send('Error when executor info updating: recieved wrong data')
+        } else {
+            const query = 
+            `UPDATE executors_list SET order_id = ? WHERE executor_id = ?;`;
+
+            pool.update(
+                query, [orderId, executorId], 
+                (err, result, fields) => {
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error: /edit_executor: affected rows ${result.affectedRows} < 1`)
+                        res.status(500).send(`Error when executor info editing: fatal error`)
+                    } else {
+                        res.status(200).send('Executor info was successfully editted')
+                    }
+                }
+            );
+        }
+    });
+
     //    ----------    Kick executor by ID   ----------
     app.post(`/kick_executor${tokenObject.kickExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
