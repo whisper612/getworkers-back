@@ -60,7 +60,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
 
-		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)
+		const orderId = ctx.update.callback_query.message.text
 		const executorId = ctx.update.callback_query.from.id
 
 		console.log(orderId)
