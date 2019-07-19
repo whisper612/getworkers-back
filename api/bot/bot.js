@@ -58,9 +58,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		}
 	})
 	
-	//bot.use(telegrafObject.log())
 	bot.action('🛠️', (ctx) => {
-		//console.log('!!!Update context only!!!', ctx.update)
 		var execNumber = 0
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
@@ -165,8 +163,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							})
 						}
 						
-						// console.log(ctx)
-						// console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ctx.update)
 						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.update.callback_query.message.message_id, reply_markup)
 					}
 				})
@@ -174,5 +170,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		})		
 	})
 	
+	setTimeout(function() { alert(axios.get('https://getworkers-back.herokuapp.com/wakeup_neo')) }, 1000);
+	//1500000
+
 	bot.launch()
 }
