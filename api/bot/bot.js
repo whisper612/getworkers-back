@@ -153,9 +153,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					}
 
 					// Push notification
-					ctx.answerCbQuery(`Заказ отправлен в личные сообщения\n\nЕго принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
+					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-						console.log(ctx.update.message)
+						console.log(ctx.update)
 						const extra = {
 							reply_markup: JSON.stringify({
 								inline_keyboard: [
