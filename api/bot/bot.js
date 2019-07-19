@@ -57,24 +57,14 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 
-	var MSG = '';
 	bot.action('🛠️', (ctx) => {
+		var execNumber = 0;
+
 		//console.log('!!!Update context only!!!', ctx.update)
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const executorId = ctx.update.callback_query.from.id;
 
-		axios.post(`https://getworkers-back.herokuapp.com/select_order${tokenObject.selectOrderReq}`, {
-			order_id: orderId
-		})
-		.then(res => {
-			const name = JSON.parse(res.data.check)[0].name;
-			let phone = JSON.parse(res.data.check)[0].phone;
-			if (phone[0] == '7')
-				phone = '+' + phone
-			const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
-			MSG = msg
-		})
-
+		// Availability order check 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
 			executor_id: executorId
 		})
@@ -83,24 +73,54 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			console.log(rcvOrderId)
 			if (rcvOrderId !== '') {
 				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${rcvOrderId}`)
-			} else {
-				axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
-					order_id: orderId,	
-					executor_id: executorId
+			} else {	// Сustomer name and phone recieve
+				var MSG = '';
+				axios.post(`https://getworkers-back.herokuapp.com/select_order${tokenObject.selectOrderReq}`, {
+					order_id: orderId
 				})
 				.then(res => {
-					if(true) {
-						const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b> Дождаться <i>оставшихся работников</i>\n\n<b>2)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n\n${MSG}`
-						const extra = {parse_mode: `HTML`}
-						return telegramApi.sendMessage(executorId, reply, extra)
-					}	
+					const name = JSON.parse(res.data.check)[0].name;
+					let phone = JSON.parse(res.data.check)[0].phone;
+					if (phone[0] == '7') {
+						phone = '+' + phone;
+					}
+
+					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
+					MSG = msg
+
+					const execNeed = ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1);
 				})
+
+				// Check the number of the worker who took the order
+				if (execNumber === 1) {
+					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
+					order_id: orderId,	
+					executor_id: executorId
+					})
+					.then(res => {
+						execNumber++;
+						const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b> Дождаться <i>оставшихся работников</i>\n\n<b>2)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n\n${MSG}`
+						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
+					})
+				} else if (execNumber >> 1){
+					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
+					order_id: orderId,	
+					executor_id: executorId
+					})
+					.then(res => {
+						execNumber++;
+						const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, ожидайте, когда он с вами свяжется 📱`
+						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
+					})
+				}
+
+				// Push notification
+				ctx.answerCbQuery(`Заказ приняли ${execNumber} из ${execNeed} рабочих 👷`)
+				if (execNumber === execNeed) {
+					// block button
+				}
 			}
 		})		
-	})
-
-	bot.action(/.+/, (ctx) => {
-		return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`)
 	})
 	
 	bot.launch()
