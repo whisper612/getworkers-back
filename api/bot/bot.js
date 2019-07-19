@@ -58,6 +58,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		}
 	})
 	
+	bot.use(telegrafObject.log())
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
 		var execNumber = 0
@@ -171,6 +172,5 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		})		
 	})
 	
-	bot.use(telegrafObject.log())
 	bot.launch()
 }
