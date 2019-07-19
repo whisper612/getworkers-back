@@ -61,8 +61,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		var execNumber = 0;
 
 		//console.log('!!!Update context only!!!', ctx.update)
-		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const executorId = ctx.update.callback_query.from.id;
+		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
+		const execNeed = ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1);
 
 		// Availability order check 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
@@ -87,8 +88,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 
 					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 					MSG = msg
-
-					const execNeed = ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1);
 				})
 
 				// Check the number of the worker who took the order
