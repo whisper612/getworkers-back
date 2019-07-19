@@ -82,8 +82,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				.then(res => {
 					const name = JSON.parse(res.data.check).name;
 					let phone = JSON.parse(res.data.check).phone;
-					console.log(name);
-					console.log(phone);
 					if (phone[0] == '7') {
 						phone = '+' + phone;
 					}
@@ -94,7 +92,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					})
 					.then(res => {
 						execNumber = JSON.parse(res.data.check).executors_number;
-						console.log(execNumber);
+						console.log(1111, execNumber);
 					})
 
 					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
@@ -103,6 +101,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 
 				// Check the number of the worker who took the order
+				console.log(2222, execNumber);
 				if (execNeed === 1) {
 					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 					order_id: orderId,	
@@ -155,6 +154,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				}
 				 
 				// Push notification
+				console.log(3333, execNumber);
 				ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 				if (execNumber === execNeed) {
 					// block button
