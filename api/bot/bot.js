@@ -63,7 +63,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const execNeed = parseInt(ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1), 10);
-		console.log(execNeed)
 
 		// Availability order check 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
