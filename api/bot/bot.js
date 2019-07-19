@@ -153,10 +153,18 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					}
 
 					// Push notification
-					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
+					ctx.answerCbQuery(`Заказ отправлен в личные сообщения\n\nЕго принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
 						// console.log(ctx.update.message.chat)
-						telegramApi.editMessageReplyMarkup(ctx.update.message.chat.chat_id, ctx.update.message.message_id,{InlineKeyboardMarkup: text = '', callback_data = ''})
+						const extra = {
+							reply_markup: JSON.stringify({
+								inline_keyboard: [
+									[{text: `🛠️ Взяться за работу`, callback_data: `🛠️`}]
+								]
+							})
+						}
+
+						telegramApi.editMessageReplyMarkup(ctx.update.message.chat.chat_id, ctx.update.message.message_id, extra)
 					}
 
 				})
