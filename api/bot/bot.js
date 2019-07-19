@@ -58,7 +58,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 	
-	bot.action('🛠️', (ctx, telegrafObject) => {
+	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
 		var execNumber = 0
 		const executorId = ctx.update.callback_query.from.id;
@@ -155,7 +155,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-						bot.use(telegrafObject.log())
 						const extra = {
 							reply_markup: JSON.stringify({
 								inline_keyboard: [
@@ -172,5 +171,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})		
 	})
 	
+	bot.use(telegrafObject.log())
 	bot.launch()
 }
