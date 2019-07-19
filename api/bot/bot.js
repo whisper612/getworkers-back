@@ -57,9 +57,8 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 
+	var execNumber = 0;
 	bot.action('🛠️', (ctx) => {
-		var execNumber = 0;
-
 		//console.log('!!!Update context only!!!', ctx.update)
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
@@ -117,6 +116,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				ctx.answerCbQuery(`Заказ приняли ${execNumber} из ${execNeed} рабочих 👷`)
 				if (execNumber === execNeed) {
 					// block button
+					execNumber = 0;
 				}
 			}
 		})		
