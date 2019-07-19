@@ -2,7 +2,7 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const axios = require('axios')
 
-module.exports = function(bot, telegramApi, tokenObject) {
+module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 	// bot.use(telegrafObject.log())
 	// console.log(telegramApi)
 	// спасити(
@@ -162,7 +162,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 								]
 							})
 						}
-
+						bot.use(telegrafObject.log())
 						//telegramApi.editMessageReplyMarkup(ctx.update.message.chat.chat_id, ctx.update.message.message_id, extra)
 					}
 
@@ -171,6 +171,5 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		})		
 	})
 	
-	bot.use(telegrafObject.log())
 	bot.launch()
 }
