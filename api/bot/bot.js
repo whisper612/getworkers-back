@@ -92,6 +92,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					})
 					.then(res => {
 						execNumber = JSON.parse(res.data.check).executors_number;
+						console.log(execNumber)
 					})
 
 					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
