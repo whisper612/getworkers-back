@@ -174,8 +174,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 	setTimeout(function herokuExploit() { 
 		axios.get('https://getworkers-back.herokuapp.com/wakeup_neo')
 
-		setTimeout(herokuExploit, 10000)
-	}, 5000);
+		setTimeout(herokuExploit, 1740000)
+	}, 100);
 	//1500000
 
 	bot.launch()
