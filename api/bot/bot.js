@@ -58,7 +58,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		}
 	})
 	
-	bot.use(telegrafObject.log())
+	//bot.use(telegrafObject.log())
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
 		var execNumber = 0
@@ -165,7 +165,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							})
 						}
 						
-						//console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ctx.update.chat)
+						console.log(ctx)
+						console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ctx.update)
 						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.message.message_id, reply_markup)
 					}
 
