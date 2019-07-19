@@ -276,7 +276,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             res.status(500).send('Error when executor info selecting: recieved wrong data')
         } else {
         const query = 
-            `UPDATE orders SET executors_number WHERE order_id = ?`;
+            `UPDATE orders SET executors_number = ? WHERE order_id = ?`;
 
             pool.query(
                 query, [orderId, execNumber], 
