@@ -41,7 +41,8 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		  .then(res => {
 			  if(res.data.check === ctx.update.message.contact.user_id) {
 				console.log(res.data);
-				return ctx.reply(`<b>Вы успешно зарегестрированы!</b> \n<i>Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.</i>\n\n${tokenObject.chatLink}`, {parse_mode: 'HTML'})
+				return ctx.reply(`<b>Вы успешно зарегестрированы!</b>
+				<i>Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.</i>\n\n${tokenObject.chatLink}`, {parse_mode: 'HTML'})
 			  } else if (res.data.code === 'ER_DUP_ENTRY') {
 				console.log(res.data.code);
 				return ctx.reply('Вы уже зарегестрированны. Если вы хотите удалить свой профиль, то свяжитесь с администратором.')
@@ -91,14 +92,26 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 
 				// Check the number of the worker who took the order
-				if (execNumber === 1) {
+				if (execNumber === 1 && execNeed === 1) {
 					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 					order_id: orderId,	
 					executor_id: executorId
 					})
 					.then(res => {
-						
-						const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b> Дождаться <i>оставшихся работников</i>\n\n<b>2)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n\n${MSG}`
+						const reply = `<b>Вы откликнулись на заказ!</b>\n\nТеперь вам нужно: <i>связаться с заказчиком и быть вовремя.</i>\n\n${MSG}`
+						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
+					})
+				} else if (execNumber === 1) {
+					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
+					order_id: orderId,	
+					executor_id: executorId
+					})
+					.then(res => {
+						const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n
+						<b>1)</b> Дождаться <i>оставшихся работников</i> 👷, они с вами свяжутся.
+						<b>2)</b> Связаться с <i>заказчиком</i> и уточнить детали встречи.
+						<b>3)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n
+						<b>Принятый заказ:</b>\n${MSG}`
 						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 					})
 				} else if (execNumber >> 1){
@@ -107,11 +120,11 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					executor_id: executorId
 					})
 					.then(res => {
-						const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, ожидайте, когда он с вами свяжется 📱`
+						const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, вам нужно с ним <b>связаться</b> 📱 чтобы отправиться к заказчику <b>вместе</b>`
 						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 					})
 				}
-
+				 
 				// Push notification
 				ctx.answerCbQuery(`Заказ приняли ${execNumber} из ${execNeed} рабочих 👷`)
 				if (execNumber === execNeed) {
