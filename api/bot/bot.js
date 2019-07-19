@@ -82,6 +82,8 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				.then(res => {
 					const name = JSON.parse(res.data.check).name;
 					let phone = JSON.parse(res.data.check).phone;
+					console.log(name);
+					console.log(phone);
 					if (phone[0] == '7') {
 						phone = '+' + phone;
 					}
@@ -92,7 +94,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					})
 					.then(res => {
 						execNumber = JSON.parse(res.data.check).executors_number;
-						console.log(execNumber)
+						console.log(execNumber);
 					})
 
 					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
