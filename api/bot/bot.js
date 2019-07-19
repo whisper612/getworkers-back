@@ -64,6 +64,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const execNeed = ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1);
+		console.log(execNeed)
 
 		// Availability order check 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
@@ -73,7 +74,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			const rcvOrderId = JSON.parse(res.data.check).order_id
 			console.log(rcvOrderId)
 			if (rcvOrderId !== '') {
-				return telegramApi.sendMessage(executorId, `Вы уже взяли заказ под номером ${rcvOrderId}`)
+				return ctx.answerCbQuery(`Вы уже взяли заказ под номером ${rcvOrderId}`)
 			} else {	// Сustomer name and phone recieve
 				var MSG = '';
 				axios.post(`https://getworkers-back.herokuapp.com/select_order${tokenObject.selectOrderReq}`, {
