@@ -154,7 +154,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
-					if (execNumber == execNeed) {
+					if (execNumber === execNeed) {
 						console.log(ctx.update)
 						// telegramApi.editMessageReplyMarkup(ctx.update,{InlineKeyboardMarkup: text = '', callback_data = ''})
 					}
