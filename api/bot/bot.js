@@ -162,7 +162,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								]
 							})
 						}
-						bot.use(telegrafObject.log())
+						
 						//telegramApi.editMessageReplyMarkup(ctx.update.message.chat.chat_id, ctx.update.message.message_id, extra)
 					}
 
@@ -171,5 +171,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		})		
 	})
 	
+	bot.use(telegrafObject.log())
 	bot.launch()
 }
