@@ -164,7 +164,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							})
 						}
 						
-						//telegramApi.editMessageReplyMarkup(ctx.update.message.chat.chat_id, ctx.update.message.message_id, extra)
+						telegramApi.editMessageReplyMarkup(ctx.update.chat.id, ctx.update.message.message_id, extra)
 					}
 
 				})
