@@ -271,17 +271,14 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const orderId = req.body.order_id;
         const execNumber = req.body.executors_number;
 
-        console.log(`DB REQ:::::`, orderId, execNumber);
-
         if (orderId === undefined || execNumber === undefined) {
             console.log('Error: /update_exec_number: recieved wrong data');
             res.send('Error when executor info selecting: recieved wrong data')
         } else {
-        const query = 
-            `UPDATE orders SET executors_number = ? WHERE order_id = ?`;
+        const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`;
 
             pool.query(
-                query, [orderId, execNumber], 
+                query, [execNumber, orderId], 
                 (err, result, fields) => {
                     if (err || result.affectedRows < 1) {
                         console.log(err, `Error: /update_exec_number: affected rows ${result.affectedRows} < 1`)
