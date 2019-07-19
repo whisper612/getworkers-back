@@ -57,10 +57,10 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			.keyboard([ ['🗄️ Регистрация'] ]).oneTime().resize().extra())
 		}
 	})
-
-	var execNumber = 0
+	
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
+		var execNumber = 0
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const execNeed = parseInt(ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1), 10);
@@ -153,14 +153,16 @@ module.exports = function(bot, telegramApi, tokenObject) {
 						})
 					}
 
+					// Push notification
+					console.log(3333, execNumber);
+					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
+					if (execNumber === execNeed) {
+						// block button
+					}
+
 				})
 				 
-				// Push notification
-				console.log(3333, execNumber);
-				ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
-				if (execNumber === execNeed) {
-					// block button
-				}
+				
 			}
 		})		
 	})
