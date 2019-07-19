@@ -265,7 +265,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         }
     })
 
-
     //    ----------    Update executor number from orders   ----------
     app.post(`/update_exec_number${tokenObject.updateExecNum}`, (req, res) => {
         const orderId = req.body.order_id;
