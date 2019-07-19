@@ -76,6 +76,15 @@ module.exports = function(bot, telegramApi, tokenObject) {
 			} else {	// Сustomer name and phone recieve
 				var MSG = '';
 
+				// Select number of current executor from DB
+				axios.post(`https://getworkers-back.herokuapp.com/select_exec_number${tokenObject.selectExecNum}`, {
+					order_id: orderId
+				})
+				.then(res => {
+					var execNumber = JSON.parse(res.data.check).executors_number;
+					console.log(1111, execNumber);
+				})
+
 				axios.post(`https://getworkers-back.herokuapp.com/select_order${tokenObject.selectOrderReq}`, {
 					order_id: orderId
 				})
@@ -89,15 +98,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 					MSG = msg
 					execNumber++;
-				})
-
-				// Select number of current executor from DB
-				axios.post(`https://getworkers-back.herokuapp.com/select_exec_number${tokenObject.selectExecNum}`, {
-					order_id: orderId
-				})
-				.then(res => {
-					var execNumber = JSON.parse(res.data.check).executors_number;
-					console.log(1111, execNumber);
 				})
 
 				// Check the number of the worker who took the order
