@@ -58,9 +58,9 @@ module.exports = function(bot, telegramApi, tokenObject) {
 		}
 	})
 
+	var execNumber = 0
 	bot.action('🛠️', (ctx) => {
 		//console.log('!!!Update context only!!!', ctx.update)
-		var execNumber = 0
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const execNeed = parseInt(ctx.update.callback_query.message.text.match(/\s\d{1,3}\n/)[0].slice(1,-1), 10);
