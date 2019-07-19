@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 // server modules routes
 require('./api/cors/cors_route')(app)
 require('./api/admin/admin_authentication')(app, pool, tokenObject)
-require('./api/bot/bot')(bot, telegramApi, tokenObject)
+require('./api/bot/bot')(bot, telegramApi, telegrafObject, tokenObject)
 require('./api/database/db_requests')(app, pool, telegramApi, tokenObject) 
 
 // server logs
