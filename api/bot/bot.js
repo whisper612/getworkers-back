@@ -170,7 +170,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		})		
 	})
 	
-	setTimeout(function() { alert(axios.get('https://getworkers-back.herokuapp.com/wakeup_neo')) }, 1000);
+	// Heroku exploit
+	setTimeout(function() { axios.get('https://getworkers-back.herokuapp.com/wakeup_neo') }, 1000);
 	//1500000
 
 	bot.launch()
