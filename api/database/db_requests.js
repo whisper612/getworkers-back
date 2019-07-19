@@ -129,8 +129,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                         console.log(err, `Error: /select_order: affected rows ${result.affectedRows} < 1`)
                         res.send(err)
                     } else {
-                        console.log(JSON.stringify(result))
-                        res.send({ check: JSON.stringify(result) })
+                        res.send({ check: JSON.stringify(result[0]) })
                     }
                 }
             );
@@ -265,6 +264,59 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             );
         }
     })
+
+
+    //    ----------    Update executor number from orders   ----------
+    app.post(`/update_exec_number${tokenObject.updateExecNum}`, (req, res) => {
+        const orderId = req.body.order_id;
+        const execNumber = req.body.executors_number;
+
+        if (orderId === undefined) {
+            console.log('Error: /update_exec_number: recieved wrong data');
+            res.status(500).send('Error when executor info selecting: recieved wrong data')
+        } else {
+        const query = 
+            `UPDATE orders SET executors_number WHERE order_id = ?`;
+
+            pool.query(
+                query, [orderId, execNumber], 
+                (err, result, fields) => {
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error: /update_exec_number: affected rows ${result.affectedRows} < 1`)
+                        res.send(err)
+                    } else {
+                        res.send('Success')
+                    }
+                }
+            );
+        }
+    })
+
+    //    ----------    Select executor number from orders   ----------
+    app.post(`/select_exec_number${tokenObject.selectExecNum}`, (req, res) => {
+        const orderId = req.body.order_id;
+
+        if (orderId === undefined) {
+            console.log('Error: /select_exec_number: recieved wrong data');
+            res.status(500).send('Error when executor info selecting: recieved wrong data')
+        } else {
+        const query = 
+            `SELECT executors_number FROM orders WHERE order_id = ?`;
+
+            pool.query(
+                query, [orderId], 
+                (err, result, fields) => {
+                    if (err || result.affectedRows < 1) {
+                        console.log(err, `Error: /select_exec_number: affected rows ${result.affectedRows} < 1`)
+                        res.send(err)
+                    } else {
+                        res.send({ check: JSON.stringify(result[0]) })
+                    }
+                }
+            );
+        }
+    })
+
 
     //    ----------    Update executor order   ----------
     app.post(`/update_executor${tokenObject.updateExecReq}`, (req, res) => {
