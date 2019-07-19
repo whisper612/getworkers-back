@@ -88,6 +88,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 
 					const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 					MSG = msg
+					execNumber++;
 				})
 
 				// Check the number of the worker who took the order
@@ -97,7 +98,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					executor_id: executorId
 					})
 					.then(res => {
-						execNumber++;
+						
 						const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n<b>1)</b> Дождаться <i>оставшихся работников</i>\n\n<b>2)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n\n${MSG}`
 						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 					})
@@ -107,7 +108,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					executor_id: executorId
 					})
 					.then(res => {
-						execNumber++;
 						const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, ожидайте, когда он с вами свяжется 📱`
 						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 					})
