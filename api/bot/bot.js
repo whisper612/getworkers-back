@@ -154,10 +154,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					}
 
 				})
-
-				
-
-				
 				 
 				// Push notification
 				console.log(3333, execNumber);
