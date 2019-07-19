@@ -106,8 +106,6 @@ const Telegraf = require('telegraf')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
-const bot = new Telegraf(process.env.BOT_TOKEN)
-
 bot.use(Telegraf.log())
 
 bot.command('onetime', ({ reply }) =>
