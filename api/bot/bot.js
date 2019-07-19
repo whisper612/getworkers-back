@@ -92,7 +92,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 				})
 
 				// Check the number of the worker who took the order
-				if (execNumber === 1 && execNeed === 1) {
+				if (execNeed === 1) {
 					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 					order_id: orderId,	
 					executor_id: executorId
@@ -114,7 +114,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 						<b>Принятый заказ:</b>\n${MSG}`
 						return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 					})
-				} else if (execNumber >> 1){
+				} else if (execNumber > 1){
 					axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 					order_id: orderId,	
 					executor_id: executorId
