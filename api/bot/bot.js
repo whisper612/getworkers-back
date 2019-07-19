@@ -165,11 +165,10 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							})
 						}
 						
-						console.log(ctx)
-						console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ctx.update)
-						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.message.message_id, reply_markup)
+						// console.log(ctx)
+						// console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', ctx.update)
+						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.update.callback_query.message.message_id, reply_markup)
 					}
-
 				})
 			}
 		})		
