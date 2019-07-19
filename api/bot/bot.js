@@ -155,11 +155,11 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ отправлен в личные сообщения\n\nЕго принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-						console.log(ctx.update.message.chat)
+						console.log(ctx.update.message)
 						const extra = {
 							reply_markup: JSON.stringify({
 								inline_keyboard: [
-									[{text: `🛠️ Взяться за работу`, callback_data: `🛠️`}]
+									[{text: '', callback_data: ''}]
 								]
 							})
 						}
