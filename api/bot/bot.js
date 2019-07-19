@@ -162,8 +162,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 					}
 
 				})
-				 
-				
 			}
 		})		
 	})

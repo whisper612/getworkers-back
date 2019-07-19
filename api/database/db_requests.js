@@ -271,7 +271,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const orderId = req.body.order_id;
         const execNumber = req.body.executors_number;
 
-        if (orderId === undefined) {
+        if (orderId === undefined || execNumber === undefined) {
             console.log('Error: /update_exec_number: recieved wrong data');
             res.status(500).send('Error when executor info selecting: recieved wrong data')
         } else {
