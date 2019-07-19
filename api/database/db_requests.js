@@ -117,7 +117,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
 
         if (orderId === undefined) {
             console.log('Error: /select_order: recieved wrong data');
-            res.status(500).send('Error when order info selecting: recieved wrong data')
+            res.send('Error when order info selecting: recieved wrong data')
         } else {
         const query = 
             `SELECT name, phone FROM orders WHERE order_id = ?`;
@@ -246,7 +246,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
 
         if (executorId === undefined) {
             console.log('Error: /select_executor: recieved wrong data');
-            res.status(500).send('Error when executor info selecting: recieved wrong data')
+            res.send('Error when executor info selecting: recieved wrong data')
         } else {
         const query = 
             `SELECT order_id FROM executors_list WHERE executor_id = ?`;
@@ -273,7 +273,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
 
         if (orderId === undefined || execNumber === undefined) {
             console.log('Error: /update_exec_number: recieved wrong data');
-            res.status(500).send('Error when executor info selecting: recieved wrong data')
+            res.send('Error when executor info selecting: recieved wrong data')
         } else {
         const query = 
             `UPDATE orders SET executors_number = ? WHERE order_id = ?`;
@@ -298,7 +298,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
 
         if (orderId === undefined) {
             console.log('Error: /select_exec_number: recieved wrong data');
-            res.status(500).send('Error when executor info selecting: recieved wrong data')
+            res.send('Error when executor info selecting: recieved wrong data')
         } else {
         const query = 
             `SELECT executors_number FROM orders WHERE order_id = ?`;
@@ -327,7 +327,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
 
         if (executorId === undefined) {
             console.log('Error: /update_executor: recieved wrong data');
-            res.status(500).send('Error when executor info updating: recieved wrong data')
+            res.send('Error when executor info updating: recieved wrong data')
         } else {
             const query = 
             `UPDATE executors_list SET order_id = ? WHERE executor_id = ?;`;
