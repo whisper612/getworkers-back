@@ -93,7 +93,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						}
 
 						MSG = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
-						execNumber++;
 					})
 
 						// Check the number of the worker who took the order
@@ -113,7 +112,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber === 0 && execNeed !== 1) {
-						execNumber++
+						execNumber++;
 						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 							order_id: orderId,
 							executors_number: execNumber
@@ -137,7 +136,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						});
 
 					} else if (execNumber > 0){
-						execNumber++
+						execNumber++;
 						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
