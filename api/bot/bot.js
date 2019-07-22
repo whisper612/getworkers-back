@@ -155,14 +155,15 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
 
-						const reply_markup = {
-							InlineKeyboardMarkup: JSON.stringify({
+						const InlineKeyboardMarkup = {
+							reply_markup: JSON.stringify({
 								inline_keyboard: [
 									[{text: '🛑', callback_data: '🛑'}]
 								]
 							})
 						}
-						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.update.callback_query.message.message_id, reply_markup)
+
+						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.update.callback_query.message.message_id, InlineKeyboardMarkup)
 					}
 				})
 			}
