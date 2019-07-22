@@ -132,8 +132,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								<b>Детали заказа:</b>\n${MSG}`;
 	
 								return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
-							})
-						})
+							});
+						});
 
 					} else if (execNumber > 1){
 						var reply = ''
