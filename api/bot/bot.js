@@ -17,8 +17,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Logs has been sent to the server console',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]
-			console.log('!!!All context!!!', ctx),
-			console.log('!!!Update context only!!!', ctx.update)
+			// console.log('!!!All context!!!', ctx),
+			// console.log('!!!Update context only!!!', ctx.update)
 			)	
 		}
     });
@@ -61,7 +61,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 	bot.action('🛠️', (ctx) => {
 		var execNumber = 0
 		const executorId = ctx.update.callback_query.from.id;
-		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
+		var orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
 		const execNeed = parseInt(ctx.update.callback_query.message.text.match(/нужно:\s\d{1,3}/).toString().match(/\d{1,3}/).toString());
 
 		// Availability order check 
@@ -70,7 +70,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		})
 		.then(res => {
 			const rcvOrderId = JSON.parse(res.data.check).order_id
-			console.log(rcvOrderId)
 				if (rcvOrderId !== '') {
 					return ctx.answerCbQuery(`Вы уже взяли заказ под номером ${rcvOrderId}`)
 				} else {	// Сustomer name and phone recieve
@@ -115,6 +114,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber === 1 && execNeed !== 1) {
+						orderId += '_'
+						console.log('ORDERID БЛЯЯЯЯЯЯЯЯТЬ', orderId)
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
@@ -126,7 +127,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							🚚 <b>3)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n
 							<b>Детали заказа:</b>\n${MSG}`;
 
-							console.log(`Before axios`, execNumber);
 							axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 								order_id: orderId,
 								executors_number: execNumber
@@ -169,13 +169,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 			}
 		})		
 	})
-
-	// Heroku exploit
-	setTimeout(function herokuExploit() { 
-		axios.get('https://getworkers-back.herokuapp.com/wakeup_neo')
-
-		setTimeout(herokuExploit, 1500000)
-	}, 1000000);
 
 	bot.launch()
 }

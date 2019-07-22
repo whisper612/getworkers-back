@@ -230,6 +230,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         
         console.log(req.body);
 
+        // не смотрите сюда, пожалуйста, мне стыдно ;(
         if (orderId == '') {
             const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
             pool.query(
@@ -237,16 +238,12 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                 (err, result, fields) => {
                     orderId = JSON.parse(JSON.stringify(result[0])).order_id
                     
-
-                    console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ1111111', orderId)
                     if (orderId !== null) {
-                        console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ222222222222', orderId)
                         const query = `SELECT executors_number FROM orders WHERE order_id = ?`
                         pool.query(
                             query, [orderId],
                             (err, result, fields) => {
                                 var execNumber = JSON.parse(JSON.stringify(result[0])).executors_number
-                                console.log('ПРОВЕРКА БЛЯЯЯЯЯЯЯЯЯЯЯ№№№№№№№№№№№№№', execNumber)
                                 if (execNumber !== null) {
                                     execNumber--
                                     const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`
@@ -361,7 +358,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             );
         }
     })
-
 
     //    ----------    Update executor order   ----------
     app.post(`/update_executor${tokenObject.updateExecReq}`, (req, res) => {
