@@ -364,6 +364,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
 app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
     const orderId = req.body.order_id + '*';
 
+    console.log('ORDERID ЁБАННЫЙ',orderId)
+
     if (orderId === undefined) {
         console.log('Error: /select_first_exec: recieved wrong data');
         res.send('Error when executor info selecting: recieved wrong data')
