@@ -424,7 +424,7 @@ app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
             console.log('Error: /kick_executor: recieved wrong data');
             res.status(500).send('Error when kick executor: recieved wrong data')
         } else {
-            const until_date = new Date(new Date().getTime() + /*3 * 24 * 60 **/ 60 * 1000);
+            const until_date = new Date(new Date().getTime() + /*3 * 24 **/ 60 * 60 * 1000);
 
             telegramApi.kickChatMember(tokenObject.chatId, executorId, until_date)
             res.send('Successfully banned from workers chat')
