@@ -112,7 +112,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
-					} else if (execNumber === 1 && execNeed !== 1) {
+					} else if (execNumber === 0 && execNeed !== 1) {
 						execNumber++
 						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 							order_id: orderId,
@@ -135,8 +135,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 							});
 						});
-						
-					} else if (execNumber > 1){
+
+					} else if (execNumber > 0){
 						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
