@@ -113,13 +113,13 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber === 1 && execNeed !== 1) {
-						
 						execNumber++
 						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 							order_id: orderId,
 							executors_number: execNumber
 						})
 						.then(res => {
+							execNumber--
 							console.log('ЗАЛУУУУУУУУПААА!!!2222222222222222222222', orderId)
 							orderId += '*'
 							axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
@@ -148,6 +148,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								order_id: orderId
 							})
 							.then(res => {
+								console.log('check на боте !!!!!!!!', res.data.check)
 								const name = JSON.parse(res.data.check).name;
 								const phone = JSON.parse(res.data.check).phone;
 								reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, 
