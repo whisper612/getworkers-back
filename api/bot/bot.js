@@ -17,8 +17,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 			console.log('New developer has been spotted!')
 			return ctx.reply('Logs has been sent to the server console',
 			// console.log(ctx.update.message.entities) [ { offset: 0, length: 6, type: 'bot_command' } ]
-			// console.log('!!!All context!!!', ctx),
-			// console.log('!!!Update context only!!!', ctx.update)
+			console.log('!!!All context!!!', ctx),
+			console.log('!!!Update context only!!!', ctx.update)
 			)	
 		}
     });
