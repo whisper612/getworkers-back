@@ -114,8 +114,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber === 1 && execNeed !== 1) {
-						orderId += '_'
-						console.log('ORDERID БЛЯЯЯЯЯЯЯЯТЬ', orderId)
+						
+						console.log('ORDERID БЛЯЯЯЯЯЯЯЯТЬ111', orderId)
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
@@ -132,6 +132,8 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								executors_number: execNumber
 							})
 
+							orderId += '_'
+							console.log('ORDERID БЛЯЯЯЯЯЯЯЯТЬ222', orderId)
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber > 1){
