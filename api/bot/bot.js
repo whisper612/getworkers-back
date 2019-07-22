@@ -158,11 +158,10 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						const reply_markup = {
 							InlineKeyboardMarkup: JSON.stringify({
 								inline_keyboard: [
-									[{text: '', callback_data: ''}]
+									[{text: '🛑', callback_data: '🛑'}]
 								]
 							})
 						}
-						
 						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.update.callback_query.message.message_id, reply_markup)
 					}
 				})
@@ -170,6 +169,10 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		})		
 	})
 	
+	bot.action('🛑', (ctx) => {
+		return ctx.answerCbQuery(`На данный заказ уже набрано достаточное количество работников`)
+	})
+
 	// Heroku exploit
 	setTimeout(function herokuExploit() { 
 		axios.get('https://getworkers-back.herokuapp.com/wakeup_neo')
