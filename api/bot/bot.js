@@ -93,6 +93,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						}
 
 						MSG = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
+						execNumber++;
 					})
 
 						// Check the number of the worker who took the order
