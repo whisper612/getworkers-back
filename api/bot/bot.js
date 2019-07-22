@@ -97,7 +97,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					})
 
 						// Check the number of the worker who took the order
-					if (execNeed === 10) {
+					if (execNeed === 1) {
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
@@ -112,7 +112,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
-					} else if (execNumber > 1) {
+					} else if (execNumber === 1 && execNeed !== 1) {
 						execNumber++
 						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 							order_id: orderId,
@@ -137,7 +137,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							});
 						});
 
-					} else if (execNumber === 1 && execNeed !== 1){
+					} else if (execNumber > 1){
 						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
