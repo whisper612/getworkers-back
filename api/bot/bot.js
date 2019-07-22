@@ -115,7 +115,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						})
 					} else if (execNumber === 1 && execNeed !== 1) {
 						
-						console.log('ORDERID БЛЯЯЯЯЯЯЯЯТЬ111', orderId)
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
@@ -132,8 +131,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								executors_number: execNumber
 							})
 
-							orderId += '_'
-							console.log('ORDERID БЛЯЯЯЯЯЯЯЯТЬ222', orderId)
+							orderId += '*'
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber > 1){
@@ -142,7 +140,18 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						executor_id: executorId
 						})
 						.then(res => {
-							const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, вам нужно с ним <b>связаться</b> 📞 чтобы отправиться к заказчику <b>вместе</b>`;
+							axios.post(`https://getworkers-back.herokuapp.com/select_first_exec${tokenObject.selectFirstExec}`, {
+								order_id: orderId
+							})
+							.then(res => {
+								const name = JSON.parse(res.data.check).name;
+								const phone = JSON.parse(res.data.check).phone;
+							})
+							const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, 
+							вам нужно с ним <b>связаться</b> чтобы отправиться к заказчику <b>вместе</b>.
+							<b>Контакнтые данные:</b>
+							👷 <b>Имя:</b> ${name}
+							📞 <b>Телефон:</b> ${phone}`;
 
 							axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 								order_id: orderId,

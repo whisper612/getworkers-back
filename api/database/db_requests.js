@@ -359,6 +359,31 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         }
     })
 
+//    ----------    Select the first executor   ----------
+app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
+    const orderId = req.body.order_id + '*';
+
+    if (orderId === undefined) {
+        console.log('Error: /select_first_exec: recieved wrong data');
+        res.send('Error when executor info selecting: recieved wrong data')
+    } else {
+    const query = 
+        `SELECT name, phone FROM orders WHERE order_id = ?`;
+
+        pool.query(
+            query, [orderId], 
+            (err, result, fields) => {
+                if (err || result.affectedRows < 1) {
+                    console.log(err, `Error: /select_first_exec: affected rows ${result.affectedRows} < 1`)
+                    res.send(err)
+                } else {
+                    res.send({ check: JSON.stringify(result[0]) })
+                }
+            }
+        );
+    }
+})
+
     //    ----------    Update executor order   ----------
     app.post(`/update_executor${tokenObject.updateExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
