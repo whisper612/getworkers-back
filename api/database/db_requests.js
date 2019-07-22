@@ -378,6 +378,7 @@ app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
                     console.log(err, `Error: /select_first_exec: affected rows ${result.affectedRows} < 1`)
                     res.send(err)
                 } else {
+                    console.log('ЖОПААААААААААААААААА',JSON.stringify(result[0]))
                     res.send({ check: JSON.stringify(result[0]) })
                 }
             }
