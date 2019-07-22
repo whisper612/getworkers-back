@@ -132,11 +132,10 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								🚚 <b>3)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n
 								<b>Детали заказа:</b>\n${MSG}`;
 	
-								execNumber--
 								return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 							});
 						});
-
+						
 					} else if (execNumber > 1){
 						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
