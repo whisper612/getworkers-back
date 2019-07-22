@@ -92,8 +92,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							phone = '+' + phone;
 						}
 
-						const msg = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
-						MSG = msg
+						MSG = `👨 Имя заказчика: ${name}\n\n📱 Номер заказчика: ${phone}\n\n${ctx.update.callback_query.message.text}`;
 						execNumber++;
 					})
 
@@ -135,6 +134,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber > 1){
+						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
@@ -146,13 +146,13 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							.then(res => {
 								const name = JSON.parse(res.data.check).name;
 								const phone = JSON.parse(res.data.check).phone;
+								reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, 
+								вам нужно с ним <b>связаться</b> чтобы отправиться к заказчику <b>вместе</b>.
+								<b>Контакнтые данные:</b>
+								👷 <b>Имя:</b> ${name}
+								📞 <b>Телефон:</b> ${phone}`;
 							})
-							const reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, 
-							вам нужно с ним <b>связаться</b> чтобы отправиться к заказчику <b>вместе</b>.
-							<b>Контакнтые данные:</b>
-							👷 <b>Имя:</b> ${name}
-							📞 <b>Телефон:</b> ${phone}`;
-
+							
 							axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 								order_id: orderId,
 								executors_number: execNumber
