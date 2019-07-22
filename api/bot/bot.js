@@ -62,7 +62,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		var execNumber = 0
 		const executorId = ctx.update.callback_query.from.id;
 		const orderId = ctx.update.callback_query.message.text.match(/\d{6}/)[0];
-		const execNeed = parseInt(ctx.update.callback_query.message.text.match(/нужно:\s\d{1,3}/).toString().match(/\d/).toString());
+		const execNeed = parseInt(ctx.update.callback_query.message.text.match(/нужно:\s\d{1,3}/).toString().match(/\d{1,3}/).toString());
 
 		// Availability order check 
 		axios.post(`https://getworkers-back.herokuapp.com/select_executor${tokenObject.selectExecReq}`, {
@@ -158,7 +158,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						const extra = {
 							reply_markup: JSON.stringify({
 								inline_keyboard: [
-									[{text: '🛑', callback_data: '🛑'}]
+									[{text: '', callback_data: ''}]
 								]
 							})
 						}
@@ -168,10 +168,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 				})
 			}
 		})		
-	})
-	
-	bot.action('🛑', (ctx) => {
-		return ctx.answerCbQuery(`На данный заказ уже набрано достаточное количество работников`)
 	})
 
 	// Heroku exploit
