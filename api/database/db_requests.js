@@ -226,31 +226,44 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const executorId = req.body.executor_id;
         const name = req.body.name;
         const phone = req.body.phone;
-        const orderId = req.body.order_id;
+        var orderId = req.body.order_id;
         
         console.log(req.body);
 
-        const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
-        pool.query(
-            query, [executorId],
-            (err, result, fields) => {
-                const execNumber = JSON.stringify(result[0])
-                console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ1111111', execNumber)
-                if (execNumber !== null) {
-                    console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ222222222222', execNumber)
-                    const query = `SELECT executors_number FROM orders WHERE order_id = ?`
-                    pool.query(
-                        query, [orderId],
-                        (err, result, fields) => {
-                            if (execNumber !== null) {
-                               
-                                execNumber--
+        if (orderId == '') {
+            const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
+            pool.query(
+                query, [executorId],
+                (err, result, fields) => {
+                    orderId = JSON.parse(JSON.stringify(result[0])).order_id
+                    
+
+                    console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ1111111', orderId)
+                    if (orderId !== null) {
+                        console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ222222222222', orderId)
+                        const query = `SELECT executors_number FROM orders WHERE order_id = ?`
+                        pool.query(
+                            query, [orderId],
+                            (err, result, fields) => {
+                                var execNumber = JSON.parse(JSON.stringify(result[0])).executors_number
+                                console.log('ПРОВЕРКА БЛЯЯЯЯЯЯЯЯЯЯЯ№№№№№№№№№№№№№', execNumber)
+                                if (execNumber !== null) {
+                                    execNumber--
+                                    const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`
+                                    pool.query(
+                                        query, [execNumber, orderId],
+                                        (err, result, fields) => {
+                                            if (err)
+                                            console.log('Всё плохо')
+                                        }
+                                    );
+                                }
                             }
-                        }
-                    );
+                        );
+                    }
                 }
-            }
-        );
+            );
+        }
 
         if (executorId === undefined) {
             console.log('Error: /edit_executor: recieved wrong data');
