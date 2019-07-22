@@ -137,6 +137,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						});
 
 					} else if (execNumber > 0){
+						execNumber++
 						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
