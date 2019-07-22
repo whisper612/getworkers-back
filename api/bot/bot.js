@@ -113,25 +113,25 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber === 1 && execNeed !== 1) {
+						
+						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
+							order_id: orderId,
+							executors_number: execNumber
+						})
+
 						orderId += '*'
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
 						})
 						.then(res => {
-							axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
-								order_id: orderId,
-								executors_number: execNumber
-							})
-							.then(res => {
-								const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n
-								👷 <b>1)</b> Дождаться <i>оставшихся работников</i>, они с вами свяжутся.
-								📞 <b>2)</b> Связаться с <i>заказчиком</i> и уточнить детали встречи. 
-								🚚 <b>3)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n
-								<b>Детали заказа:</b>\n${MSG}`;
-	
-								return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
-							})
+							const reply = `<b>Вы первым откликнулись на заказ!</b>\n\nТеперь вам нужно:\n
+							👷 <b>1)</b> Дождаться <i>оставшихся работников</i>, они с вами свяжутся.
+							📞 <b>2)</b> Связаться с <i>заказчиком</i> и уточнить детали встречи. 
+							🚚 <b>3)</b> Cобраться вместе и отправиться к <i>заказчику</i>.\n
+							<b>Детали заказа:</b>\n${MSG}`;
+
+							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 						})
 					} else if (execNumber > 1){
 						var reply = ''
