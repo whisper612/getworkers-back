@@ -230,6 +230,28 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         
         console.log(req.body);
 
+        const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
+        pool.query(
+            query, [executorId],
+            (err, result, fields) => {
+                const execNumber = JSON.stringify(result[0])
+                console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ1111111', execNumber)
+                if (execNumber !== null) {
+                    console.log('ПРОВЕЕЕЕЕЕЕЕРКААА БЛЯ222222222222', execNumber)
+                    const query = `SELECT executors_number FROM orders WHERE order_id = ?`
+                    pool.query(
+                        query, [orderId],
+                        (err, result, fields) => {
+                            if (execNumber !== null) {
+                               
+                                execNumber--
+                            }
+                        }
+                    );
+                }
+            }
+        );
+
         if (executorId === undefined) {
             console.log('Error: /edit_executor: recieved wrong data');
             res.status(500).send('Error when executor info editing: recieved wrong data')
@@ -244,6 +266,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                         console.log(err, `Error: /edit_executor: affected rows ${result.affectedRows} < 1`)
                         res.send(err)
                     } else {
+                        const query =
                         res.send({check: executorId, phone, name, orderId})
                     }
                 }
