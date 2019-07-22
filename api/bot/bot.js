@@ -117,10 +117,9 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							order_id: orderId,
 							executors_number: execNumber
 						})
-
-						orderId += '*'
+						
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
-						order_id: orderId,	
+						order_id: orderId += '*',	
 						executor_id: executorId
 						})
 						.then(res => {
