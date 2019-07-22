@@ -138,6 +138,11 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 
 					} else if (execNumber > 0){
 						execNumber++;
+						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
+							order_id: orderId,
+							executors_number: execNumber
+						})
+
 						var reply = ''
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
@@ -156,14 +161,9 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								<b>Контакнтые данные:</b>
 								👷 <b>Имя:</b> ${name}
 								📞 <b>Телефон:</b> ${phone}`;
-							})
-							
-							axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
-								order_id: orderId,
-								executors_number: execNumber
-							})
 
-							return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
+								return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
+							})
 						})
 					}
 
