@@ -170,7 +170,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-
 						const extra = {
 							reply_markup: JSON.stringify({
 								inline_keyboard: [
