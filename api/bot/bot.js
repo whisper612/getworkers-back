@@ -114,7 +114,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						})
 					} else if (execNumber === 1 && execNeed !== 1) {
 						
-						console.log('ЗАЛУУУУУУУУПААА!!!', orderId)
+						execNumber++
 						axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 							order_id: orderId,
 							executors_number: execNumber
