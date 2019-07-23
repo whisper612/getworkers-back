@@ -154,6 +154,9 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							.then(res => {
 								const name = JSON.parse(res.data.check).name;
 								const phone = JSON.parse(res.data.check).phone;
+								if (phone[0] == '7') {
+									phone = '+' + phone;
+								}
 								reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>,\nвам нужно с ним <b>связаться</b> чтобы отправиться к заказчику <b>вместе</b>.\n\n<b>Контакнтые данные:</b>
 								👷 <b>Имя:</b> ${name}
 								📞 <b>Телефон:</b> ${phone}`;
