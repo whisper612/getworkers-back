@@ -427,7 +427,6 @@ app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
             const until_date = new Date(new Date().getTime() + /*3 * 24 **/ 5 * 60 * 1000);
 
             telegramApi.kickChatMember(tokenObject.chatId, executorId, until_date)
-            res.send('Successfully banned from workers chat')
 
             const query = 
             `DELETE FROM executors_list WHERE executor_id = ?;`;
@@ -439,7 +438,7 @@ app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
                         console.log(err, `Error: /edit_executor: affected rows ${result.affectedRows} < 1`)
                         res.status(500).send(err)
                     } else {
-                        res.status(200).send('Successfully deleted')
+                        res.status(200).send('Successfully deleted and banned from workers chat')
                     }
                 }
             );
