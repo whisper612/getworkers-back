@@ -41,8 +41,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		  .then(res => {
 			  if(res.data.check === ctx.update.message.contact.user_id) {
 				console.log(res.data);
-				return ctx.reply(`<b>Вы успешно зарегестрированы!</b>
-				<i>Нажмите на ссылку чтобы присоединиться к груупе рабочих, где Вы сможете брать заказы.</i>\n\n${tokenObject.chatLink}`, {parse_mode: 'HTML'})
+				return ctx.reply(`<b>Вы успешно зарегестрированы!</b>\n\n<i>Нажмите на ссылку чтобы присоединиться к группе рабочих, где Вы сможете брать заказы.</i>\n\n${tokenObject.chatLink}`, {parse_mode: 'HTML'})
 			  } else if (res.data.code === 'ER_DUP_ENTRY') {
 				console.log(res.data.code);
 				return ctx.reply('Вы уже зарегестрированны. Если вы хотите удалить свой профиль, то свяжитесь с администратором.')
