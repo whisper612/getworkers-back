@@ -238,13 +238,13 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                 (err, result, fields) => {
                     orderId = JSON.parse(JSON.stringify(result[0])).order_id
                     
-                    if (orderId !== null) {
+                    if (orderId !== undefined) {
                         const query = `SELECT executors_number FROM orders WHERE order_id = ?`
                         pool.query(
                             query, [orderId],
                             (err, result, fields) => {
                                 var execNumber = JSON.parse(JSON.stringify(result[0])).executors_number
-                                if (execNumber !== null) {
+                                if (execNumber !== undefined) {
                                     execNumber--
                                     const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`
                                     pool.query(
