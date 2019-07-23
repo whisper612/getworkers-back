@@ -184,7 +184,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 			}
 		})
 		.catch((res) => {
-			return ctx.answerCbQuery(`Вы не зарегестрированы в системе, скорее всего вас исключили, в ином случае обратитесь к администратору.`)
+			return ctx.answerCbQuery(`Вас исключили, обратитесь к администратору.`)
 		})		
 	})
 
