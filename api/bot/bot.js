@@ -153,7 +153,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								order_id: orderId
 							})
 							.then(res => {
-								console.log('check на боте !!!!!!!!', res.data.check)
 								const name = JSON.parse(res.data.check).name;
 								const phone = JSON.parse(res.data.check).phone;
 								reply = `<b>Другой рабочий</b> принял заказ <b>первым</b>, 
