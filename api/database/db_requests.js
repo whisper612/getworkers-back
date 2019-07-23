@@ -73,7 +73,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         console.log(req.body);
 
         if (phone === '' && name === '' && address === '' && description === '' 
-        && price === '' && meeting_date_time === '' && executors_count === '' ) {
+        && price === '') {
             const query = 
             `UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;`
 
@@ -84,7 +84,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                     console.log(err, `Error /edit_order: affected rows ${result.affectedRows} < 1`)
                     res.send('Error when order editing: fatal error')
                 } else {
-                    res.send('Order STATUS was successfully editted')
+                    return res.send('Order STATUS was successfully editted')
                 }
             })
         }
