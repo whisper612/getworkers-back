@@ -27,8 +27,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const create_time = req.body.create_time;
         const status = req.body.status;
         const update_time = req.body.update_time;
-    
-        // console.log(orderId, ',', phone, ',', name, ',', address, ',', description, ',', photo, ',', price, ',', meeting_date_time, ',', executors_count, ',', create_time, ',', status, ',', update_time)
+
         console.log(req.body);
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
