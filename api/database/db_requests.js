@@ -231,36 +231,36 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         console.log(req.body);
 
         // не смотрите сюда, пожалуйста, мне стыдно ;(
-        if (orderId == '') {
-            const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
-            pool.query(
-                query, [executorId],
-                (err, result, fields) => {
-                    orderId = JSON.parse(JSON.stringify(result[0])).order_id
-                    
-                    if (orderId !== '' || orderId !== undefined || orderId !== null) {
-                        const query = `SELECT executors_number FROM orders WHERE order_id = ?`
-                        pool.query(
-                            query, [orderId],
-                            (err, result, fields) => {
-                                var execNumber = JSON.parse(JSON.stringify(result[0])).executors_number
-                                if (execNumber !== undefined || execNumber !== null) {
-                                    execNumber--
-                                    const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`
-                                    pool.query(
-                                        query, [execNumber, orderId],
-                                        (err, result, fields) => {
-                                            if (err)
-                                            console.log('Всё плохо')
-                                        }
-                                    );
-                                }
-                            }
-                        );
-                    }
-                }
-            );
-        }
+        // if (orderId == '') {
+        //     const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
+        //     pool.query(
+        //         query, [executorId],
+        //         (err, result, fields) => {
+        //             orderId = JSON.parse(JSON.stringify(result[0])).order_id
+
+        //             if (orderId !== '' || orderId !== undefined || orderId !== null) {
+        //                 const query = `SELECT executors_number FROM orders WHERE order_id = ?`
+        //                 pool.query(
+        //                     query, [orderId],
+        //                     (err, result, fields) => {
+        //                         var execNumber = JSON.parse(JSON.stringify(result[0])).executors_number
+        //                         if (execNumber !== undefined || execNumber !== null) {
+        //                             execNumber--
+        //                             const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`
+        //                             pool.query(
+        //                                 query, [execNumber, orderId],
+        //                                 (err, result, fields) => {
+        //                                     if (err)
+        //                                     console.log('Всё плохо')
+        //                                 }
+        //                             );
+        //                         }
+        //                     }
+        //                 );
+        //             }
+        //         }
+        //     );
+        // }
 
         if (executorId === undefined) {
             console.log('Error: /edit_executor: recieved wrong data');
