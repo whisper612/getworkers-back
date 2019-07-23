@@ -166,6 +166,16 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
+
+						axios.post(`https://getworkers-back.herokuapp.com/edit_order${tokenObject.editOrderReq}`, {
+							order_id: orderId,
+							status: 'В работе',
+							update_time: new Date()
+						})
+						.catch((res) => {
+							console.log('Error when edit status from bot', res)
+						})
+
 						const extra = {
 							reply_markup: JSON.stringify({
 								inline_keyboard: [
@@ -173,7 +183,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 								]
 							})
 						}
-
 						telegramApi.editMessageReplyMarkup(ctx.chat.id, ctx.update.callback_query.message.message_id, extra)
 					}
 				})
