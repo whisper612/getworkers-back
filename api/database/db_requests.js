@@ -72,8 +72,22 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         
         console.log(req.body);
 
-        if(phone === '' && name === '' && address === '' && description === '' 
-        && price === '' && meeting_date_time === '' && executors_count === '' )
+        if (phone === '' && name === '' && address === '' && description === '' 
+        && price === '' && meeting_date_time === '' && executors_count === '' ) {
+            const query = 
+            `UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;`
+
+            pool.query(
+                query, [status, update_time, orderId], 
+                (err, result, fields) => {
+                if (err || result.affectedRows < 1) {
+                    console.log(err, `Error /edit_order: affected rows ${result.affectedRows} < 1`)
+                    res.send('Error when order editing: fatal error')
+                } else {
+                    res.send('Order STATUS was successfully editted')
+                }
+            })
+        }
 
         if (orderId === undefined || status === undefined || update_time === undefined) {
             console.log('Error /edit_order: recieved wrong data');
