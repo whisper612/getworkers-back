@@ -166,10 +166,14 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-						axios.post(`https://getworkers-back.herokuapp.com/edit_order${tokenObject.editOrderReq}`, {
+						let d = new Date().toLocaleDateString().replace('.', '-').replace('.', '-')
+						let today = `${d.slice(6)}-${d.slice(3,5)}-${d.slice(0,2)}`;
+						const updateTime = `${today} ${new Date().toLocaleTimeString()}`;						
+												
+						axios.post(`https://getworkers-back.herokuapp.com/update_order_status${tokenObject.updOrderStat}`, {
 							order_id: orderId,
 							status: 'В работе',
-							update_time: new Date()
+							update_time: updateTime
 						})
 						.catch((res) => {
 							console.log('Error when edit status from bot', res)

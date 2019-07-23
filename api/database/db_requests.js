@@ -72,28 +72,10 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         
         console.log(req.body);
 
-        if (phone === '' && name === '' && address === '' && description === '' 
-        && price === '') {
-            const query = 
-            `UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;`
-
-            pool.query(
-                query, [status, update_time, orderId], 
-                (err, result, fields) => {
-                if (err || result.affectedRows < 1) {
-                    console.log(err, `Error /edit_order: affected rows ${result.affectedRows} < 1`)
-                    res.send('Error when order editing: fatal error')
-                } else {
-                    return res.send('Order STATUS was successfully editted')
-                }
-            })
-        }
-
         if (orderId === undefined || status === undefined || update_time === undefined) {
             console.log('Error /edit_order: recieved wrong data');
             res.status(500).send('Error when order editing: recieved wrong data')
-        } else if (phone != '' && name != '' && address != '' && description != '' 
-        && price != '') {
+        } else {
             const query = 
             `UPDATE orders SET phone = ?, name = ?, address = ?, description = ?, price = ?,
             meeting_date_time = ?, executors_count = ?, status = ?, update_time = ? WHERE order_id = ?;`;
@@ -139,6 +121,27 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             );
         }
     });
+
+    //    ----------    Update orders status    ----------
+    app.post(`/update_order_status${tokenObject.updOrderStat}`, (req, res) => {
+        const orderId = req.body.order_id;
+        const status = req.body.status;
+        const update_time = req.body.update_time;
+
+        const query = 
+        `UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;`
+    
+        pool.query(
+            query, [status, update_time, orderId], 
+            (err, result, fields) => {
+            if (err || result.affectedRows < 1) {
+                console.log(err, `Error /edit_order: affected rows ${result.affectedRows} < 1`)
+                res.send('Error when order editing: fatal error')
+            } else {
+                res.send('Order STATUS was successfully editted')
+            }
+        })
+    })
 
     //    ----------    Select order info from orders    ----------
     app.post(`/select_order${tokenObject.selectOrderReq}`, (req, res) => {
@@ -249,7 +252,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         console.log(req.body);
 
         // не смотрите сюда, пожалуйста, мне стыдно ;(
-
+            
         /*
         if (orderId == '') {
             const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
