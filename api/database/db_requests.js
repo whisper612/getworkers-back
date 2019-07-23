@@ -236,9 +236,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
             pool.query(
                 query, [executorId],
                 (err, result, fields) => {
-                    orderId = JSON.parse(JSON.stringify(result[0])).order_id
+                    orderId = JSON.parse(JSON.stringify(result[0])).order_id - '*'
                     
-                    console.log('ORDER IS БЛЯЯЯЯЯЯ', orderId)
                     if (orderId !== '') {
                         const query = `SELECT executors_number FROM orders WHERE order_id = ?`
                         pool.query(
