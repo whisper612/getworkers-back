@@ -97,6 +97,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 
 						// Check the number of the worker who took the order
 					if (execNeed === 1) {
+						execNumber++;
 						axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 						order_id: orderId,	
 						executor_id: executorId
@@ -118,7 +119,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 							executors_number: execNumber
 						})
 						.then(res => {
-							console.log('ЗАЛУУУУУУУУПААА!!!2222222222222222222222', orderId)
 							orderId += '*'
 							axios.post(`https://getworkers-back.herokuapp.com/update_executor${tokenObject.updateExecReq}`, {
 							order_id: orderId,	
@@ -166,7 +166,6 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-
 						axios.post(`https://getworkers-back.herokuapp.com/edit_order${tokenObject.editOrderReq}`, {
 							order_id: orderId,
 							status: 'В работе',
