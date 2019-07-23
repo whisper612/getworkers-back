@@ -72,6 +72,9 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         
         console.log(req.body);
 
+        if(phone === '' && name === '' && address === '' && description === '' 
+        && price === '' && meeting_date_time === '' && executors_count === '' )
+
         if (orderId === undefined || status === undefined || update_time === undefined) {
             console.log('Error /edit_order: recieved wrong data');
             res.status(500).send('Error when order editing: recieved wrong data')
@@ -231,7 +234,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         console.log(req.body);
 
         // не смотрите сюда, пожалуйста, мне стыдно ;(
-            
+
         /*
         if (orderId == '') {
             const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
