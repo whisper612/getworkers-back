@@ -102,7 +102,7 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                                 })
                             }
 
-                            const query = 'UPDATE orders SET executors_number = 1 WHERE order_id = ?;'
+                            const query = 'UPDATE orders SET executors_number = 0 WHERE order_id = ?;'
 
                             pool.query(
                                 query, [orderId], 
