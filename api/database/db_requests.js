@@ -128,6 +128,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const status = req.body.status;
         const update_time = req.body.update_time;
 
+        console.log(req.body);
+
         const query = 
         `UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;`
     

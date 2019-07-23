@@ -103,7 +103,7 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 						executor_id: executorId
 						})
 						.then(res => {
-							const reply = `<b>Вы откликнулись на заказ!</b>\n\nТеперь вам нужно: <i>связаться с заказчиком и быть вовремя.</i>\n\n${MSG}`;
+							const reply = `<b>Вы откликнулись на заказ!</b>\n\nТеперь вам нужно: <i>связаться с заказчиком и быть вовремя.</i>\n\n<b>Детали заказа:</b>\n${MSG}`;
 
 							axios.post(`https://getworkers-back.herokuapp.com/update_exec_number${tokenObject.updateExecNum}`, {
 							order_id: orderId,
