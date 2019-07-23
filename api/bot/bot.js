@@ -71,7 +71,10 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 		.then(res => {
 			const rcvOrderId = JSON.parse(res.data.check).order_id
 				if (rcvOrderId !== '') {
-					return ctx.answerCbQuery(`Вы уже взяли заказ под номером ${rcvOrderId}`)
+					ctx.answerCbQuery(`Вы уже взяли заказ под номером ${rcvOrderId}`)
+					if (rcvOrderId == undefined) {
+						return ctx.answerCbQuery(`Вы не зарегестрированы в системе, скорее всего вас исключили, в ином случае обратитесь к администратору.`)
+					}
 				} else {	// Сustomer name and phone recieve
 					var MSG = '';
 
