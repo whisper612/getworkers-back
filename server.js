@@ -13,6 +13,7 @@ const telegramApi = new telegramObject(tokenObject.botTOKEN);
 
 // server init
 const app = express();
+app.locals.moment = require('moment');
 const PORT = (process.env.PORT || 5000);
 // set server requests queue
 app.use(expressQueue({ activeLimit: 9, queuedLimit: 15000 }));

@@ -166,9 +166,10 @@ module.exports = function(bot, telegramApi, telegrafObject, tokenObject) {
 					// Push notification
 					ctx.answerCbQuery(`Заказ принял(и) ${execNumber} из ${execNeed} рабочий(их) 👷`)
 					if (execNumber === execNeed) {
-						let d = new Date().toLocaleDateString().replace('.', '-').replace('.', '-')
-						let today = `${d.slice(6)}-${d.slice(3,5)}-${d.slice(0,2)}`;
-						const updateTime = `${today} ${new Date().toLocaleTimeString()}`;						
+						// let d = new Date().toLocaleDateString().replace('.', '-').replace('.', '-')
+						// let today = `${d.slice(6)}-${d.slice(3,5)}-${d.slice(0,2)}`;
+						// const updateTime = `${today} ${new Date().toLocaleTimeString()}`;
+						const updateTime = new Date(Date.now() + new Date().getTimezoneOffset() * 60000)
 												
 						axios.post(`https://getworkers-back.herokuapp.com/update_order_status${tokenObject.updOrderStat}`, {
 							order_id: orderId,
