@@ -150,7 +150,6 @@ module.exports = function(bot, telegramApi, tokenObject) {
 								👷 <b>Имя:</b> ${name}
 								📞 <b>Телефон:</b> ${phone}`;
 
-								console.log('AAAAAAAAAAAAAAAAAAAAAAAA БЛЯ',executorId, reply)
 								return telegramApi.sendMessage(executorId, reply, {parse_mode: `HTML`})
 							})
 						})
