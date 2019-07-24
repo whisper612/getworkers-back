@@ -1,3 +1,27 @@
 {
-    "TOKEN": "123456:AAHL8kJPkL6CrIZz8QAB459xrWci79p5bTM"
+    "TOKEN": ">t;KeCr[2q°74)78a=iBr§4A./xGtg°nCUc]seait5@z@406l!jryhriXzFxiW°/",
+    "botTOKEN": "828961048:AAFyRStUfD1J9ryLvWYRUb1r1MaTMcNkmjA",
+    "devId": "294217967",
+    "chatLink": "https://t.me/joinchat/EYlo7xcmZL9YH-MOOzh2YQ",
+    "chatId": "-388392127",
+    "addReq": "1cdSBRVFwmitqme75Pbl",
+    "editOrderReq": "v6RApcl1mEFsEYtIz2NE",
+    "updOrderStat": "AFJWEw7sfiCGR0TZ5PTT",
+    "updateExecNum": "H3PTwvOvkOQILGZwgSwt",
+    "selectOrderReq": "96Ca5z5ZnmFDmbdSFiAU",
+    "selectExecNum": "atIoAwDKlzimxMJ4ytpp",
+    "selectFirstExec": "4R141exQNYvpAzPgK8p2",
+    "delComOrder": "1emyNWsqgQsm6UcQnd9h",
+    "delComOrders": "kDymHQWyI3TLg6VYpOTh",
+    "addExecReq": "j0NZhNh4D4GWbhXzBp40",
+    "selectExecReq": "s1jvbQ1yjaf4Z9qaftIy",
+    "updateExecReq": "oQxXtgR9eQkG1xDvxHhM",
+    "editExecReq": "eNvFYsDhyDKaV8633Tn1",
+    "kickExecReq": "toUOz6ATVOO0LAMSMVoV",
+    "multipleStatements": "false",
+    "connectionLimit": 5,
+    "host": "lt80glfe2gj8p5n2.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+    "user": "aa4xx3xp3td9bdcb",
+    "password": "fw8fcu12m8iqla3i",
+    "database": "jg5x8ocd2kelv8a0"
 }
