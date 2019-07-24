@@ -142,7 +142,7 @@ module.exports = function(bot, telegramApi, tokenObject) {
 							})
 							.then(res => {
 								const name = JSON.parse(res.data.check).name;
-								const phone = JSON.parse(res.data.check).phone;
+								var phone = JSON.parse(res.data.check).phone;
 								if (phone[0] == '7') {
 									phone = '+' + phone;
 								}
