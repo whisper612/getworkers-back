@@ -1,15 +1,6 @@
-// const Extra = require('telegraf/extra')
-
-module.exports = function(app, pool, telegramApi, tokenObject) {
-    app.get(`/loaderio-00337c1174533e077aa1e2658689d79e.txt`, (req, res) => {
-        const token = req.params;
-        console.log(token);
-        res.send('loaderio-00337c1174533e077aa1e2658689d79e')
-    });
-    
+module.exports = function(app, pool, telegramApi, tokenObject) {    
     //  ----------    / handler    ----------
     app.get('/*/', (req, res) => {
-        console.log('Johnny, the hackers in the trees!')
         res.send('/');
     });
 
@@ -27,8 +18,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const create_time = req.body.create_time;
         const status = req.body.status;
         const update_time = req.body.update_time;
-
-        console.log(req.body);
 
         if (orderId === undefined || phone === undefined || name === undefined || address === undefined || description === undefined
            || meeting_date_time === undefined || executors_count === undefined || create_time === undefined || status === undefined || update_time === undefined) {
@@ -68,8 +57,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const executors_count = req.body.executors_count;
         const status = req.body.status;
         const update_time = req.body.update_time;
-        
-        console.log(req.body);
 
         if (orderId === undefined || status === undefined || update_time === undefined) {
             console.log('Error /edit_order: recieved wrong data');
@@ -108,7 +95,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
                             (err, result, fields) => {
                                 if (!err) {
                                     telegramApi.sendMessage(tokenObject.chatId, telegramMsg, extra, (ctx) => {
-                                        console.log(ctx.update)
                                     })
                                 } else {
                                     console.log('Error while sending order')
@@ -126,8 +112,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const orderId = req.body.order_id;
         const status = req.body.status;
         const update_time = req.body.update_time;
-
-        console.log(req.body);
 
         const query = 
         `UPDATE orders SET status = ?, update_time = ? WHERE order_id = ?;`
@@ -173,8 +157,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
     app.post(`/delete_completed_order${tokenObject.delComOrder}`, (req, res) => {
         const orderId = req.body.order_id;
 
-        console.log(req.body);
-
         if (orderId === undefined) {
             console.log('Error /delete_completed_order: recieved wrong data');
             res.status(500).send('Error when deleting completed order by id: recieved wrong data')
@@ -197,8 +179,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
     //    ----------    Drop completed orders by status    ----------
     app.post(`/delete_completed_orders${tokenObject.delComOrders}`, (req, res) => {
 
-        console.log(req.body);
-
         const query = `DELETE FROM orders WHERE status = 'Выполнено'`;
 
         pool.query(query, 
@@ -218,11 +198,8 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const executorId = req.body.executor_id;
         const name = req.body.name;
         const phone = req.body.phone;
-            
-        console.log(req.body);
 
         if (executorId === undefined || name === undefined || phone === undefined) {
-            console.log(executorId, name, phone);
             console.log('Error: /add_executor: recieved wrong data');
             res.status(500).send('Error when adding executor')
         } else {
@@ -249,43 +226,6 @@ module.exports = function(app, pool, telegramApi, tokenObject) {
         const name = req.body.name;
         const phone = req.body.phone;
         var orderId = req.body.order_id;
-        
-        console.log(req.body);
-
-        // не смотрите сюда, пожалуйста, мне стыдно ;(
-            
-        /*
-        if (orderId == '') {
-            const query = `SELECT order_id FROM executors_list WHERE executor_id = ?`
-            pool.query(
-                query, [executorId],
-                (err, result, fields) => {
-                    orderId = JSON.parse(JSON.stringify(result[0])).order_id
-
-                    if (orderId !== '' || orderId !== undefined || orderId !== null) {
-                        const query = `SELECT executors_number FROM orders WHERE order_id = ?`
-                        pool.query(
-                            query, [orderId],
-                            (err, result, fields) => {
-                                var execNumber = JSON.parse(JSON.stringify(result[0])).executors_number
-                                if (execNumber !== undefined || execNumber !== null) {
-                                    execNumber--
-                                    const query = `UPDATE orders SET executors_number = ? WHERE order_id = ?`
-                                    pool.query(
-                                        query, [execNumber, orderId],
-                                        (err, result, fields) => {
-                                            if (err)
-                                            console.log('Всё плохо')
-                                        }
-                                    );
-                                }
-                            }
-                        );
-                    }
-                }
-            );
-        }
-        */
 
         if (executorId === undefined) {
             console.log('Error: /edit_executor: recieved wrong data');
@@ -413,8 +353,6 @@ app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
     app.post(`/update_executor${tokenObject.updateExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
         const orderId = req.body.order_id;
-               
-        console.log(req.body);
 
         if (executorId === undefined) {
             console.log('Error: /update_executor: recieved wrong data');
@@ -440,8 +378,6 @@ app.post(`/select_first_exec${tokenObject.selectFirstExec}`, (req, res) => {
     //    ----------    Kick executor by ID   ----------
     app.post(`/kick_executor${tokenObject.kickExecReq}`, (req, res) => {
         const executorId = req.body.executor_id;
-                       
-        console.log(req.body);
 
         if (executorId === undefined) {
             console.log('Error: /kick_executor: recieved wrong data');
